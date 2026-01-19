@@ -1,185 +1,125 @@
+import os
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
-import sqlite3
-import os
+from pymongo import MongoClient, ReturnDocument
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-
 CORS(app)
 
-DB_NAME = "SmartXML.db"
+# ==============================
+# MONGODB CONNECTION
+# ==============================
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client["SmartXML_DB"]
+
+services_col = db["services"]
+contacts_col = db["contactinfo"]
+counters_col = db["counters"] # To manage auto-incrementing IDs
+
+def get_next_sequence(name):
+    """Generates a simple integer ID (1, 2, 3...)"""
+    count_doc = counters_col.find_one_and_update(
+        {"_id": name},
+        {"$inc": {"seq": 1}},
+        upsert=True,
+        return_document=ReturnDocument.AFTER
+    )
+    return count_doc["seq"]
+
+def initialize_db():
+    try:
+        client.admin.command('ping')
+        if services_col.count_documents({"service_id": 1}) == 0:
+            services_col.insert_one({
+                "service_id": 1,
+                "xml_conversion": 35,
+                "tagging_structuring": 20,
+                "validation": 15,
+                "digitization": 10,
+                "quality_services": 20
+            })
+        print("✅ MongoDB Atlas Connected & Initialized")
+    except Exception as e:
+        print(f"❌ Connection Error: {e}")
+
+initialize_db()
 
 # ==============================
-# CREATE SERVICES TABLE
+# CONTACT ROUTES
 # ==============================
-def create_service_db():
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS services (
-            id INTEGER PRIMARY KEY,
-            xml_conversion INTEGER,
-            tagging_structuring INTEGER,
-            validation INTEGER,
-            digitization INTEGER,
-            quality_services INTEGER
-        )
-    """)
 
-    cur.execute("SELECT COUNT(*) FROM services")
-    if cur.fetchone()[0] == 0:
-        cur.execute("""
-            INSERT INTO services (
-                id, xml_conversion, tagging_structuring, validation, digitization, quality_services
-            ) VALUES (1, 35, 20, 15, 10, 20)
-        """)
-
-    conn.commit()
-    conn.close()
-
-create_service_db()
-
-# ==============================
-# CREATE CONTACT TABLE
-# ==============================
-def create_infodb():
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS contactinfo (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            contactname TEXT,
-            contactmail TEXT,
-            contactno TEXT,
-            contactmsg TEXT
-        )
-    """)
-    conn.commit()
-    conn.close()
-
-create_infodb()
-
-# ==============================
-# API ROUTES
-# ==============================
 @app.route("/api/contacts/all", methods=["GET"])
 def get_all_contacts():
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM contactinfo")
-    rows = cur.fetchall()
-    conn.close()
-
-    contacts = []
-    for row in rows:
-        contacts.append({
-            "id": row[0],
-            "name": row[1],
-            "email": row[2],
-            "phone": row[3],
-            "message": row[4]
+    contacts = list(contacts_col.find().sort("cid", -1)) # Newest first
+    output = []
+    for c in contacts:
+        output.append({
+            "id": c.get("cid"), # Using our custom simple integer ID
+            "name": c.get("contactname"),
+            "email": c.get("contactmail"),
+            "phone": c.get("contactno"),
+            "message": c.get("contactmsg")
         })
-
-    return jsonify(contacts), 200
-
+    return jsonify(output), 200
 
 @app.route("/api/contact/save", methods=["POST"])
 def contact_form():
     data = request.json
+    email = data.get("email")
+    phone = data.get("phone")
 
-    contactname = data.get("name")
-    contactmail = data.get("email")
-    contactno = data.get("phone")
-    contactmsg = data.get("message")
+    # Check for Unique Email or Phone
+    existing = contacts_col.find_one({
+        "$or": [
+            {"contactmail": email},
+            {"contactno": phone}
+        ]
+    })
 
-    if not contactname or not contactmail or not contactmsg:
-        return jsonify({"error": "Missing required fields"}), 400
+    if existing:
+        return jsonify({"error": "Email or Phone Number already exists. Please use another one."}), 409
 
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-    cur.execute(
-        "INSERT INTO contactinfo (contactname, contactmail, contactno, contactmsg) VALUES (?, ?, ?, ?)",
-        (contactname, contactmail, contactno, contactmsg)
-    )
-    conn.commit()
-    conn.close()
-
-    return jsonify({"message": "✅ Message Sent Successfully!"}), 200
-
+    try:
+        contacts_col.insert_one({
+            "cid": get_next_sequence("contact_id"), # Auto-incrementing 1, 2, 3...
+            "contactname": data.get("name"),
+            "contactmail": email,
+            "contactno": phone,
+            "contactmsg": data.get("message")
+        })
+        return jsonify({"message": "✅ Message Sent Successfully!"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/contact/delete/<int:contact_id>", methods=["DELETE"])
 def delete_contact(contact_id):
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-    cur.execute("DELETE FROM contactinfo WHERE id = ?", (contact_id,))
-    conn.commit()
-    conn.close()
+    # Now we just filter by the simple integer 'cid'
+    result = contacts_col.delete_one({"cid": contact_id})
+    if result.deleted_count > 0:
+        return jsonify({"success": True}), 200
+    return jsonify({"success": False, "message": "Record not found"}), 404
 
-    return jsonify({"success": True, "message": "Deleted successfully"}), 200
-
-
+# ==============================
+# SERVICE ROUTES (Same as before)
+# ==============================
 @app.route("/api/service/get", methods=["GET"])
 def get_service():
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM services WHERE id = 1")
-    service = cur.fetchone()
-    conn.close()
-
-    if not service:
-        return jsonify({"error": "Service not found"}), 404
-
-    return jsonify({
-        "id": service[0],
-        "xml_conversion": service[1],
-        "tagging_structuring": service[2],
-        "validation": service[3],
-        "digitization": service[4],
-        "quality_services": service[5]
-    }), 200
-
+    service = services_col.find_one({"service_id": 1}, {"_id": 0})
+    return jsonify(service) if service else (jsonify({"error": "No data"}), 404)
 
 @app.route("/api/service/update", methods=["POST"])
 def update_service():
     data = request.json
+    services_col.update_one({"service_id": 1}, {"$set": data})
+    return jsonify({"message": "Updated"}), 200
 
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-    cur.execute("""
-        UPDATE services SET
-        xml_conversion = ?,
-        tagging_structuring = ?,
-        validation = ?,
-        digitization = ?,
-        quality_services = ?
-        WHERE id = 1
-    """, (
-        data.get("xml_conversion"),
-        data.get("tagging_structuring"),
-        data.get("validation"),
-        data.get("digitization"),
-        data.get("quality_services")
-    ))
-
-    conn.commit()
-    conn.close()
-
-    return jsonify({"message": "✅ Service Updated Successfully!"}), 200
-
-# ==============================
-# PAGE ROUTES
-# ==============================
 @app.route("/")
 @app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
+def dashboard(): return render_template("dashboard.html")
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-# ==============================
-# RUN APP (RENDER SAFE)
-# ==============================
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
