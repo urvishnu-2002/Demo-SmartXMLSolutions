@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="animate-in slide-in-from-bottom-4 duration-300">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center">
+            <h2 class="text-lg font-semibold text-gray-700 mb-6 text-center">Data Visualization</h2>
+            <div class="w-full max-w-[400px]">
+                <canvas id="servicePieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        let myChart;
+
+        async function get_values() {
+            try {
+                const response = await fetch('http://localhost:5000/api/service/get');
+                
+                // Check if the response is okay (status 200-299)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const apiData = await response.json();
+                
+                const ctx = document.getElementById('servicePieChart').getContext('2d');
+                const data = {
+                    labels: ['XML Conversion', 'Tagging & Structuring', 'DTD / XSD Validation', 'Content Digitization', 'Quality Services'],
+                    datasets: [{
+                        data: [
+                            apiData.xml_conversion,
+                            apiData.tagging_structuring,
+                            apiData.validation,
+                            apiData.digitization,
+                            apiData.quality_services
+                        ],
+                        backgroundColor: [
+                            '#6366f1', // Indigo 500
+                            '#10b981', // Emerald 500
+                            '#f59e0b', // Amber 500
+                            '#f43f5e', // Rose 500
+                            '#0ea5e9'  // Sky 500
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 20
+                    }]
+                };
+
+                myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: data,
+                    options: {
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true
+                    }
+                });
+            } catch (error) {
+                console.error("API Fetch Error:", error);
+            }
+        }
+        get_values();
+
+    </script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

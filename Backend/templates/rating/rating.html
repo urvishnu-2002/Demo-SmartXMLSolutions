@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Reviews</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+        }
+        button {
+            margin: 10px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+            text-align: center;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        /* ⭐ STAR RATING STYLE */
+        .stars {
+            display: inline-block;
+            direction: rtl;
+            font-size: 30px;
+        }
+        .stars input {
+            display: none;
+        }
+        .stars label {
+            color: #ccc;
+            cursor: pointer;
+        }
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: gold;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div class="container">
+        <h2>Submit Your Review</h2>
+ 
+        <form method="POST">
+            <input type="text" name="name" placeholder="Name" required><br><br>
+            <input type="email" name="email" placeholder="Email" required><br><br>
+            <input type="text" name="phone" placeholder="Phone" required><br><br>
+            <textarea name="review" placeholder="Write your review" required></textarea><br><br>
+            <!-- ⭐ STAR RATING ADDED HERE -->
+            <label>Rating:</label><br>
+            <div class="stars">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5">★</label>
+
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4">★</label>
+ 
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3">★</label>
+ 
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2">★</label>
+ 
+                <input type="radio" id="star1" name="rating" value="1" required>
+                <label for="star1">★</label>
+            </div><br><br>
+ 
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <button onclick="location.href='/avgrating'">View Average Ratings</button>
+    <button onclick="location.href='/chart'">View Chart</button>
+    <button onclick="location.href='/login'">Login</button>
+    <button onclick="location.href='/contacts'">View Contacts</button>
+</body>
+</html>

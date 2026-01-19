@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: Inter, system-ui, sans-serif;
+  --color-primary: #2563eb;
+  --color-accent: #38bdf8;
+  --color-dark-bg: #0b1120;
+}
+
+/* =========================================
+   DARK MODE & GLOBAL OVERRIDES (SAFE)
+   ========================================= */
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0b1120 !important;
+  color: #f8fafc !important;
+}
+
+/* =========================================
+   STANDARD POLISH UTILITIES
+   ========================================= */
+
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.premium-card {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+html.dark .premium-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Main inversion for light sections - EXCLUDING HEROES */
+html.dark [class*="bg-white"]:not(button):not(a):not(.hero-section),
+html.dark [class*="bg-slate-50"]:not(button):not(a):not(.hero-section),
+html.dark [class*="bg-gray-50"]:not(button):not(a):not(.hero-section) {
+  background-color: #0b1120 !important;
+}
+
+/* Force light color on dark text - EXCLUDING HEROES */
+html.dark :not(.hero-section) [class*="text-slate-900"],
+html.dark :not(.hero-section) [class*="text-slate-800"],
+html.dark :not(.hero-section) [class*="text-gray-900"],
+html.dark :not(.hero-section) [class*="text-black"] {
+  color: #f1f5f9 !important;
+}
+
+html.dark :not(.hero-section) [class*="text-slate-700"],
+html.dark :not(.hero-section) [class*="text-slate-600"],
+html.dark :not(.hero-section) [class*="text-slate-500"],
+html.dark :not(.hero-section) [class*="text-slate-400"] {
+  color: #94a3b8 !important;
+}
+
+/* Ensure White Buttons/Links stay readable and pop in dark mode */
+/* Ensure White Buttons/Links stay readable and pop in dark mode */
+html.dark button[class*="bg-white"],
+html.dark a[class*="bg-white"] {
+  background-color: #f8fafc !important;
+  color: #1e3a8a !important;
+}
+
+/* Specific background fix for light elements in dark mode */
+html.dark [class*="bg-blue-50"]:not(.hero-section),
+html.dark [class*="bg-slate-100"]:not(.hero-section) {
+  background-color: rgba(30, 64, 175, 0.2) !important;
+}
+
+/* .no-dark utility to exempt sections from dark mode inversion */
+.no-dark {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+html.dark nav.sticky {
+  background-color: rgba(11, 17, 32, 0.98) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark [class*="bg-white/90"] {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+/* Handled specifically for known light sections below */
+
+/* Specific fix for Navbar links and Logo in dark mode */
+html.dark nav span,
+html.dark nav a:not([class*="bg-gradient"]) {
+  color: #f1f5f9 !important;
+}
+
+html.dark nav a.active {
+  color: #60a5fa !important;
+}
+
+html.dark nav a:hover {
+  color: #93c5fd !important;
+}
+
+/* Ensure the CTA button text stays white */
+html.dark nav a[class*="bg-gradient"] {
+  color: white !important;
+}
+
+/* Adjust borders and shadows in dark mode */
+html.dark [class*="border-slate-100"],
+html.dark [class*="border-slate-200"],
+html.dark [class*="border-slate-300"],
+html.dark [class*="border-gray-100"],
+html.dark [class*="border-gray-300"] {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Specific fix for Navbar in dark mode */
+html.dark nav.sticky {
+  background-color: rgba(11, 17, 32, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Removed problematic gradient overrides for heroes */
+
+/* Step marker dot fix */
+html.dark .md\:flex.absolute.left-1\/2 {
+  background-color: #1e293b !important;
+  border-color: #1e293b !important;
+}
+
+/* Selection color fix */
+html.dark ::selection {
+  background-color: #1d4ed8 !important;
+  color: #fff !important;
+}
+
+html.dark [class*="selection:bg-blue-200"]::selection {
+  background-color: #1e40af !important;
+}
+
+/* Fix for white rings and borders in dark mode */
+html.dark [class*="ring-slate-50"],
+html.dark [class*="ring-white"],
+html.dark [class*="border-white"] {
+  --tw-ring-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Ensure step marker background is dark but distinct */
+html.dark .hidden.md\:flex.absolute.left-1\/2.bg-white {
+  background-color: #1e293b !important;
+}
+
+html.dark [class*="shadow-"] {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* =========================================
+   CUSTOM ANIMATIONS
+   ========================================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroZoom {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes zoomInPanel {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Utility Classes for Animations */
+.animate-fadeUp {
+  animation: fadeUp 1s ease-out forwards;
+}
+
+.animate-slideLeft {
+  animation: slideLeft 1s ease-out forwards;
+}
+
+.animate-slideRight {
+  animation: slideRight 1s ease-out forwards;
+}
+
+.animate-zoomIn {
+  animation: heroZoom 20s linear infinite alternate;
+}
+
+.animate-zoomInPanel {
+  animation: zoomInPanel 0.3s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Animation Delays */
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
