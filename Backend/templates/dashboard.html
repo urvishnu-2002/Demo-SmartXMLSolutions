@@ -66,70 +66,86 @@
         }
 
         // 2. CONTACTS VIEW (REWRITTEN FOR AJAX)
-        async function loadContacts() {
-            const frame = document.getElementById('view-frame');
-            frame.innerHTML = `<p class="text-gray-500">Loading messages...</p>`;
+        // Track the sort direction globally or within the scope
+let idSortOrder = 'desc'; 
 
-            try {
-                const response = await fetch('/api/contacts/all');
-                const contacts = await response.json();
+async function loadContacts() {
+    const frame = document.getElementById('view-frame');
+    frame.innerHTML = `<p class="text-gray-500">Loading messages...</p>`;
 
-                let tableRows = contacts.map(c => `
-                    <tr class="border-b hover:bg-gray-50 transition-colors" id="row-${c.id}">
-                        <td class="py-3 px-6">${c.id}</td>
-                        <td class="py-3 px-6 font-semibold">${c.name}</td>
-                        <td class="py-3 px-6">${c.email}</td>
-                        <td class="py-3 px-6">${c.phone}</td>
-                        <td class="py-3 px-6 text-sm text-gray-600">${c.message}</td>
-                        <td class="py-3 px-6">
-                            <button onclick="deleteContact(${c.id})" class="text-red-600 hover:text-red-800 font-bold">
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                `).join('');
+    try {
+        const response = await fetch('/api/contacts/all');
+        let contacts = await response.json();
 
-                frame.innerHTML = `
-                    <button onclick="showWelcome()" class="mb-4 text-indigo-600 hover:underline">&larr; Back to Dashboard</button>
-                    <h1 class="text-2xl font-bold mb-6">Messages</h1>
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                        <table class="min-w-full">
-                            <thead class="bg-indigo-900 text-white">
-                                <tr>
-                                    <th class="py-3 px-6 text-left">ID</th>
-                                    <th class="py-3 px-6 text-left">Name</th>
-                                    <th class="py-3 px-6 text-left">Email</th>
-                                    <th class="py-3 px-6 text-left">Phone</th>
-                                    <th class="py-3 px-6 text-left">Message</th>
-                                    <th class="py-3 px-6 text-left">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>${tableRows || '<tr><td colspan="6" class="p-6 text-center text-gray-500">No messages found.</td></tr>'}</tbody>
-                        </table>
-                    </div>
-                `;
-            } catch (err) {
-                frame.innerHTML = `<p class="text-red-500">Error loading data.</p>`;
-            }
-            lucide.createIcons();
+        // 1. Sort the data based on the current state
+        contacts.sort((a, b) => {
+            return idSortOrder === 'asc' ? a.id - b.id : b.id - a.id;
+        });
+
+        let tableRows = contacts.map(c => `
+            <tr class="border-b hover:bg-gray-50 transition-colors" id="row-${c.id}">
+                <td class="py-3 px-6">${c.id}</td>
+                <td class="py-3 px-6 font-semibold">${c.name}</td>
+                <td class="py-3 px-6">${c.email}</td>
+                <td class="py-3 px-6">${c.phone}</td>
+                <td class="py-3 px-6 text-sm text-gray-600">${c.message}</td>
+                <td class="py-3 px-6">
+                    <button onclick="deleteContact(${c.id})" class="text-red-600 hover:text-red-800 font-bold">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        frame.innerHTML = `
+            <button onclick="showWelcome()" class="mb-4 text-indigo-600 hover:underline">&larr; Back to Dashboard</button>
+            <h1 class="text-2xl font-bold mb-6">Messages</h1>
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="min-w-full">
+                    <thead class="bg-indigo-900 text-white">
+                        <tr>
+                            <th class="py-3 px-6 text-left cursor-pointer hover:bg-indigo-800" onclick="toggleSort()">
+                                <div class="flex items-center gap-1">
+                                    ID 
+                                    <span>${idSortOrder === 'asc' ? '↑' : '↓'}</span>
+                                </div>
+                            </th>
+                            <th class="py-3 px-6 text-left">Name</th>
+                            <th class="py-3 px-6 text-left">Email</th>
+                            <th class="py-3 px-6 text-left">Phone</th>
+                            <th class="py-3 px-6 text-left">Message</th>
+                            <th class="py-3 px-6 text-left">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tableRows || '<tr><td colspan="6" class="p-6 text-center text-gray-500">No messages found.</td></tr>'}</tbody>
+                </table>
+            </div>
+        `;
+    } catch (err) {
+        frame.innerHTML = `<p class="text-red-500">Error loading data.</p>`;
+    }
+    if (window.lucide) lucide.createIcons();
+}
+
+// 2. New function to toggle the state and re-render
+function toggleSort() {
+    idSortOrder = idSortOrder === 'asc' ? 'desc' : 'asc';
+    loadContacts();
+}
+
+async function deleteContact(id) {
+    if (!confirm("Are you sure?")) return;
+    try {
+        const response = await fetch(`/api/contact/delete/${id}`, { method: 'DELETE' });
+        if (response.ok) {
+            loadContacts();
+        } else {
+            alert("Failed to delete.");
         }
-
-        // AJAX DELETE FUNCTION
-        async function deleteContact(id) {
-            if (!confirm("Are you sure?")) return;
-
-            try {
-                const response = await fetch(`/api/contact/delete/${id}`, { method: 'DELETE' });
-                if (response.ok) {
-                    // Refresh the list immediately without page reload
-                    loadContacts();
-                } else {
-                    alert("Failed to delete.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
        // 3. SERVICE DATA VIEW
 function loadServiceData() {

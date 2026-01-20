@@ -16,8 +16,7 @@ function Services() {
             Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Services</span>
           </h1>
           <p className="text-lg md:text-xl text-blue-100 leading-relaxed max-w-2xl mx-auto font-light">
-            Comprehensive XML and data processing solutions designed to meet enterprise
-            requirements with precision, speed, and reliability.
+            We provide structured XML conversion and data processing services that help enterprises manage, validate, and modernize content with consistency and technical accuracy.
           </p>
 
           <NavLink
@@ -41,8 +40,7 @@ function Services() {
           </div>
 
           <p className="text-slate-600 text-lg leading-relaxed mb-16 max-w-4xl animate-fadeUp animation-delay-200 font-light">
-            We convert documents from multiple source formats into structured,
-            standards-compliant XML while maintaining content accuracy and consistency.
+            We convert documents from multiple source formats into structured, standards-compliant XML. Our XML conversion services focus on maintaining content accuracy while applying consistent tagging and semantic structure suitable for enterprise systems.
           </p>
 
           {/* Images Grid */}
@@ -124,8 +122,8 @@ function Services() {
                 XML Tagging & Structuring
               </h2>
               <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                We apply structured XML tagging to support semantic consistency,
-                content reuse, and system compatibility.
+                We apply structured XML tagging to organize content at a granular level. Our XML tagging services focus on consistent semantic markup that supports
+                content reuse, system compatibility, and efficient data processing.
               </p>
               <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl premium-card">
                 <h4 className="font-extrabold text-slate-800 mb-4 text-xl tracking-tight">Key Advantages:</h4>
@@ -154,7 +152,7 @@ function Services() {
             </div>
           </div>
 
-          <hr className="border-gray-200" />
+          {/* <hr className="border-gray-200" /> */}
 
           {/* DTD / XSD Validation */}
           <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
@@ -170,8 +168,8 @@ function Services() {
                 DTD / XSD Validation
               </h2>
               <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                We validate XML documents against DTD and XSD schemas to ensure
-                structural compliance and system reliability.
+                We validate XML documents against defined DTD and XSD schemas to identify structural inconsistencies
+                and formatting issues. Our validation services help ensure XML files align with expected specifications and function correctly within enterprise systems.
               </p>
               <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl premium-card">
                 <h4 className="font-extrabold text-slate-800 mb-4 text-xl tracking-tight">Why it matters:</h4>
@@ -186,7 +184,7 @@ function Services() {
             </div>
           </div>
 
-          <hr className="border-gray-200" />
+          {/* <hr className="border-gray-200" /> */}
 
           {/* Content Digitization */}
           <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
@@ -198,18 +196,18 @@ function Services() {
                 Content Digitization
               </h2>
               <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                We convert print-based materials into searchable, structured digital
-                formats with strong quality control.
+                We convert physical documents and print-based materials into searchable, structured digital formats.
+                Our content digitization services combine reliable scanning processes with careful quality review to support long-term access and usability.
               </p>
-              <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+              {/* <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
                 <div className="flex flex-wrap gap-3">
-                  {["High-res scanning", "OCR verification", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
+                  {["High-res scanning", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
                     <span key={i} className="bg-white px-3 py-1 rounded-full text-xs font-semibold text-orange-600 border border-orange-200 shadow-sm">
                       {tag}
                     </span>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
               <img src={contentDigitizationImg} alt="Content Digitization" className="w-full max-w-md h-auto object-contain" />
@@ -232,8 +230,8 @@ function Services() {
 
           <h2 className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Data Quality & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Validation</span></h2>
           <p className="text-gray-400 text-lg md:text-xl mb-16 max-w-3xl mx-auto font-light leading-relaxed">
-            Our quality processes combine automation and expert review to ensure
-            accurate and reliable structured data. Experience the confidence of 99.9% accuracy.
+            We support high data quality through structured validation and review processes.
+            Our data quality services combine automated checks with experienced human review to identify inconsistencies, reduce errors, and improve overall data reliability.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
