@@ -1,76 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph</title>
+    <title>Admin Chart Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <div class="animate-in slide-in-from-bottom-4 duration-300">
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center">
-            <h2 class="text-lg font-semibold text-gray-700 mb-6 text-center">Data Visualization</h2>
-            <div class="w-full max-w-[400px]">
-                <canvas id="servicePieChart"></canvas>
+
+<body class="bg-slate-50 min-h-screen py-10 px-4">
+
+    <div class="max-w-4xl mx-auto space-y-8">
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Admin Dashboard</h1>
+            <p class="text-slate-500">Update Service Distribution Data</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Chart Section -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-lg font-semibold text-gray-700 mb-6 text-center">Live Preview</h2>
+                <div class="w-full">
+                    <canvas id="servicePieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-lg font-semibold text-gray-700 mb-6 flex items-center gap-2">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    Update Values
+                </h2>
+                <form id="updateForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">XML Conversion</label>
+                        <input type="number" id="xml_conversion"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Tagging & Structuring</label>
+                        <input type="number" id="tagging_structuring"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">DTD / XSD Validation</label>
+                        <input type="number" id="validation"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Content Digitization</label>
+                        <input type="number" id="digitization"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Quality Services</label>
+                        <input type="number" id="quality_services"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition-all shadow-lg shadow-blue-500/30 flex justify-center items-center gap-2">
+                            <i data-lucide="save" class="w-4 h-4"></i>
+                            Update Chart
+                        </button>
+                    </div>
+                    <p id="statusMsg" class="text-center text-sm font-medium mt-2 hidden"></p>
+                </form>
             </div>
         </div>
     </div>
+
     <script>
+        lucide.createIcons();
         let myChart;
+        const API_URL = 'http://localhost:5000/api/service';
 
-        async function get_values() {
-            try {
-                const response = await fetch('http://localhost:5000/api/service/get');
-                
-                // Check if the response is okay (status 200-299)
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+        // Initialize Chart
+        function initChart(data) {
+            const ctx = document.getElementById('servicePieChart').getContext('2d');
 
-                const apiData = await response.json();
-                
-                const ctx = document.getElementById('servicePieChart').getContext('2d');
-                const data = {
-                    labels: ['XML Conversion', 'Tagging & Structuring', 'DTD / XSD Validation', 'Content Digitization', 'Quality Services'],
+            if (myChart) myChart.destroy();
+
+            myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['XML Conversion', 'Tagging & Structuring', 'Validation', 'Digitization', 'Quality Services'],
                     datasets: [{
                         data: [
-                            apiData.xml_conversion,
-                            apiData.tagging_structuring,
-                            apiData.validation,
-                            apiData.digitization,
-                            apiData.quality_services
+                            data.xml_conversion,
+                            data.tagging_structuring,
+                            data.validation,
+                            data.digitization,
+                            data.quality_services
                         ],
-                        backgroundColor: [
-                            '#6366f1', // Indigo 500
-                            '#10b981', // Emerald 500
-                            '#f59e0b', // Amber 500
-                            '#f43f5e', // Rose 500
-                            '#0ea5e9'  // Sky 500
-                        ],
+                        backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#f43f5e', '#0ea5e9'],
                         borderWidth: 0,
-                        hoverOffset: 20
+                        hoverOffset: 10
                     }]
-                };
+                },
+                options: {
+                    plugins: { legend: { position: 'bottom' } },
+                    responsive: true
+                }
+            });
+        }
 
-                myChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: data,
-                    options: {
-                        plugins: {
-                            legend: { position: 'bottom' }
-                        },
-                        responsive: true,
-                        maintainAspectRatio: true
-                    }
-                });
-            } catch (error) {
-                console.error("API Fetch Error:", error);
+        // Fetch Data
+        async function fetchValues() {
+            try {
+                const res = await fetch(`${API_URL}/get`);
+                if (!res.ok) throw new Error('Failed to fetch');
+                const data = await res.json();
+
+                // Fill Form
+                document.getElementById('xml_conversion').value = data.xml_conversion;
+                document.getElementById('tagging_structuring').value = data.tagging_structuring;
+                document.getElementById('validation').value = data.validation;
+                document.getElementById('digitization').value = data.digitization;
+                document.getElementById('quality_services').value = data.quality_services;
+
+                // Render Chart
+                initChart(data);
+            } catch (err) {
+                console.error("Error:", err);
             }
         }
-        get_values();
 
-    </script>    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        // Submit Form
+        document.getElementById('updateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('statusMsg');
+
+            const payload = {
+                xml_conversion: parseInt(document.getElementById('xml_conversion').value),
+                tagging_structuring: parseInt(document.getElementById('tagging_structuring').value),
+                validation: parseInt(document.getElementById('validation').value),
+                digitization: parseInt(document.getElementById('digitization').value),
+                quality_services: parseInt(document.getElementById('quality_services').value)
+            };
+
+            try {
+                btn.disabled = true;
+                btn.innerHTML = 'Updating...';
+
+                const res = await fetch(`${API_URL}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    msg.textContent = "✅ Updated Successfully!";
+                    msg.className = "text-center text-sm font-medium mt-2 text-green-600 block";
+                    fetchValues(); // Refresh chart
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (err) {
+                msg.textContent = "❌ Error Updating.";
+                msg.className = "text-center text-sm font-medium mt-2 text-red-600 block";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i> Update Chart';
+                lucide.createIcons();
+                setTimeout(() => msg.classList.add('hidden'), 3000);
+            }
+        });
+
+        // Load on start
+        fetchValues();
+    </script>
 </body>
+
 </html>
