@@ -199,15 +199,15 @@ function Services() {
                 We convert physical documents and print-based materials into searchable, structured digital formats.
                 Our content digitization services combine reliable scanning processes with careful quality review to support long-term access and usability.
               </p>
-              <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+              {/* <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
                 <div className="flex flex-wrap gap-3">
-                  {["High-res scanning", "OCR verification", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
+                  {["High-res scanning", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
                     <span key={i} className="bg-white px-3 py-1 rounded-full text-xs font-semibold text-orange-600 border border-orange-200 shadow-sm">
                       {tag}
                     </span>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
               <img src={contentDigitizationImg} alt="Content Digitization" className="w-full max-w-md h-auto object-contain" />
