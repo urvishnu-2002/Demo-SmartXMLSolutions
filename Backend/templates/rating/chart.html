@@ -1,158 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualized Pie Chart</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        button {
-            margin: 10px;
-            padding: 8px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .chart-card {
-            background: white;
-            display: flex;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        h2 { color: #333; margin-bottom: 20px; }
-
-        .legend {
-            margin-top: 25px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            max-width: 400px;
-            flex-direction: column;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #555;
-            background: #f8f9fa;
-            padding: 5px 12px;
-            border-radius: 20px;
-        }
-
-        .color-box {
-            width: 12px;
-            height: 12px;
-            margin-right: 8px;
-            border-radius: 50%;
-        }
-    </style>
+    <title>Admin Chart Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-<button onclick="window.history.back()">Go Back</button>
-<div class="chart-card">    
-    <div id="legend" class="legend">
-        <h2>Services graph</h2>
+
+<body class="bg-slate-50 min-h-screen py-10 px-4">
+
+    <div class="max-w-4xl mx-auto space-y-8">
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Admin Dashboard</h1>
+            <p class="text-slate-500">Update Service Distribution Data</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Chart Section -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-lg font-semibold text-gray-700 mb-6 text-center">Live Preview</h2>
+                <div class="w-full">
+                    <canvas id="servicePieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-lg font-semibold text-gray-700 mb-6 flex items-center gap-2">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    Update Values
+                </h2>
+                <form id="updateForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">XML Conversion</label>
+                        <input type="number" id="xml_conversion"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Tagging & Structuring</label>
+                        <input type="number" id="tagging_structuring"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">DTD / XSD Validation</label>
+                        <input type="number" id="validation"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Content Digitization</label>
+                        <input type="number" id="digitization"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Quality Services</label>
+                        <input type="number" id="quality_services"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            required>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition-all shadow-lg shadow-blue-500/30 flex justify-center items-center gap-2">
+                            <i data-lucide="save" class="w-4 h-4"></i>
+                            Update Chart
+                        </button>
+                    </div>
+                    <p id="statusMsg" class="text-center text-sm font-medium mt-2 hidden"></p>
+                </form>
+            </div>
+        </div>
     </div>
-    <canvas id="pieChart" width="400" height="400"></canvas>
-</div>
 
-<script>
-    const canvas = document.getElementById('pieChart');
-    const ctx = canvas.getContext('2d');
-    const legendContainer = document.getElementById('legend');
+    <script>
+        lucide.createIcons();
+        let myChart;
+        const API_URL = 'http://localhost:5000/api/service';
 
-    const data = {
-        "XML Conversion (PDF, DOC, HTML to XML": 35,
-        "XML Tagging & Structuring": 25,
-        "DTD / XSD Validation": 15,
-        "Content Digitization": 10,
-        "Data Quality & Validation Services": 15
-    };
+        // Initialize Chart
+        function initChart(data) {
+            const ctx = document.getElementById('servicePieChart').getContext('2d');
 
-    const colors = ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e'];
-    const total = Object.values(data).reduce((sum, val) => sum + val, 0);
-    
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = 180;
+            if (myChart) myChart.destroy();
 
-    function drawChart() {
-        let startAngle = -Math.PI / 2;
+            myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['XML Conversion', 'Tagging & Structuring', 'Validation', 'Digitization', 'Quality Services'],
+                    datasets: [{
+                        data: [
+                            data.xml_conversion,
+                            data.tagging_structuring,
+                            data.validation,
+                            data.digitization,
+                            data.quality_services
+                        ],
+                        backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#f43f5e', '#0ea5e9'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    plugins: { legend: { position: 'bottom' } },
+                    responsive: true
+                }
+            });
+        }
 
-        Object.entries(data).forEach(([label, value], index) => {
-            const sliceAngle = (value / total) * 2 * Math.PI;
-            const color = colors[index % colors.length];
+        // Fetch Data
+        async function fetchValues() {
+            try {
+                const res = await fetch(`${API_URL}/get`);
+                if (!res.ok) throw new Error('Failed to fetch');
+                const data = await res.json();
 
-            // 1. Draw the Slice
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
-            ctx.closePath();
-            ctx.fillStyle = color;
-            ctx.fill();
-            ctx.strokeStyle = "white";
-            ctx.lineWidth = 3;
-            ctx.stroke();
+                // Fill Form
+                document.getElementById('xml_conversion').value = data.xml_conversion;
+                document.getElementById('tagging_structuring').value = data.tagging_structuring;
+                document.getElementById('validation').value = data.validation;
+                document.getElementById('digitization').value = data.digitization;
+                document.getElementById('quality_services').value = data.quality_services;
 
-            // 2. Add Percentage Label inside the slice
-            // We find the middle angle of the slice
-            const middleAngle = startAngle + sliceAngle / 2;
-            // Calculate coordinates (labelRadius moves text closer/further from center)
-            const labelRadius = radius * 0.65; 
-            const x = centerX + Math.cos(middleAngle) * labelRadius;
-            const y = centerY + Math.sin(middleAngle) * labelRadius;
-
-            ctx.fillStyle = "white";
-            ctx.font = "bold 16px sans-serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            
-            const percent = ((value / total) * 100).toFixed(0) + "%";
-            // Only draw text if slice is big enough to fit it
-            if (value / total > 0.04) {
-                ctx.fillText(percent, x, y);
+                // Render Chart
+                initChart(data);
+            } catch (err) {
+                console.error("Error:", err);
             }
+        }
 
-            // 3. Update Legend
-            createLegend(label, value, color);
+        // Submit Form
+        document.getElementById('updateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('statusMsg');
 
-            startAngle += sliceAngle;
+            const payload = {
+                xml_conversion: parseInt(document.getElementById('xml_conversion').value),
+                tagging_structuring: parseInt(document.getElementById('tagging_structuring').value),
+                validation: parseInt(document.getElementById('validation').value),
+                digitization: parseInt(document.getElementById('digitization').value),
+                quality_services: parseInt(document.getElementById('quality_services').value)
+            };
+
+            try {
+                btn.disabled = true;
+                btn.innerHTML = 'Updating...';
+
+                const res = await fetch(`${API_URL}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    msg.textContent = "✅ Updated Successfully!";
+                    msg.className = "text-center text-sm font-medium mt-2 text-green-600 block";
+                    fetchValues(); // Refresh chart
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (err) {
+                msg.textContent = "❌ Error Updating.";
+                msg.className = "text-center text-sm font-medium mt-2 text-red-600 block";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i> Update Chart';
+                lucide.createIcons();
+                setTimeout(() => msg.classList.add('hidden'), 3000);
+            }
         });
-    }
 
-    function createLegend(label, value, color) {
-        const item = document.createElement('div');
-        item.className = 'legend-item';
-        item.innerHTML = `
-            <div class="color-box" style="background-color: ${color}"></div>
-            <span>${label}</span>
-        `;
-        legendContainer.appendChild(item);
-    }
-
-    drawChart();
-</script>
-
+        // Load on start
+        fetchValues();
+    </script>
 </body>
+
 </html>

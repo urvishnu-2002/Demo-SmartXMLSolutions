@@ -52,7 +52,7 @@ function App() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="hidden min-[950px]:flex items-center space-x-8 text-sm font-medium">
+            <div className="hidden md:flex items-center space-x-13 text-sm font-medium">
               {[
                 { name: "Home", path: "/" },
                 { name: "About", path: "/about" },
@@ -78,7 +78,7 @@ function App() {
               ))}
               <NavLink
                 to="/contact"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 rounded-full text-white font-semibold shadow-lg hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 rounded-full text-white font-semibold shadow-lg hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ml-32"
               >
                 Request a Quote
               </NavLink>
