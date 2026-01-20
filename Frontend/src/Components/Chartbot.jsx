@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
  * Floating assistant with predefined professional responses
  */
 
-function SmartXMLChatbot() {
+function SmartXMLChatbot({ isVisible = true }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -96,7 +96,7 @@ function SmartXMLChatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className={`fixed bottom-6 right-6 z-50 transition-all duration-500 transform ${isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none"}`}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -119,16 +119,14 @@ function SmartXMLChatbot() {
               {messages.map((msg) => (
                 <div
                   key={msg.id}
-                  className={`flex ${
-                    msg.sender === "user" ? "justify-end" : "justify-start"
-                  }`}
+                  className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"
+                    }`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${
-                      msg.sender === "user"
+                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.sender === "user"
                         ? "bg-blue-600 text-white rounded-br-md"
                         : "bg-white text-gray-700 shadow rounded-bl-md"
-                    }`}
+                      }`}
                   >
                     {msg.text}
                   </div>
@@ -175,7 +173,7 @@ function SmartXMLChatbot() {
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg flex items-center justify-center"
       >
-        💬
+        <i className="fa-regular fa-comment-dots text-2xl"></i>
       </motion.button>
     </div>
   );
