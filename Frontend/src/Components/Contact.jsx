@@ -39,7 +39,9 @@ function Contact() {
           user_email: formData.email,
           message: formData.message
         },
-        "YxL4_gfnrl6pSpFjB"       // 🔴 replace your public key
+
+        "YxL4_gfnrl6pSpFjB"      // 🔴 replace your public key
+
       );
 
       setStatus({
@@ -77,9 +79,12 @@ function Contact() {
   return (
     <div className="bg-slate-50 min-h-screen font-sans text-slate-800 selection:bg-blue-200">
       {/* ================= HERO SECTION ================= */}
-      <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] text-white py-12 md:py-24 px-6 overflow-hidden">
+
+
+      <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] text-white py-16 md:py-24 px-6 overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10 animate-fadeUp">
-          <h1 className="text-3xl md:text-6xl font-extrabold mb-4 tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
+
             Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Us</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto font-light">
@@ -89,8 +94,10 @@ function Contact() {
       </section>
 
       {/* ================= CONTACT FORM & DETAILS ================= */}
-      <section className="px-4 md:px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-24 items-start py-12">
 
+
+      <section className="section-padding px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-start py-12">
+        
         {/* Left: Contact Details */}
         <div className="space-y-8 animate-fadeUp">
           <div>
@@ -106,13 +113,13 @@ function Contact() {
               { icon: "fa-phone", title: "Phone", text: "+1 (555) 123-4567", color: "text-purple-600", bg: "bg-purple-50" },
               { icon: "fa-location-dot", title: "Office", text: "123 Tech Park Drive, Suite 400, SF, CA", color: "text-pink-600", bg: "bg-pink-50" }
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-4 md:gap-8 p-4 md:p-6 rounded-3xl bg-white border border-slate-100 shadow-lg group">
-                <div className={`w-10 h-10 md:w-14 md:h-14 rounded-2xl ${item.bg} flex items-center justify-center ${item.color} text-xl group-hover:scale-110 transition-all shadow-inner`}>
+              <div key={index} className="flex items-center gap-8 p-6 rounded-3xl bg-white border border-slate-100 shadow-lg group">
+                <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center ${item.color} text-xl group-hover:scale-110 transition-all shadow-inner`}>
                   <i className={`fa-solid ${item.icon}`}></i>
                 </div>
-                <div className="min-w-0 flex-1">
+                <div>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{item.title}</p>
-                  <p className="text-base md:text-lg font-extrabold text-slate-800 break-all md:break-words">{item.text}</p>
+                  <p className="text-lg font-extrabold text-slate-800">{item.text}</p>
                 </div>
               </div>
             ))}
@@ -134,9 +141,10 @@ function Contact() {
         </div>
 
         {/* Right: Contact Form */}
-        <div className="bg-white p-5 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-2xl border border-slate-100 relative">
-          <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-t-[2rem] md:rounded-t-[3rem]"></div>
-          <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6 md:mb-8">Send Us a Message</h3>
+
+        <div className="bg-white p-10 rounded-[3rem] shadow-2xl border border-slate-100 relative">
+          <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-t-[3rem]"></div>
+          <h3 className="text-3xl font-extrabold text-slate-900 mb-8">Send Us a Message</h3>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -150,7 +158,7 @@ function Contact() {
                   placeholder="Your Name"
                   pattern="(?=.*[a-zA-Z]{3,})[a-zA-Z .]+"
                   required
-                  className="w-full px-3 py-3 md:px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                 />
               </div>
               <div className="space-y-1">
@@ -163,7 +171,7 @@ function Contact() {
                   placeholder="name@company.com"
                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)\.[a-zA-Z]{2,}$"
                   required
-                  className="w-full px-3 py-3 md:px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                 />
               </div>
             </div>
@@ -179,7 +187,7 @@ function Contact() {
                 pattern="[6-9][0-9]{9}"
                 maxLength={10}
                 onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ""))}
-                className="w-full px-3 py-3 md:px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
               />
             </div>
 
@@ -191,7 +199,7 @@ function Contact() {
                 onChange={handleChange}
                 placeholder="How can we help?"
                 required
-                className="w-full px-3 py-3 md:px-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none h-32 resize-none"
+                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none h-32 resize-none"
               />
             </div>
 
