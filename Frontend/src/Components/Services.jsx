@@ -154,7 +154,7 @@ function Services() {
             </div>
           </div>
 
-          <hr className="border-gray-200" />
+          {/* <hr className="border-gray-200" /> */}
 
           {/* DTD / XSD Validation */}
           <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
@@ -186,7 +186,7 @@ function Services() {
             </div>
           </div>
 
-          <hr className="border-gray-200" />
+          {/* <hr className="border-gray-200" /> */}
 
           {/* Content Digitization */}
           <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
