@@ -4,7 +4,7 @@ function Process() {
   return (
     <div className="bg-slate-50 min-h-screen font-sans text-slate-800 selection:bg-blue-200">
       {/* ================= HERO SECTION ================= */}
-      <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] section-padding px-6 overflow-hidden">
+      <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] text-white section-padding px-6 overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10 animate-fadeUp">
           <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-300 text-xs font-bold tracking-widest uppercase backdrop-blur-md">
             Workflow & Methodology
