@@ -121,6 +121,9 @@ def update_service():
 @app.route("/dashboard")
 def dashboard(): return render_template("dashboard.html")
 
+@app.route("/admin/chart")
+def admin_chart(): return render_template("chart.html")
+
 @app.route("/login")
 def login(): return render_template("login.html")
 
