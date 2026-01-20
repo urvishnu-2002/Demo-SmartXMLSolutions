@@ -65,7 +65,7 @@ function Services() {
           {/* Details Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
             {/* Service Scope Card */}
-            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+            <div className="bg-slate-50 p-6 md:p-10 rounded-[2.5rem] border border-slate-100 premium-card">
               <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
                 <i className="fa-solid fa-list-check text-blue-600"></i> Service Scope
               </h3>
@@ -86,7 +86,7 @@ function Services() {
             </div>
 
             {/* Benefits Card */}
-            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+            <div className="bg-slate-50 p-6 md:p-10 rounded-[2.5rem] border border-slate-100 premium-card">
               <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
                 <i className="fa-solid fa-trophy text-blue-600"></i> Business Benefits
               </h3>
@@ -199,15 +199,15 @@ function Services() {
                 We convert physical documents and print-based materials into searchable, structured digital formats.
                 Our content digitization services combine reliable scanning processes with careful quality review to support long-term access and usability.
               </p>
-              <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+              {/* <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
                 <div className="flex flex-wrap gap-3">
-                  {["High-res scanning", "OCR verification", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
+                  {["High-res scanning", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
                     <span key={i} className="bg-white px-3 py-1 rounded-full text-xs font-semibold text-orange-600 border border-orange-200 shadow-sm">
                       {tag}
                     </span>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
               <img src={contentDigitizationImg} alt="Content Digitization" className="w-full max-w-md h-auto object-contain" />
