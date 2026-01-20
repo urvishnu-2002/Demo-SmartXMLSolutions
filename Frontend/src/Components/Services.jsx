@@ -4,6 +4,7 @@ import docToXml from "../assets/images/DocToXml.png";
 import htmlToXml from "../assets/images/htmlToXml.png";
 import validationImg from "../assets/images/Validation.png";
 import contentDigitizationImg from "../assets/images/Content Digitization.png";
+import DataqualityandValidation from "../assets/images/DataQualityandValidation.png";
 
 function Services() {
   return (
@@ -16,7 +17,8 @@ function Services() {
             Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Services</span>
           </h1>
           <p className="text-lg md:text-xl text-blue-100 leading-relaxed max-w-2xl mx-auto font-light">
-            We provide structured XML conversion and data processing services that help enterprises manage, validate, and modernize content with consistency and technical accuracy.
+            We provide structured XML conversion and data processing services that help enterprises manage, validate,
+            and modernize content with consistency and technical accuracy.
           </p>
 
           <NavLink
@@ -71,11 +73,11 @@ function Services() {
               </h3>
               <ul className="space-y-4">
                 {[
-                  "PDF to XML conversion",
-                  "Word to XML transformation",
-                  "HTML to semantic XML",
-                  "Legacy format migration",
-                  "Batch XML processing"
+                  "PDF to XML conversion with structural analysis",
+                  "Word document to XML transformation",
+                  "HTML to semantic XML conversion",
+                  "Legacy format migration including SGML and custom formats",
+                  "Batch XML processing for large-volume projects"
                 ].map((text, i) => (
                   <li key={i} className="flex items-start gap-4 text-slate-700 text-lg font-light">
                     <span className="mt-2.5 w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 animate-pulse"></span>
@@ -92,10 +94,10 @@ function Services() {
               </h3>
               <ul className="space-y-4">
                 {[
-                  "Maintain document structure",
-                  "Improve searchability",
-                  "Enable content reuse",
-                  "Simplify long-term storage"
+                  "Maintain document structure and content consistency",
+                  "Support content reuse across platforms and systems",
+                  "Improve data searchability and accessibility",
+                  "Simplify long-term storage with structured data formats"
                 ].map((text, i) => (
                   <li key={i} className="flex items-center gap-4 text-slate-700 text-lg font-light">
                     <i className="fa-solid fa-check-circle text-blue-600 text-xl"></i>
@@ -108,6 +110,8 @@ function Services() {
         </div>
       </section>
 
+                 <hr className="border-gray-200" />
+                 
       {/* ================= OTHER SERVICES GRID ================= */}
       <section className="section-padding px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto space-y-16">
@@ -151,8 +155,53 @@ function Services() {
               </div>
             </div>
           </div>
+          {/* Details Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
+            {/* Service Scope Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-list-check text-blue-600"></i> Service Scope
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "DTD or schema-based XML tagging",
+                  "Semantic element identification and structuring",
+                  "Metadata extraction and assignment",
+                  "Cross-reference and internal link mapping",
+                  "Index and table of contents creation"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-start gap-4 text-slate-700 text-lg font-light">
+                    <span className="mt-2.5 w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 animate-pulse"></span>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* <hr className="border-gray-200" /> */}
+            {/* Benefits Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-trophy text-blue-600"></i> Business Benefits
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Improve content discoverability and reuse",
+                  "Support automated data processing workflows",
+                  "Enable multi-channel content delivery",
+                  "Simplify integration with content management systems"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-center gap-4 text-slate-700 text-lg font-light">
+                    <i className="fa-solid fa-check-circle text-blue-600 text-xl"></i>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
+                    <hr className="border-t border-gray-200" />
+                </div>
 
           {/* DTD / XSD Validation */}
           <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
@@ -183,8 +232,53 @@ function Services() {
               </div>
             </div>
           </div>
+          {/* Details Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
+            {/* Service Scope Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-list-check text-blue-600"></i> Service Scope
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "DTD validation with structured error reporting",
+                  "XSD schema validation and consistency checks",
+                  "Custom validation rule configuration",
+                  "Automated validation workflow setup",
+                  "Compliance-related documentation support"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-start gap-4 text-slate-700 text-lg font-light">
+                    <span className="mt-2.5 w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 animate-pulse"></span>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* <hr className="border-gray-200" /> */}
+            {/* Benefits Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-trophy text-blue-600"></i> Business Benefits
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Support smooth data interoperability across systems",
+                  "Reduce schema-related integration issues",
+                  "Assist with industry and internal compliance requirements",
+                  "Lower the risk of downstream processing errors"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-center gap-4 text-slate-700 text-lg font-light">
+                    <i className="fa-solid fa-check-circle text-blue-600 text-xl"></i>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
+                    <hr className="border-t border-gray-200" />
+          </div>
 
           {/* Content Digitization */}
           <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
@@ -199,6 +293,79 @@ function Services() {
                 We convert physical documents and print-based materials into searchable, structured digital formats.
                 Our content digitization services combine reliable scanning processes with careful quality review to support long-term access and usability.
               </p>
+
+              
+            </div>
+            <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
+              <img src={contentDigitizationImg} alt="Content Digitization" className="w-full max-w-md h-auto object-contain" />
+            </div>
+          </div>
+          
+          {/* Details Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
+            {/* Service Scope Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-list-check text-blue-600"></i> Service Scope
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "High-resolution document scanning",
+                  "OCR processing with verification checks",
+                  "Image enhancement and cleanup",
+                  "Searchable PDF and digital file creation",
+                  "Digital archiving for long-term preservation"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-start gap-4 text-slate-700 text-lg font-light">
+                    <span className="mt-2.5 w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 animate-pulse"></span>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Benefits Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-trophy text-blue-600"></i> Business Benefits
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Preserve important records in digital form",
+                  "Enable faster access to digitized content",
+                  "Reduce reliance on physical storage",
+                  "Support secure remote access and collaboration"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-center gap-4 text-slate-700 text-lg font-light">
+                    <i className="fa-solid fa-check-circle text-blue-600 text-xl"></i>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+                <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
+                    <hr className="border-t border-gray-200" />
+                </div>
+
+
+          {/* Data Quality and Validation */}
+          <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
+            <div>
+              <div className="w-12 h-12 bg-orange-100 flex items-center justify-center rounded-xl shadow-sm mb-6">
+                <i className="fa-solid fa-print text-orange-600 text-2xl"></i>
+              </div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                Data Quality & Validation
+              </h2>
+              <p className="text-slate-600 text-lg leading-relaxed mb-6">
+                We support high data quality through structured validation and review processes. Our data quality services
+                combine automated checks with experienced human review to identify inconsistencies, reduce errors, and
+                improve overall data reliability.
+              </p>
+              
+
               {/* <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
                 <div className="flex flex-wrap gap-3">
                   {["High-res scanning", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
@@ -208,14 +375,61 @@ function Services() {
                   ))}
                 </div>
               </div> */}
+
             </div>
             <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
-              <img src={contentDigitizationImg} alt="Content Digitization" className="w-full max-w-md h-auto object-contain" />
+              <img src={DataqualityandValidation} alt="Data Quality and Validation" className="w-full max-w-md h-auto object-contain" />
+            </div>
+          </div>
+          
+          {/* Details Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
+            {/* Service Scope Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-list-check text-blue-600"></i> Service Scope
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Multi-stage quality review processes",
+                  "Automated error detection and consistency checks",
+                  "Manual review and proofreading by trained specialists",
+                  "Statistical sampling for quality assessment",
+                  "Clear error reporting and review summaries"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-start gap-4 text-slate-700 text-lg font-light">
+                    <span className="mt-2.5 w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 animate-pulse"></span>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Benefits Card */}
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+              <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
+                <i className="fa-solid fa-trophy text-blue-600"></i> Business Benefits
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Support high levels of data accuracy",
+                  "Reduce rework and correction efforts",
+                  "Increase confidence in structured data outputs",
+                  "Align with internal and enterprise quality standards"
+                ].map((text, i) => (
+                  <li key={i} className="flex items-center gap-4 text-slate-700 text-lg font-light">
+                    <i className="fa-solid fa-check-circle text-blue-600 text-xl"></i>
+                    {text}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
+
         </div>
       </section>
+
 
       {/* ================= QUALITY SECTION ================= */}
       <section className="section-padding px-6 bg-[#0b1120] text-white relative overflow-hidden">
@@ -234,12 +448,12 @@ function Services() {
             Our data quality services combine automated checks with experienced human review to identify inconsistencies, reduce errors, and improve overall data reliability.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {[
               { label: "High Accuracy", val: "99.9%" },
               { label: "Reduced Rework", val: "↓ 40%" },
-              { label: "Reliable Outputs", val: "100%" },
-              { label: "Compliance", val: "ISO" }
+              { label: "Reliable Outputs", val: "99.9%" },
+              // { label: "Compliance", val: "ISO" }
             ].map((stat, i) => (
               <div key={i} className="bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 premium-card group shadow-2xl">
                 <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 group-hover:scale-110 transition-transform">{stat.val}</div>
@@ -249,6 +463,8 @@ function Services() {
           </div>
         </div>
       </section>
+
+      
     </div>
   );
 }
