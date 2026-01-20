@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axiosInstance from "../api/axiosInstance";
+import emailjs from "@emailjs/browser"
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -30,6 +31,17 @@ function Contact() {
     try {
       const response = await axiosInstance.post("/contact/save", formData);
       
+      await emailjs.send(
+      "service_gp2k5ab",      // 🔴 replace your service id
+      "template_bdbh086",     // 🔴 replace your template id
+      {
+        user_name: formData.name,
+        user_email: formData.email,
+        message: formData.message
+      },
+      "YxL4_gfnrl6pSpFjB"       // 🔴 replace your public key
+      );
+
       setStatus({
         loading: false,
         message: response.data.message || "✅ Message sent successfully!",
@@ -122,7 +134,7 @@ function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your Name"
-                  pattern="(?=.*[a-zA-Z]{3,})[a-zA-Z ]+"
+                  pattern="((?=.*[a-zA-Z]{3,})[a-zA-Z .]+"
                   required
                   className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                 />
@@ -135,7 +147,7 @@ function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="name@company.com"
-                  pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$"
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)\.[a-zA-Z]{2,}$"
                   required
                   className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
                 />
