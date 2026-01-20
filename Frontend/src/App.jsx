@@ -52,7 +52,7 @@ function App() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
+            <div className="hidden md:flex items-center space-x-13 text-sm font-medium">
               {[
                 { name: "Home", path: "/" },
                 { name: "About", path: "/about" },
