@@ -254,25 +254,11 @@ function App() {
         </div>
       </footer>
 
-      {/* ================= GLOBAL FLOATING CONTACT BUTTON ================= */}
-      <div className={`fixed bottom-10 right-0 z-50 transition-all duration-500 ${showButton ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}>
-        <NavLink
-          to="/contact"
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white flex items-center gap-0 group-hover:gap-3 px-4 py-3 rounded-l-full shadow-2xl hover:brightness-110 transition-all duration-300 group overflow-hidden max-w-[70px] hover:max-w-[170px] whitespace-nowrap"
-          aria-label="Contact Us"
-        >
-          <div className="w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <i className="fa-regular fa-comment text-xl"></i>
-          </div>
-          <span className="font-bold text-lg tracking-wide opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-10 group-hover:translate-x-0">Contact</span>
-        </NavLink>
-      </div>
-
       {/* ================= ACCESSIBILITY WIDGET ================= */}
       <AccessibilityWidget isVisible={showButton} />
 
       {/* ================= CHATBOT ================= */}
-      <SmartXMLChatbot />
+      <SmartXMLChatbot isVisible={showButton} />
 
     </BrowserRouter>
   );
