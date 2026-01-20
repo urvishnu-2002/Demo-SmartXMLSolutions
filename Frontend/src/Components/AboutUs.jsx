@@ -15,29 +15,21 @@ const ServicesPieChart = () => {
       })
       .catch(err => {
         console.error('Failed to fetch service data:', err);
-        // Fallback to hardcoded data if API fails
-        setServiceData({
-          xml_conversion: 35,
-          tagging_structuring: 25,
-          validation: 15,
-          digitization: 10,
-          quality_services: 15
-        });
       });
   }, []);
 
   const data = serviceData ? {
-    "XML Conversion (PDF, DOC, HTML to XML)": serviceData.xml_conversion,
-    "XML Tagging & Structuring": serviceData.tagging_structuring,
-    "DTD / XSD Validation": serviceData.validation,
-    "Content Digitization": serviceData.digitization,
-    "Data Quality & Validation Services": serviceData.quality_services
+    "XML Conversion (PDF, DOC, HTML to XML)": Number(serviceData.xml_conversion) || 0,
+    "XML Tagging & Structuring": Number(serviceData.tagging_structuring) || 0,
+    "DTD / XSD Validation": Number(serviceData.validation) || 0,
+    "Content Digitization": Number(serviceData.digitization) || 0,
+    "Data Quality & Validation Services": Number(serviceData.quality_services) || 0
   } : {
-    "XML Conversion (PDF, DOC, HTML to XML)": 35,
-    "XML Tagging & Structuring": 25,
-    "DTD / XSD Validation": 15,
-    "Content Digitization": 10,
-    "Data Quality & Validation Services": 15
+    "XML Conversion (PDF, DOC, HTML to XML)": 0,
+    "XML Tagging & Structuring": 0,
+    "DTD / XSD Validation": 0,
+    "Content Digitization": 0,
+    "Data Quality & Validation Services": 0
   };
 
   const colors = ["#2563eb", "#10b981", "#06b6d4", "#f59e0b", "#6366f1"];
@@ -67,6 +59,9 @@ const ServicesPieChart = () => {
     const ctx = canvas.getContext("2d");
     const total = Object.values(data).reduce((sum, val) => sum + val, 0);
 
+    // If total is 0, we cannot draw a pie chart (division by zero)
+    if (total === 0) return;
+
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const radius = Math.min(centerX, centerY) * 0.8;
@@ -74,6 +69,7 @@ const ServicesPieChart = () => {
     let startAngle = -Math.PI / 2;
     let currentAnimationStep = 0;
     const totalSteps = 60;
+    let animationFrameId;
 
     const animate = () => {
       if (currentAnimationStep > totalSteps) return;
@@ -118,11 +114,15 @@ const ServicesPieChart = () => {
       });
 
       currentAnimationStep++;
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
-  }, [isVisible]);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isVisible, data]);
 
   return (
     <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 flex flex-col md:flex-row items-center gap-10">
@@ -174,7 +174,7 @@ const AboutUs = () => {
             About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Smart XML Solutions</span>
           </h1>
           <p className="text-xl md:text-2xl md:leading-relaxed text-blue-100 max-w-3xl mx-auto font-light">
-            A specialized data services company focused on XML processing and content digitization. We structure, validate, and modernize large volumes of information for reliable use across digital systems.
+            Smart XML Solutions is a specialized data services company focused on XML processing and content digitization. We work with organizations to structure, validate, and modernize large volumes of information for reliable use across digital systems.
           </p>
         </div>
       </section>
@@ -232,7 +232,7 @@ const AboutUs = () => {
             </div>
             <h3 className="text-3xl font-bold mb-6 text-slate-800">Our Vision</h3>
             <p className="text-slate-600 leading-relaxed text-lg font-light">
-              To be a trusted global partner for XML processing and content digitization services, helping organizations manage information with clarity, structure, and long-term value in an evolving digital landscape.
+              To be a trusted global partner for XML processing and content digitization services, helping organizations manage information with clarity, structure, and long-term value in an evolving digital environment.
             </p>
           </div>
         </div>
@@ -249,10 +249,10 @@ const AboutUs = () => {
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { title: "Quality First", icon: "🛡️", desc: "Every project follows structured review and validation steps to ensure accuracy, consistency, and dependable output." },
-            { title: "Technical Excellence", icon: "⚡", desc: "Our team maintains strong knowledge of XML standards and modern data processing practices to deliver reliable results." },
-            { title: "Client Partnership", icon: "🤝", desc: "We work closely with clients to understand their workflows, timelines, and technical requirements ensuring clear communication." },
-            { title: "Continuous Improvement", icon: "🔄", desc: "We regularly refine our processes and tools to improve efficiency, accuracy, and overall service quality." },
+            { title: "Quality First", icon: "🛡️", desc: "Every project follows structured review and validation steps to ensure accuracy, consistency, and dependable output across all deliverables." },
+            { title: "Technical Excellence", icon: "⚡", desc: "Our team maintains strong knowledge of XML standards and modern data processing practices to deliver reliable, system-ready results." },
+            { title: "Client Partnership", icon: "🤝", desc: "We work closely with clients to understand their workflows, timelines, and technical requirements ensuring clear communication at every stage." },
+            { title: "Continuous Improvement", icon: "🔄", desc: "We regularly refine our processes and tools to improve efficiency, accuracy, and overall service quality as requriements evolve." },
           ].map((value, idx) => (
             <div key={idx} className={`bg-white/5 backdrop-blur-sm p-10 rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 animate-fadeUp animation-delay-${idx * 100}`}>
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform shadow-xl">
@@ -286,19 +286,19 @@ const AboutUs = () => {
           <div className="flex-[3] animate-fadeUp">
             <h2 className="text-4xl font-bold text-slate-800 mb-8 leading-tight">Technical Expertise</h2>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
-              Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects. We follow established XML standards and continuously refine our methods.
+             Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                "XML/SGML Conversion & Transformation",
+                "XML and SGML Conversion & Transformation",
+                " DTD and XSD Schema Design & Validation",
                 "XSLT Stylesheet Development",
+                "Content Management System Integration",
                 "Legacy Data Migration",
-                "High-Volume Batch Processing",
-                "DTD/XSD Schema Validation",
-                "CMS Integration",
-                "Automated Quality Assurance",
-                "Custom Workflow Development",
+                "• Automated Quality Review Processes",
+                "High-Volume Batch Data Processing",
+                "Custom Workflow Configuration",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all group hover:shadow-lg hover:-translate-y-1">
                   <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">

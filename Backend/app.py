@@ -128,4 +128,4 @@ def admin_chart(): return render_template("chart.html")
 def login(): return render_template("login.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='localhost', port=5000, debug=True)

@@ -13,8 +13,8 @@ function Process() {
             Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Process</span>
           </h1>
           <p className="text-lg md:text-2xl text-slate-300 leading-relaxed max-w-2xl mx-auto font-light">
-            A structured journey from raw data to refined intelligence. We combine
-            <span className="text-blue-300 font-medium"> automation</span> with <span className="text-purple-300 font-medium">expert review</span> to ensure precision.
+            Our process follows a clear, structured approach to XML conversion and data processing, ensuring accuracy,
+            <span className="text-blue-300 font-medium"> consistency,</span> and <span className="text-purple-300 font-medium">predictable</span> outcomes across every project.
           </p>
         </div>
       </section>
@@ -34,7 +34,7 @@ function Process() {
                 icon: "fa-clipboard-list",
                 gradient: "from-blue-500 to-cyan-500",
                 shadow: "shadow-blue-500/20",
-                desc: "We align with your goals.",
+                desc: "We start by understanding your project objectives, source data, and expected output formats. This step helps define a clear scope and ensures the XML conversion or data processing workflow is aligned with your technical needs.",
                 points: ["Project objectives definition", "Source material audit", "DTD/Schema analysis", "Timeline planning"]
               },
               {
@@ -43,7 +43,7 @@ function Process() {
                 icon: "fa-gear",
                 gradient: "from-purple-500 to-indigo-500",
                 shadow: "shadow-purple-500/20",
-                desc: "Automated transformations.",
+                desc: "In this stage, our team converts source content into structured formats using a balanced approach that combines automated processing with skilled manual review to maintain accuracy and consistency.",
                 points: ["Format normalization", "Automated tagging", "Schema alignment", "Real-time tracking"]
               },
               {
@@ -52,7 +52,7 @@ function Process() {
                 icon: "fa-vial-circle-check",
                 gradient: "from-amber-400 to-orange-500",
                 shadow: "shadow-orange-500/20",
-                desc: "Rigorous validation loop.",
+                desc: "Each project goes through structured quality checks to verify data accuracy, consistency, and alignment with defined specifications before final delivery.",
                 points: ["Automated validation", "Manual expert review", "Integrity testing", "Error resolution"]
               },
               {
@@ -61,7 +61,7 @@ function Process() {
                 icon: "fa-rocket",
                 gradient: "from-emerald-400 to-teal-500",
                 shadow: "shadow-emerald-500/20",
-                desc: "Secure deployment.",
+                desc: "We deliver processed data in the agreed formats along with clear documentation to support smooth handover and integration into your systems.",
                 points: ["Secure transfer", "Detailed documentation", "Quality reports", "Post-delivery support"]
               },
             ].map((item, index) => (
