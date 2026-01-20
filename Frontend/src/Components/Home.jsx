@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       {/* ================= HERO SECTION ================= */}
-      <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="hero-section relative h-screen flex items-center justify-center overflow-hidden">
 
         {/* Background */}
         <div className="absolute inset-0 z-0">
@@ -53,7 +53,7 @@ function Home() {
       </section>
 
       {/* ================= CORE SERVICES ================= */}
-      <section className="bg-white py-12 md:py-32">
+      <section className="bg-white section-padding">
         <div className="max-w-7xl mx-auto px-6 text-center">
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 animate-fadeUp">
@@ -88,7 +88,7 @@ function Home() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="group bg-white border border-slate-100 rounded-2xl md:rounded-3xl p-6 md:p-8 text-left shadow-lg premium-card animate-fadeUp"
+                className="group bg-white border border-slate-100 rounded-3xl p-8 text-left shadow-lg premium-card animate-fadeUp"
                 style={{ animationDelay: item.delay }}
               >
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-6 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
@@ -118,7 +118,7 @@ function Home() {
       </section>
 
       {/* ================= WHY CHOOSE US ================= */}
-      <section className="bg-slate-50 py-12 md:py-32 overflow-hidden">
+      <section className="bg-slate-50 section-padding overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
 
           {/* LEFT CONTENT */}
@@ -128,15 +128,9 @@ function Home() {
             </h2>
 
             <p className="text-slate-600 text-lg leading-relaxed mb-6">
-
-              With proven experience in XML processing and content digitization, we support enterprises with reliable
-              data conversion services that prioritize accuracy, consistency, and long-term usability across various
-              systems.
-
               With proven experience in XML processing and content digitization, we support enterprises with reliable 
 data conversion services that prioritize accuracy, consistency, and long-term usability across various 
 systems. 
-
             </p>
 
             {/* Bullet Points */}
@@ -177,7 +171,7 @@ systems.
             ].map((stat, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-2xl md:rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
+                className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
               >
                 <div className="text-3xl text-blue-100 mb-3">
                   <i className={`fa-solid ${stat.icon}`}></i>
@@ -193,7 +187,7 @@ systems.
       </section>
 
       {/* ================= INDUSTRIES WE SERVE ================= */}
-      <section className="bg-white py-12 md:py-32">
+      <section className="bg-white section-padding">
         <div className="max-w-7xl mx-auto px-6 text-center">
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 animate-fadeUp">
@@ -214,7 +208,7 @@ systems.
             ].map((item, index) => (
               <div
                 key={index}
-                className="group flex flex-col items-center gap-4 px-6 py-6 md:px-8 md:py-8 rounded-[1.5rem] md:rounded-[2.5rem]
+                className="group flex flex-col items-center gap-4 px-8 py-8 rounded-[2.5rem]
                            bg-slate-50 border border-slate-100
                            premium-card animate-fadeUp"
                 style={{ animationDelay: `${index * 100}ms` }}
@@ -237,28 +231,19 @@ systems.
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="py-12 md:py-32 px-6 text-center text-white bg-[#0b1120] relative overflow-hidden">
+      <section className="section-padding px-6 text-center text-white bg-[#0b1120] relative overflow-hidden">
         {/* Glow Effects */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] animate-pulse"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] animate-pulse delay-1000"></div>
 
         <div className="max-w-4xl mx-auto relative z-10">
           <h2 className="text-4xl md:text-6xl font-extrabold mb-8 animate-fadeUp tracking-tight">
-
-            Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Structure</span> Your Data for the Future?
-          </h2>
-
-          <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl mx-auto animate-fadeUp animation-delay-200 font-light leading-relaxed">
-            Let’s explore how our XML conversion and data processing services can simplify content workflows,
-            improve system compatibility, and support long-term data management.
-
             Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Structure</span> Your Data for the Future? 
           </h2>
 
           <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl mx-auto animate-fadeUp animation-delay-200 font-light leading-relaxed">
             Let’s explore how our XML conversion and data processing services can simplify content workflows, 
 improve system compatibility, and support long-term data management. 
-
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 animate-fadeUp animation-delay-400">
