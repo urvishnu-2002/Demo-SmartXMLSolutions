@@ -15,29 +15,21 @@ const ServicesPieChart = () => {
       })
       .catch(err => {
         console.error('Failed to fetch service data:', err);
-        // Fallback to hardcoded data if API fails
-        setServiceData({
-          xml_conversion: 35,
-          tagging_structuring: 25,
-          validation: 15,
-          digitization: 10,
-          quality_services: 15
-        });
       });
   }, []);
 
   const data = serviceData ? {
-    "XML Conversion (PDF, DOC, HTML to XML)": serviceData.xml_conversion,
-    "XML Tagging & Structuring": serviceData.tagging_structuring,
-    "DTD / XSD Validation": serviceData.validation,
-    "Content Digitization": serviceData.digitization,
-    "Data Quality & Validation Services": serviceData.quality_services
+    "XML Conversion (PDF, DOC, HTML to XML)": Number(serviceData.xml_conversion) || 0,
+    "XML Tagging & Structuring": Number(serviceData.tagging_structuring) || 0,
+    "DTD / XSD Validation": Number(serviceData.validation) || 0,
+    "Content Digitization": Number(serviceData.digitization) || 0,
+    "Data Quality & Validation Services": Number(serviceData.quality_services) || 0
   } : {
-    "XML Conversion (PDF, DOC, HTML to XML)": 35,
-    "XML Tagging & Structuring": 25,
-    "DTD / XSD Validation": 15,
-    "Content Digitization": 10,
-    "Data Quality & Validation Services": 15
+    "XML Conversion (PDF, DOC, HTML to XML)": 0,
+    "XML Tagging & Structuring": 0,
+    "DTD / XSD Validation": 0,
+    "Content Digitization": 0,
+    "Data Quality & Validation Services": 0
   };
 
   const colors = ["#2563eb", "#10b981", "#06b6d4", "#f59e0b", "#6366f1"];
@@ -67,6 +59,9 @@ const ServicesPieChart = () => {
     const ctx = canvas.getContext("2d");
     const total = Object.values(data).reduce((sum, val) => sum + val, 0);
 
+    // If total is 0, we cannot draw a pie chart (division by zero)
+    if (total === 0) return;
+
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const radius = Math.min(centerX, centerY) * 0.8;
@@ -74,6 +69,7 @@ const ServicesPieChart = () => {
     let startAngle = -Math.PI / 2;
     let currentAnimationStep = 0;
     const totalSteps = 60;
+    let animationFrameId;
 
     const animate = () => {
       if (currentAnimationStep > totalSteps) return;
@@ -118,11 +114,15 @@ const ServicesPieChart = () => {
       });
 
       currentAnimationStep++;
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
-  }, [isVisible]);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isVisible, data]);
 
   return (
     <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 flex flex-col md:flex-row items-center gap-10">
