@@ -68,11 +68,10 @@ function Contact() {
       <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] text-white py-16 md:py-24 px-6 overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10 animate-fadeUp">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
-            Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Touch</span>
+            Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Us</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto font-light">
-            Have a project in mind or questions about our services? Our team is available
-            to discuss your requirements and provide guidance.
+            Have a project in mind or questions about our services? Reach out to our team and we’ll get back to you as soon as possible to discuss your requirements.
           </p>
         </div>
       </section>
@@ -83,18 +82,17 @@ function Contact() {
         {/* Left: Contact Details */}
         <div className="space-y-8 animate-fadeUp">
           <div>
-            <h2 className="text-3xl font-extrabold text-slate-900 mb-4">Let's Talk</h2>
+            <h2 className="text-3xl font-extrabold text-slate-900 mb-4">Get in Touch</h2>
             <p className="text-slate-600 text-lg leading-relaxed">
-              Whether you need a custom quote, technical consultation, or just want to say hello,
-              we're here to help you transform your data.
+             Whether you have a specific project in mind or would like to learn more about our services, our team is available to discuss your requirements and provide guidance.
             </p>
           </div>
 
           <div className="space-y-6">
             {[
               { icon: "fa-envelope", title: "Email Us", text: "info@smartxmlsolutions.com", color: "text-blue-600", bg: "bg-blue-50" },
-              { icon: "fa-phone", title: "Call Us", text: "+1 (555) 123-4567", color: "text-purple-600", bg: "bg-purple-50" },
-              { icon: "fa-location-dot", title: "Visit Us", text: "123 Tech Park Drive, Suite 400, SF, CA", color: "text-pink-600", bg: "bg-pink-50" }
+              { icon: "fa-phone", title: "Phone", text: "+1 (555) 123-4567", color: "text-purple-600", bg: "bg-purple-50" },
+              { icon: "fa-location-dot", title: "Office", text: "123 Tech Park Drive, Suite 400, SF, CA", color: "text-pink-600", bg: "bg-pink-50" }
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-8 p-6 rounded-3xl bg-white border border-slate-100 shadow-lg group">
                 <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center ${item.color} text-xl group-hover:scale-110 transition-all shadow-inner`}>

@@ -47,7 +47,7 @@ function Industries() {
       id: 5,
       title: "E-Commerce",
       icon: "fa-cart-shopping",
-      desc: "We support e-commerce platforms by structuring product data and catalogs to enhance searchability, consistency, and user experience across digital storefronts.",
+      desc: "We support e-commerce businesses by structuring and optimizing product data to improve catalog consistency, platform integration, and content scalability across digital channels.",
       image: img3,
       stats: { clients: "20+", projects: "2,000+" },
       color: "pink"
