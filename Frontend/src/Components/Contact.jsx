@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axiosInstance from "../api/axiosInstance";
+import emailjs from "@emailjs/browser"
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -30,6 +31,17 @@ function Contact() {
     try {
       const response = await axiosInstance.post("/contact/save", formData);
       
+      await emailjs.send(
+      "service_gp2k5ab",      // 🔴 replace your service id
+      "template_bdbh086",     // 🔴 replace your template id
+      {
+        user_name: formData.name,
+        user_email: formData.email,
+        message: formData.message
+      },
+      "YxL4_gfnrl6pSpFjB"       // 🔴 replace your public key
+      );
+
       setStatus({
         loading: false,
         message: response.data.message || "✅ Message sent successfully!",
