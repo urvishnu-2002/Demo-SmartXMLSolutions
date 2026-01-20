@@ -75,7 +75,7 @@ function Process() {
 
                 {/* Card Container - Alternating Sides on Desktop, Full Width on Mobile */}
                 <div className={`w-full md:w-[45%] ${index % 2 === 0 ? "md:mr-auto" : "md:ml-auto"}`}>
-                  <div className={`relative bg-slate-50 p-8 md:p-12 rounded-[2.5rem] shadow-xl premium-card border border-slate-100 animate-fadeUp`}>
+                  <div className={`relative bg-slate-50 p-6 md:p-12 rounded-[2.5rem] shadow-xl premium-card border border-slate-100 animate-fadeUp`}>
 
                     {/* Mobile Step Marker */}
                     <div className={`md:hidden absolute -top-5 -right-2 w-12 h-12 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center text-white font-extrabold shadow-lg ring-8 ring-white`}>{item.step}</div>
@@ -146,7 +146,7 @@ function Process() {
       {/* ================= CTA ================= */}
       <section className="section-padding px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="relative bg-[#0b1120] rounded-[4rem] p-12 md:p-24 text-center text-white overflow-hidden shadow-2xl animate-fadeUp">
+          <div className="relative bg-[#0b1120] rounded-[4rem] p-8 md:p-24 text-center text-white overflow-hidden shadow-2xl animate-fadeUp">
 
             {/* Animated Shapes */}
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse"></div>

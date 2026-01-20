@@ -163,7 +163,7 @@ const AboutUs = () => {
   return (
     <div className="bg-slate-50 min-h-screen font-sans text-slate-900">
       {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-gradient-to-br from-[#0b1a2a] via-[#1c4e80] to-[#0b1a2a] text-white py-32 px-6 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#0b1a2a] via-[#1c4e80] to-[#0b1a2a] text-white py-20 md:py-32 px-6 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
@@ -180,7 +180,7 @@ const AboutUs = () => {
       </section>
 
       {/* ================= STORY & IMAGE ================= */}
-      <section className="py-24 px-6">
+      <section className="py-16 md:py-24 px-6">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className={`space-y-8 transition-all duration-1000 delay-300 transform ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
             <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-sm font-semibold tracking-wide uppercase">
@@ -214,9 +214,9 @@ const AboutUs = () => {
       </section>
 
       {/* ================= MISSION & VISION ================= */}
-      <section className="py-24 bg-white px-6">
+      <section className="py-16 md:py-24 bg-white px-6">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-          <div className="group bg-slate-50 p-12 rounded-[2.5rem] border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 animate-fadeUp">
+          <div className="group bg-slate-50 p-6 md:p-12 rounded-[2.5rem] border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 animate-fadeUp">
             <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-8 text-3xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
               🎯
             </div>
@@ -226,7 +226,7 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <div className="group bg-slate-50 p-12 rounded-[2.5rem] border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-2 animate-fadeUp animation-delay-200">
+          <div className="group bg-slate-50 p-6 md:p-12 rounded-[2.5rem] border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-2 animate-fadeUp animation-delay-200">
             <div className="w-16 h-16 bg-purple-600 text-white rounded-2xl flex items-center justify-center mb-8 text-3xl shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
               👁️
             </div>
@@ -239,7 +239,7 @@ const AboutUs = () => {
       </section>
 
       {/* ================= CORE VALUES ================= */}
-      <section className="py-24 px-6 bg-[#0b1a2a] relative overflow-hidden">
+      <section className="py-16 md:py-24 px-6 bg-[#0b1a2a] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
 
         <div className="max-w-7xl mx-auto relative z-10 text-center mb-20 animate-fadeUp">
@@ -254,7 +254,7 @@ const AboutUs = () => {
             { title: "Client Partnership", icon: "🤝", desc: "We work closely with clients to understand their workflows, timelines, and technical requirements ensuring clear communication." },
             { title: "Continuous Improvement", icon: "🔄", desc: "We regularly refine our processes and tools to improve efficiency, accuracy, and overall service quality." },
           ].map((value, idx) => (
-            <div key={idx} className={`bg-white/5 backdrop-blur-sm p-10 rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 animate-fadeUp animation-delay-${idx * 100}`}>
+            <div key={idx} className={`bg-white/5 backdrop-blur-sm p-6 md:p-10 rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 animate-fadeUp animation-delay-${idx * 100}`}>
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform shadow-xl">
                 {value.icon}
               </div>
@@ -268,7 +268,7 @@ const AboutUs = () => {
       </section>
 
       {/* ================= SERVICES GRAPH ================= */}
-      <section className="py-24 px-6 bg-white overflow-hidden">
+      <section className="py-16 md:py-24 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16 text-center animate-fadeUp">
             <h2 className="text-4xl font-bold text-slate-800 mb-4">Our Service Portfolio</h2>
@@ -281,12 +281,16 @@ const AboutUs = () => {
       </section>
 
       {/* ================= TECHNICAL EXPERTISE ================= */}
-      <section className="py-24 px-6 bg-slate-50">
+      <section className="py-16 md:py-24 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
           <div className="flex-[3] animate-fadeUp">
             <h2 className="text-4xl font-bold text-slate-800 mb-8 leading-tight">Technical Expertise</h2>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
+<<<<<<< Updated upstream
               Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects. We follow established XML standards and continuously refine our methods.
+=======
+              Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
+>>>>>>> Stashed changes
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -310,7 +314,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="flex-[2] bg-gradient-to-br from-slate-900 to-slate-800 text-white p-12 rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col justify-between animate-fadeUp animation-delay-200">
+          <div className="flex-[2] bg-gradient-to-br from-slate-900 to-slate-800 text-white p-8 md:p-12 rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col justify-between animate-fadeUp animation-delay-200">
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500 rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-pulse"></div>
 
             <div className="relative z-10">

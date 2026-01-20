@@ -57,7 +57,7 @@ function Industries() {
   return (
     <div className="bg-slate-50 min-h-screen font-sans text-slate-800 selection:bg-blue-200">
       {/* ================= HERO SECTION ================= */}
-      <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] text-white py-10 md:py-20 px-6 overflow-hidden">
+      <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] text-white py-16 md:py-20 px-6 overflow-hidden">
 
         <div className="max-w-4xl mx-auto text-center relative z-10 animate-fadeUp">
           <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-sm font-semibold tracking-wide uppercase backdrop-blur-md">
@@ -152,7 +152,7 @@ function Industries() {
               { icon: "fa-shield-halved", title: "Scalable & Secure", desc: "Robust and compliant XML frameworks.", color: "text-emerald-500", bg: "bg-emerald-50" },
               { icon: "fa-chart-line", title: "Proven Results", desc: "Driving success across sectors.", color: "text-blue-500", bg: "bg-blue-50" },
             ].map((item, idx) => (
-              <div key={idx} className="group p-10 rounded-[3rem] bg-white border border-slate-100 shadow-xl premium-card">
+              <div key={idx} className="group p-6 md:p-10 rounded-[3rem] bg-white border border-slate-100 shadow-xl premium-card">
                 <div className={`w-24 h-24 mx-auto rounded-[2rem] ${item.bg} flex items-center justify-center text-4xl mb-8 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
                   <i className={`fa-solid ${item.icon} ${item.color}`}></i>
                 </div>

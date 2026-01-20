@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       {/* ================= HERO SECTION ================= */}
-      <section className="hero-section relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
 
         {/* Background */}
         <div className="absolute inset-0 z-0">
@@ -128,9 +128,15 @@ function Home() {
             </h2>
 
             <p className="text-slate-600 text-lg leading-relaxed mb-6">
+<<<<<<< Updated upstream
               With proven experience in XML processing and content digitization,
               we support enterprises with reliable data conversion services that
               prioritize accuracy, consistency, and long-term usability.
+=======
+              With proven experience in XML processing and content digitization, we support enterprises with reliable
+              data conversion services that prioritize accuracy, consistency, and long-term usability across various
+              systems.
+>>>>>>> Stashed changes
             </p>
 
             {/* Bullet Points */}
@@ -238,12 +244,21 @@ function Home() {
 
         <div className="max-w-4xl mx-auto relative z-10">
           <h2 className="text-4xl md:text-6xl font-extrabold mb-8 animate-fadeUp tracking-tight">
+<<<<<<< Updated upstream
             Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Transform</span> Your Data?
           </h2>
 
           <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl mx-auto animate-fadeUp animation-delay-200 font-light leading-relaxed">
             Let’s explore how our XML conversion and data processing services
             can simplify content workflows and improve system compatibility.
+=======
+            Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Structure</span> Your Data for the Future?
+          </h2>
+
+          <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl mx-auto animate-fadeUp animation-delay-200 font-light leading-relaxed">
+            Let’s explore how our XML conversion and data processing services can simplify content workflows,
+            improve system compatibility, and support long-term data management.
+>>>>>>> Stashed changes
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 animate-fadeUp animation-delay-400">
