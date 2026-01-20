@@ -286,11 +286,7 @@ const AboutUs = () => {
           <div className="flex-[3] animate-fadeUp">
             <h2 className="text-4xl font-bold text-slate-800 mb-8 leading-tight">Technical Expertise</h2>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
-<<<<<<< Updated upstream
-              Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects. We follow established XML standards and continuously refine our methods.
-=======
               Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
->>>>>>> Stashed changes
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
