@@ -52,7 +52,7 @@ function App() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-13 text-sm font-medium">
+            <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
               {[
                 { name: "Home", path: "/" },
                 { name: "About", path: "/about" },
@@ -78,7 +78,7 @@ function App() {
               ))}
               <NavLink
                 to="/contact"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 rounded-full text-white font-semibold shadow-lg hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ml-32"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 rounded-full text-white font-semibold shadow-lg hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ml-20"
               >
                 Request a Quote
               </NavLink>
@@ -237,10 +237,21 @@ function App() {
                 Connect with Smart XML Solutions
               </p>
               <div className="flex gap-4">
+                {/* LinkedIn */}
                 <a href="#" className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 transition-colors group">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                  </svg>
+                  <i className="fa-brands fa-linkedin-in text-white text-lg"></i>
+                </a>
+                {/* WhatsApp */}
+                <a href="#" className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center hover:brightness-110 transition-all group">
+                  <i className="fa-brands fa-whatsapp text-white text-lg"></i>
+                </a>
+                {/* Facebook */}
+                <a href="#" className="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center hover:brightness-110 transition-all group">
+                  <i className="fa-brands fa-facebook-f text-white text-lg"></i>
+                </a>
+                {/* Instagram */}
+                <a href="#" className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center hover:brightness-110 transition-all group">
+                  <i className="fa-brands fa-instagram text-white text-lg"></i>
                 </a>
               </div>
             </div>
