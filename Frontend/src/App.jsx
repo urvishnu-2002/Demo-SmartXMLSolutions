@@ -52,7 +52,7 @@ function App() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-13 text-sm font-medium">
+            <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
               {[
                 { name: "Home", path: "/" },
                 { name: "About", path: "/about" },
@@ -85,7 +85,7 @@ function App() {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            <div className="min-[950px]:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="text-slate-800 focus:outline-none hover:text-blue-600 transition-colors"
@@ -105,7 +105,7 @@ function App() {
 
           {/* Mobile Menu Dropdown */}
           {isMobileMenuOpen && (
-            <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl animate-in slide-in-from-top-2 duration-200">
+            <div className="min-[950px]:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl animate-in slide-in-from-top-2 duration-200">
               <div className="flex flex-col space-y-4 px-6 py-8">
                 {[
                   { name: "Home", path: "/" },
@@ -165,7 +165,7 @@ function App() {
                 <img
                   src={logo}
                   alt="Smart XML Solutions Logo"
-                  className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300 bg-white rounded-lg p-1"
+                  className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-500"
                 />
                 <span className="text-xl font-bold text-white tracking-wide group-hover:text-blue-400 transition-colors">
                   Smart XML
