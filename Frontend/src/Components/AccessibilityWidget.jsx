@@ -118,13 +118,13 @@ function AccessibilityWidget({ isVisible }) {
                                 <div className="bg-gray-800 p-1 rounded-full flex gap-1">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); setTheme("default"); }}
-                                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${theme === 'default' ? 'bg-white text-black shadow-md' : 'text-gray-400 hover:text-white'}`}
+                                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${theme === 'default' ? 'bg-white text-[#000000] shadow-md' : 'text-gray-400 hover:text-white'}`}
                                     >
                                         DEFAULT
                                     </button>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); setTheme("dark"); }}
-                                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${theme === 'dark' ? 'bg-white text-black shadow-md' : 'text-gray-400 hover:text-white'}`}
+                                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${theme === 'dark' ? 'bg-white text-[#000000] shadow-md' : 'text-gray-400 hover:text-white'}`}
                                     >
                                         DARK
                                     </button>
