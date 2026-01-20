@@ -121,5 +121,8 @@ def update_service():
 @app.route("/dashboard")
 def dashboard(): return render_template("dashboard.html")
 
+@app.route("/login")
+def login(): return render_template("login.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
