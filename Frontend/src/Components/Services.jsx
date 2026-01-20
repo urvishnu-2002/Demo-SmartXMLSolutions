@@ -65,7 +65,7 @@ function Services() {
           {/* Details Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
             {/* Service Scope Card */}
-            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+            <div className="bg-slate-50 p-6 md:p-10 rounded-[2.5rem] border border-slate-100 premium-card">
               <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
                 <i className="fa-solid fa-list-check text-blue-600"></i> Service Scope
               </h3>
@@ -86,7 +86,7 @@ function Services() {
             </div>
 
             {/* Benefits Card */}
-            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 premium-card">
+            <div className="bg-slate-50 p-6 md:p-10 rounded-[2.5rem] border border-slate-100 premium-card">
               <h3 className="text-2xl font-bold text-[#0b1120] mb-6 flex items-center gap-3">
                 <i className="fa-solid fa-trophy text-blue-600"></i> Business Benefits
               </h3>
