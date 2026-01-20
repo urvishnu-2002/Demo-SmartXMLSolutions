@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, NavLink, Link } from "react-router-dom";
 import PageTransition from "./Components/PageTransition";
+import logo from "./assets/images/logo.png";
 
 import Services from "./Components/Services";
 import Process from "./Components/Process";
@@ -12,6 +13,7 @@ import AccessibilityWidget from "./Components/AccessibilityWidget";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,10 +37,13 @@ function App() {
           <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
+            {/* Logo */}
             <Link to="/" className="flex items-center gap-2 group cursor-pointer">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
-                X
-              </div>
+              <img
+                src={logo}
+                alt="Smart XML Solutions Logo"
+                className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-500"
+              />
               <span className="text-2xl font-bold text-slate-800 tracking-wide group-hover:text-blue-600 transition-all duration-300">
                 Smart XML
               </span>
@@ -77,15 +82,62 @@ function App() {
               </NavLink>
             </div>
 
-            {/* Mobile Menu Button (Placeholder) */}
+            {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center">
-              <button className="text-white focus:outline-none">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-slate-800 focus:outline-none hover:text-blue-600 transition-colors"
+              >
+                {isMobileMenuOpen ? (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                  </svg>
+                )}
               </button>
             </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl animate-in slide-in-from-top-2 duration-200">
+              <div className="flex flex-col space-y-4 px-6 py-8">
+                {[
+                  { name: "Home", path: "/" },
+                  { name: "About", path: "/about" },
+                  { name: "Services", path: "/services" },
+                  { name: "Process", path: "/process" },
+                  { name: "Industries", path: "/industries" },
+                  { name: "Contact", path: "/contact" },
+                ].map((item) => (
+                  <NavLink
+                    key={item.name}
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={({ isActive }) =>
+                      `text-lg font-medium transition-colors duration-300
+                      ${isActive ? "text-blue-600 pl-4 border-l-4 border-blue-600" : "text-gray-600 hover:text-blue-600"}
+                      `
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                ))}
+                <div className="pt-4 mt-4 border-t border-gray-100">
+                  <NavLink
+                    to="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-blue-500/20 active:scale-95 transition-all"
+                  >
+                    Request a Quote
+                  </NavLink>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -109,9 +161,11 @@ function App() {
             {/* Column 1: Brand */}
             <div className="space-y-6">
               <div className="flex items-center gap-2 group cursor-pointer">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:rotate-12 transition-transform duration-300">
-                  X
-                </div>
+                <img
+                  src={logo}
+                  alt="Smart XML Solutions Logo"
+                  className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300 bg-white rounded-lg p-1"
+                />
                 <span className="text-xl font-bold text-white tracking-wide group-hover:text-blue-400 transition-colors">
                   Smart XML
                 </span>
