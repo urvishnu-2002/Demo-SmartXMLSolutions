@@ -31,7 +31,7 @@ function SmartXMLChatbot() {
   // GET SERVICES from Flask
   const fetchServices = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/chatbot/get`);
+      const res = await fetch(`${API_URL}/chatbot/suggest`);
       if (!res.ok) throw new Error("Failed");
       const data = await res.json();
 
