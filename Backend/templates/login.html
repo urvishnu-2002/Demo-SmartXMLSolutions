@@ -38,8 +38,11 @@
                         <i data-lucide="key-round" class="text-gray-400 w-5 h-5"></i>
                     </div>
                     <input type="password" id="password" name="password" required
-                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                        class="block w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                         placeholder="••••••••">
+                    <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-indigo-600 transition-colors" aria-label="Toggle password visibility">
+                        <i data-lucide="eye" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
 
@@ -74,6 +77,26 @@
             }
             return false;
         }
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function(e) {
+            e.preventDefault();
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.getElementById('togglePassword');
+            const icon = toggleBtn.querySelector('[data-lucide]');
+           
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+                toggleBtn.setAttribute('aria-label', 'Hide password');
+            } else {
+                passwordInput.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+                toggleBtn.setAttribute('aria-label', 'Show password');
+            }
+           
+            // Refresh Lucide icons to show the new icon
+            lucide.createIcons();
+        });
     </script>
 </body>
 </html>
