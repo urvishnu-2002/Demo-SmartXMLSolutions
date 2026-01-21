@@ -119,6 +119,11 @@ html.dark [class*="text-orange-500"] {
   color: #fb923c !important;
 }
 
+html.dark [class*="text-pink-600"],
+html.dark [class*="text-pink-500"] {
+  color: #f472b6 !important;
+}
+
 /* Ensure White Buttons/Links stay readable and pop in dark mode */
 html.dark button[class*="bg-white"],
 html.dark a[class*="bg-white"] {
@@ -145,6 +150,7 @@ html.dark [class*="bg-blue-50"]:not(.hero-section),
 html.dark [class*="bg-purple-50"]:not(.hero-section),
 html.dark [class*="bg-cyan-50"]:not(.hero-section),
 html.dark [class*="bg-orange-50"]:not(.hero-section),
+html.dark [class*="bg-pink-50"]:not(.hero-section),
 html.dark [class*="bg-cyan-100"]:not(.hero-section),
 html.dark [class*="bg-purple-100"]:not(.hero-section),
 html.dark [class*="bg-orange-100"]:not(.hero-section),
