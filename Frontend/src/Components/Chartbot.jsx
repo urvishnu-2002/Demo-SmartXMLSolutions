@@ -23,6 +23,7 @@ function SmartXMLChatbot() {
   const [suggestions, setSuggestions] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const chatbotRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   /* Detect scroll to show/hide chatbot (sync with Accessibility Widget) */
   useEffect(() => {
