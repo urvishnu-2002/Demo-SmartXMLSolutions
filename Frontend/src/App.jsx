@@ -298,7 +298,7 @@ function App() {
       <AccessibilityWidget isVisible={showButton} />
 
       {/* ================= CHATBOT ================= */}
-      <SmartXMLChatbot isVisible={showButton} />
+      <SmartXMLChatbot />
 
     </BrowserRouter>
   );
