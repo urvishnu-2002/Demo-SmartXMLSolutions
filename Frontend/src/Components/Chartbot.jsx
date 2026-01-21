@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axiosInstance from "../api/axiosInstance";
 
-// Backend URL - matched to your sample's expected routes
-const API_URL = "http://localhost:5000/api";
+// Backend URL - retrieved from centralized axios configuration
+const API_URL = axiosInstance.defaults.baseURL.replace(/\/$/, "");
 
 /**
  * Smart XML Solutions – Chatbot Widget
