@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, NavLink, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink, Link, useLocation } from "react-router-dom";
 import PageTransition from "./Components/PageTransition";
 import logo from "./assets/images/logo.png";
 
@@ -12,6 +12,27 @@ import AboutUs from "./Components/AboutUs";
 import Home from "./Components/Home";
 import AccessibilityWidget from "./Components/AccessibilityWidget";
 import SmartXMLChatbot from "./Components/Chartbot";
+
+/**
+ * Helper to scroll to top on route change,
+ * and to specific hash if it exists in the URL.
+ */
+function ScrollToTopAndHash() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.replace("#", ""));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
 
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -33,9 +54,10 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTopAndHash />
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
-        <div className="w-full mx-auto px-6 lg:px-12">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
@@ -52,7 +74,7 @@ function App() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
+            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-sm font-medium">
               {[
                 { name: "Home", path: "/" },
                 { name: "About", path: "/about" },
@@ -76,16 +98,18 @@ function App() {
                 </NavLink>
 
               ))}
-              <NavLink
-                to="/contact"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 rounded-full text-white font-semibold shadow-lg hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300 ml-20"
-              >
-                Request a Quote
-              </NavLink>
+              <div className="lg:ml-4 xl:ml-8">
+                <NavLink
+                  to="/contact"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 rounded-full text-white font-semibold shadow-lg hover:shadow-blue-500/20 hover:scale-105 transition-all duration-300"
+                >
+                  Request a Quote
+                </NavLink>
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="min-[950px]:hidden flex items-center">
+            <div className="lg:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="text-slate-800 focus:outline-none hover:text-blue-600 transition-colors"
@@ -105,7 +129,7 @@ function App() {
 
           {/* Mobile Menu Dropdown */}
           {isMobileMenuOpen && (
-            <div className="min-[950px]:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl animate-in slide-in-from-top-2 duration-200">
+            <div className="lg:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl animate-in slide-in-from-top-2 duration-200">
               <div className="flex flex-col space-y-4 px-6 py-8">
                 {[
                   { name: "Home", path: "/" },
@@ -198,6 +222,11 @@ function App() {
                 <li>
                   <Link to="/services" className="text-gray-400 hover:text-blue-400 transition-colors text-sm">
                     Content Digitization Services
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/services" className="text-gray-400 hover:text-blue-400 transition-colors text-sm">
+                    Data Quality & Validation
                   </Link>
                 </li>
               </ul>

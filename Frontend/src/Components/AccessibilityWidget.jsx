@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function AccessibilityWidget({ isVisible }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -54,6 +54,25 @@ function AccessibilityWidget({ isVisible }) {
         if (lineHeight < 3.0) setLineHeight(prev => parseFloat((prev + 0.1).toFixed(1)));
     };
 
+    const widgetRef = useRef(null);
+
+    // Detect clicks outside to close
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (widgetRef.current && !widgetRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen]);
+
     const decreaseLineHeight = (e) => {
         e.stopPropagation();
         if (lineHeight > 1.0) setLineHeight(prev => parseFloat((prev - 0.1).toFixed(1)));
@@ -66,7 +85,10 @@ function AccessibilityWidget({ isVisible }) {
 
     return (
         <>
-            <div className={`fixed bottom-10 left-10 z-[10000] transition-all duration-500 transform ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"}`}>
+            <div
+                ref={widgetRef}
+                className={`fixed bottom-6 left-6 md:bottom-10 md:left-10 z-[10000] transition-all duration-500 transform ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"}`}
+            >
 
                 {/* Widget Button */}
                 <button
@@ -84,7 +106,7 @@ function AccessibilityWidget({ isVisible }) {
                 {/* Panel */}
                 {isOpen && (
                     <div
-                        className="absolute bottom-16 left-0 bg-[#1e1e1e] text-white w-[350px] rounded-xl shadow-2xl border border-gray-700 overflow-hidden animate-zoomInPanel"
+                        className="absolute bottom-16 left-0 bg-[#1e1e1e] text-white w-[calc(100vw-3rem)] sm:w-[350px] rounded-xl shadow-2xl border border-gray-700 overflow-hidden animate-zoomInPanel"
                         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
                     >
 

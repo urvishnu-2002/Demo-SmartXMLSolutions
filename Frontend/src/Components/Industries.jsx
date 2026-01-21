@@ -10,6 +10,7 @@ function Industries() {
     {
       id: 1,
       title: "Banking & Finance",
+      slug: "banking",
       icon: "fa-building-columns",
       desc: "We support banking and financial organizations by structuring, validating, and digitizing data to improve reporting accuracy, regulatory readiness, and long-term information management.",
       image: img1,
@@ -19,6 +20,7 @@ function Industries() {
     {
       id: 2,
       title: "Healthcare",
+      slug: "healthcare",
       icon: "fa-heart-pulse",
       desc: "We assist healthcare organizations in organizing, structuring, and digitizing medical and research-related content to support efficient data access and operational workflows.",
       image: img5,
@@ -28,6 +30,7 @@ function Industries() {
     {
       id: 3,
       title: "Publishing",
+      slug: "publishing",
       icon: "fa-book-open",
       desc: "We help publishing teams modernize their content by converting legacy materials into structured digital formats that support efficient workflows and multi-channel distribution.",
       image: img2,
@@ -37,6 +40,7 @@ function Industries() {
     {
       id: 4,
       title: "Education",
+      slug: "education",
       icon: "fa-graduation-cap",
       desc: "We support educational publishers and institutions by converting learning materials into structured, digital formats that improve accessibility, usability, and content management.",
       image: img4,
@@ -46,6 +50,7 @@ function Industries() {
     {
       id: 5,
       title: "E-Commerce",
+      slug: "ecommerce",
       icon: "fa-cart-shopping",
       desc: "We support e-commerce businesses by structuring and optimizing product data to improve catalog consistency, platform integration, and content scalability across digital channels.",
       image: img3,
@@ -77,7 +82,7 @@ function Industries() {
       {/* ================= INDUSTRIES SECTION ================= */}
       <section className="section-padding px-6 space-y-32 max-w-7xl mx-auto">
         {industries.map((item, index) => (
-          <div key={item.id} className="group relative flex flex-col md:flex-row gap-8 md:gap-16 items-center">
+          <div key={item.id} id={item.slug} className="group relative flex flex-col md:flex-row gap-8 md:gap-16 items-center scroll-mt-24">
 
             {/* Image Side - Alternating */}
             <div className={`w-full md:w-1/2 ${index % 2 !== 0 ? "md:order-2" : "md:order-1"}`}>

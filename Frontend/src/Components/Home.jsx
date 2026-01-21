@@ -70,25 +70,29 @@ function Home() {
               {
                 icon: "fa-file-code",
                 title: "XML Conversion Services",
+                slug: "xml-conversion",
                 desc: "We provide XML conversion services that transform PDF, Word, HTML, and legacy documents into structured, standards-compliant XML for seamless system integration",
                 delay: "0ms"
               },
               {
                 icon: "fa-database",
                 title: "Content Digitization Services",
+                slug: "content-digitization",
                 desc: "Our content digitization services convert physical records and legacy files into searchable digital formats that support modern content management workflows.",
                 delay: "200ms"
               },
               {
                 icon: "fa-clipboard-check",
                 title: "DTD / XSD Data Validation",
+                slug: "dtd-validation",
                 desc: "We perform DTD and XSD data validation to verify the structure, accuracy, and consistency of the data before final delivery to your systems. ",
                 delay: "400ms"
               },
             ].map((item, i) => (
-              <div
+              <NavLink
                 key={i}
-                className="group bg-white border border-slate-100 rounded-3xl p-8 text-left shadow-lg premium-card animate-fadeUp"
+                to={`/services#${item.slug}`}
+                className="group bg-white border border-slate-100 rounded-3xl p-8 text-left shadow-lg premium-card animate-fadeUp block"
                 style={{ animationDelay: item.delay }}
               >
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-6 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
@@ -102,7 +106,7 @@ function Home() {
                 <p className="text-slate-600 leading-relaxed text-sm">
                   {item.desc}
                 </p>
-              </div>
+              </NavLink>
             ))}
           </div>
 
@@ -200,14 +204,15 @@ function Home() {
 
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              { icon: "fa-book-open", label: "Publishing" },
-              { icon: "fa-building-columns", label: "Banking & Finance" },
-              { icon: "fa-heart-pulse", label: "Healthcare" },
-              { icon: "fa-graduation-cap", label: "Education" },
-              { icon: "fa-cart-shopping", label: "E-commerce" },
+              { icon: "fa-book-open", label: "Publishing", slug: "publishing" },
+              { icon: "fa-building-columns", label: "Banking & Finance", slug: "banking" },
+              { icon: "fa-heart-pulse", label: "Healthcare", slug: "healthcare" },
+              { icon: "fa-graduation-cap", label: "Education", slug: "education" },
+              { icon: "fa-cart-shopping", label: "E-commerce", slug: "ecommerce" },
             ].map((item, index) => (
-              <div
+              <NavLink
                 key={index}
+                to={`/industries#/${item.slug}`}
                 className="group flex flex-col items-center gap-4 px-8 py-8 rounded-[2.5rem]
                            bg-slate-50 border border-slate-100
                            premium-card animate-fadeUp"
@@ -215,7 +220,7 @@ function Home() {
               >
                 <i className={`fa-solid ${item.icon} text-3xl text-slate-400 group-hover:text-blue-600 transition-colors duration-300`}></i>
                 <span className="font-bold text-slate-700 text-base group-hover:text-slate-900">{item.label}</span>
-              </div>
+              </NavLink>
             ))}
           </div>
 

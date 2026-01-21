@@ -11,27 +11,39 @@ function Services() {
     <div className="bg-gray-50 min-h-screen font-sans text-slate-800">
       {/* ================= HERO SECTION ================= */}
       <section className="hero-section relative bg-gradient-to-br from-[#0b1120] via-[#1c4e80] to-[#0b1120] text-white py-24 px-6 overflow-hidden">
+        {/* Background Accents */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/20 rounded-full blur-[120px] animate-pulse delay-700"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
+        </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 animate-fadeUp">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight leading-tight">
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Services</span>
+          <div className="inline-block px-4 py-1.5 bg-blue-500/10 backdrop-blur-md border border-blue-400/20 text-blue-300 rounded-full text-sm font-semibold tracking-widest uppercase mb-6">
+            Expert Solutions
+          </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-[1.1]">
+            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Services</span>
           </h1>
-          <p className="text-lg md:text-xl text-blue-100 leading-relaxed max-w-2xl mx-auto font-light">
+          <p className="text-xl md:text-2xl text-blue-100/80 leading-relaxed max-w-2xl mx-auto font-light">
             We provide structured XML conversion and data processing services that help enterprises manage, validate,
-            and modernize content with consistency and technical accuracy.
+            and modernize content with absolute precision.
           </p>
 
           <NavLink
             to="/contact"
-            className="inline-block mt-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:brightness-110 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300"
+            className="inline-block mt-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold px-10 py-4 rounded-2xl shadow-2xl shadow-blue-500/20 hover:-translate-y-1.5 transition-all duration-300 group"
           >
-            Request a Quote
+            <span className="flex items-center gap-2">
+              Request a Quote
+              <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </span>
           </NavLink>
         </div>
       </section>
 
       {/* ================= XML CONVERSION SECTION ================= */}
-      <section className="bg-white section-padding px-6">
+      <section id="xml-conversion" className="bg-white section-padding px-6 scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="flex items-center gap-6 mb-10 animate-fadeUp">
@@ -46,20 +58,24 @@ function Services() {
           </p>
 
           {/* Images Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16 animate-fadeUp animation-delay-400">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-20 animate-fadeUp animation-delay-400">
             {[
-              { img: pdfToXml, title: "PDF to XML" },
-              { img: docToXml, title: "Word to XML" },
-              { img: htmlToXml, title: "HTML to XML" },
+              { img: pdfToXml, title: "PDF to XML", color: "from-blue-500/10" },
+              { img: docToXml, title: "Word to XML", color: "from-indigo-500/10" },
+              { img: htmlToXml, title: "HTML to XML", color: "from-purple-500/10" },
             ].map((item, idx) => (
-              <div key={idx} className="group relative bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-lg premium-card">
-                <div className="absolute inset-0 bg-blue-500/5 rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-56 object-contain rounded-2xl relative z-10 transition-transform duration-500 group-hover:scale-110"
-                />
-                <p className="text-center mt-6 font-bold text-xl text-slate-800 group-hover:text-blue-600 transition-colors">{item.title}</p>
+              <div key={idx} className="group relative bg-white p-8 rounded-[3rem] border border-slate-100 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                <div className={`absolute inset-0 bg-gradient-to-b ${item.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                <div className="relative z-10">
+                  <div className="aspect-square bg-slate-50 rounded-2xl flex items-center justify-center mb-6 overflow-hidden border border-slate-100/50">
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      className="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+                  <p className="text-center font-bold text-2xl text-slate-800 group-hover:text-blue-600 transition-colors uppercase tracking-tight">{item.title}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -110,49 +126,57 @@ function Services() {
         </div>
       </section>
 
-                 <hr className="border-gray-200" />
-                 
+      <hr className="border-gray-200 dark:border-white/5" />
+
       {/* ================= OTHER SERVICES GRID ================= */}
       <section className="section-padding px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto space-y-16">
 
           {/* XML Tagging */}
-          <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
-            <div>
-              <div className="w-12 h-12 bg-purple-100 flex items-center justify-center rounded-xl shadow-sm mb-6">
-                <i className="fa-solid fa-tags text-purple-600 text-2xl"></i>
+          <div id="xml-tagging" className="grid lg:grid-cols-2 gap-16 items-center animate-fadeUp scroll-mt-24">
+            <div className="space-y-8">
+              <div className="w-16 h-16 bg-purple-100 flex items-center justify-center rounded-2xl shadow-sm border border-purple-200 rotate-3">
+                <i className="fa-solid fa-code text-purple-600 text-3xl"></i>
               </div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                XML Tagging & Structuring
+              <h2 className="text-4xl font-extrabold text-slate-900 leading-tight">
+                XML Tagging & <span className="text-purple-600">Structuring</span>
               </h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                We apply structured XML tagging to organize content at a granular level. Our XML tagging services focus on consistent semantic markup that supports
-                content reuse, system compatibility, and efficient data processing.
+              <p className="text-slate-600 text-lg leading-relaxed font-light">
+                We apply structured XML tagging to organize content at a granular level. Our services focus on consistent semantic markup that supports content reuse and seamless system integration.
               </p>
-              <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl premium-card">
-                <h4 className="font-extrabold text-slate-800 mb-4 text-xl tracking-tight">Key Advantages:</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700"></div>
+                <h4 className="font-bold text-slate-800 mb-6 text-xl">Key Advantages:</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {["Improve discoverability", "Support automation", "Multi-channel delivery", "Simplify CMS integration"].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-base text-slate-600 font-light">
-                      <i className="fa-solid fa-check-circle text-purple-500"></i> {item}
+                    <div key={i} className="flex items-center gap-3 text-base text-slate-600 font-medium">
+                      <div className="w-6 h-6 rounded-full bg-purple-50 flex items-center justify-center text-purple-500 text-xs">
+                        <i className="fa-solid fa-check"></i>
+                      </div>
+                      {item}
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-            {/* Visual/Image Placeholder or abstract shape */}
-            <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
-              <div className="text-center">
-                <div className="font-mono text-sm text-left bg-gray-900 text-green-400 p-6 rounded-lg shadow-inner w-full max-w-md mx-auto">
-                  <p>&lt;article&gt;</p>
-                  <p className="pl-4">&lt;title&gt;Smart Data&lt;/title&gt;</p>
-                  <p className="pl-4">&lt;meta&gt;</p>
-                  <p className="pl-8">&lt;confidentiality&gt;high&lt;/confidentiality&gt;</p>
-                  <p className="pl-4">&lt;/meta&gt;</p>
-                  <p>&lt;/article&gt;</p>
-                </div>
-                <p className="mt-4 text-sm text-gray-500 font-medium">Semantic Tagging Example</p>
+            {/* Visual: Pro Code Preview */}
+            <div className="hidden lg:block relative p-2 bg-slate-900 rounded-[2rem] shadow-2xl border-4 border-slate-800 transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+              <div className="flex gap-1.5 mb-4 px-4 pt-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
+              <div className="font-mono text-sm leading-8 bg-slate-900 text-blue-300 p-8 rounded-xl overflow-hidden">
+                <p className="text-gray-500 italic mb-2">// Semantic XML Sample</p>
+                <p><span className="text-pink-400">&lt;article</span> <span className="text-orange-300">class</span>=<span className="text-green-400">"technical"</span><span className="text-pink-400">&gt;</span></p>
+                <p className="pl-6"><span className="text-pink-400">&lt;title&gt;</span>Smart Data Architecture<span className="text-pink-400">&lt;/title&gt;</span></p>
+                <p className="pl-6"><span className="text-pink-400">&lt;meta</span> <span className="text-orange-300">priority</span>=<span className="text-green-400">"high"</span><span className="text-pink-400">&gt;</span></p>
+                <p className="pl-12 text-gray-400">Structured Intelligence Applied</p>
+                <p className="pl-6"><span className="text-pink-400">&lt;/meta&gt;</span></p>
+                <p><span className="text-pink-400">&lt;/article&gt;</span></p>
+              </div>
+              {/* Glow */}
+              <div className="absolute -inset-4 bg-purple-500/10 blur-2xl -z-10 rounded-full"></div>
             </div>
           </div>
           {/* Details Grid */}
@@ -199,36 +223,39 @@ function Services() {
             </div>
           </div>
 
-          <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
-                    <hr className="border-t border-gray-200" />
-                </div>
+          <hr className="border-gray-200 dark:border-white/5" />
 
           {/* DTD / XSD Validation */}
-          <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
+          <div id="dtd-validation" className="grid lg:grid-cols-2 gap-16 items-center animate-fadeUp scroll-mt-24">
             {/* Swapped order for visual variety */}
-            <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100 order-last lg:order-first">
-              <img src={validationImg} alt="DTD/XSD Validation" className="w-full max-w-md h-auto object-contain" />
+            <div className="hidden lg:flex items-center justify-center relative p-8 group order-last lg:order-first overflow-hidden rounded-[3rem]">
+              <div className="absolute inset-0 bg-cyan-500/5 rounded-[3rem] blur-3xl group-hover:bg-cyan-500/10 transition-colors"></div>
+              <img
+                src={validationImg}
+                alt="DTD/XSD Validation"
+                className="relative z-10 w-full max-w-md h-auto object-contain transition-transform duration-700 group-hover:scale-105 scale-[1.01]"
+              />
             </div>
-            <div>
-              <div className="w-12 h-12 bg-cyan-100 flex items-center justify-center rounded-xl shadow-sm mb-6">
-                <i className="fa-solid fa-check-double text-cyan-600 text-2xl"></i>
+            <div className="space-y-8">
+              <div className="w-16 h-16 bg-cyan-100 flex items-center justify-center rounded-2xl shadow-sm border border-cyan-200 -rotate-3">
+                <i className="fa-solid fa-square-check text-cyan-600 text-3xl"></i>
               </div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                DTD / XSD Validation
+              <h2 className="text-4xl font-extrabold text-slate-900 leading-tight">
+                DTD / XSD <span className="text-cyan-600">Validation</span>
               </h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                We validate XML documents against defined DTD and XSD schemas to identify structural inconsistencies
-                and formatting issues. Our validation services help ensure XML files align with expected specifications and function correctly within enterprise systems.
+              <p className="text-slate-600 text-lg leading-relaxed font-light">
+                We validate XML documents against defined DTD and XSD schemas to identify structural inconsistencies. Our services ensure files align with specifications and function correctly in enterprise systems.
               </p>
-              <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl premium-card">
-                <h4 className="font-extrabold text-slate-800 mb-4 text-xl tracking-tight">Why it matters:</h4>
-                <ul className="space-y-4">
+              <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 dark:border-transparent shadow-xl space-y-4">
+                <h4 className="font-bold text-slate-800 mb-2 text-xl">Why it matters:</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {["Reduce integration issues", "Improve interoperability", "Ensure schema compliance", "Reduce downstream errors"].map((item, i) => (
-                    <li key={i} className="flex items-center gap-4 text-base text-slate-600 font-light">
-                      <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span> {item}
-                    </li>
+                    <div key={i} className="flex items-center gap-3 text-base text-slate-600 font-medium">
+                      <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                      {item}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -276,31 +303,31 @@ function Services() {
             </div>
           </div>
 
-          <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
-                    <hr className="border-t border-gray-200" />
-          </div>
+          <hr className="border-gray-200 dark:border-white/5" />
 
           {/* Content Digitization */}
-          <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
-            <div>
-              <div className="w-12 h-12 bg-orange-100 flex items-center justify-center rounded-xl shadow-sm mb-6">
-                <i className="fa-solid fa-print text-orange-600 text-2xl"></i>
+          <div id="content-digitization" className="grid lg:grid-cols-2 gap-16 items-center animate-fadeUp scroll-mt-24">
+            <div className="space-y-8">
+              <div className="w-16 h-16 bg-orange-100 flex items-center justify-center rounded-2xl shadow-sm border border-orange-200 rotate-6">
+                <i className="fa-solid fa-file-pdf text-orange-600 text-3xl"></i>
               </div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Content Digitization
+              <h2 className="text-4xl font-extrabold text-slate-900 leading-tight">
+                Content <span className="text-orange-600">Digitization</span>
               </h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                We convert physical documents and print-based materials into searchable, structured digital formats.
-                Our content digitization services combine reliable scanning processes with careful quality review to support long-term access and usability.
+              <p className="text-slate-600 text-lg leading-relaxed font-light">
+                We convert physical documents and print-based materials into searchable, structured digital formats using advanced scanning and OCR technology.
               </p>
-
-              
             </div>
-            <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
-              <img src={contentDigitizationImg} alt="Content Digitization" className="w-full max-w-md h-auto object-contain" />
+            <div className="hidden lg:flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem]">
+              <div className="absolute inset-0 bg-orange-500/5 rounded-[3rem] blur-3xl group-hover:bg-orange-500/10 transition-colors"></div>
+              <img
+                src={contentDigitizationImg}
+                alt="Content Digitization"
+                className="relative z-10 w-full max-w-md h-auto object-contain transition-transform duration-700 group-hover:scale-105 scale-[1.01]"
+              />
             </div>
           </div>
-          
+
           {/* Details Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
             {/* Service Scope Card */}
@@ -344,44 +371,32 @@ function Services() {
               </ul>
             </div>
           </div>
-
-                <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
-                    <hr className="border-t border-gray-200" />
-                </div>
+          <hr className="border-gray-200 dark:border-white/5" />
 
 
           {/* Data Quality and Validation */}
-          <div className="grid lg:grid-cols-2 gap-10 items-center animate-fadeUp">
-            <div>
-              <div className="w-12 h-12 bg-orange-100 flex items-center justify-center rounded-xl shadow-sm mb-6">
-                <i className="fa-solid fa-print text-orange-600 text-2xl"></i>
+          <div id="data-quality" className="grid lg:grid-cols-2 gap-16 items-center animate-fadeUp scroll-mt-24">
+            <div className="space-y-8">
+              <div className="w-16 h-16 bg-blue-100 flex items-center justify-center rounded-2xl shadow-sm border border-blue-200">
+                <i className="fa-solid fa-clipboard-check text-blue-600 text-3xl"></i>
               </div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Data Quality & Validation
+              <h2 className="text-4xl font-extrabold text-slate-900 leading-tight">
+                Data Quality & <span className="text-blue-600">Validation</span>
               </h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                We support high data quality through structured validation and review processes. Our data quality services
-                combine automated checks with experienced human review to identify inconsistencies, reduce errors, and
-                improve overall data reliability.
+              <p className="text-slate-600 text-lg leading-relaxed font-light">
+                We support high data quality through structured validation and review processes. Our services identify inconsistencies and reduce errors to improve overall data reliability.
               </p>
-              
-
-              {/* <div className="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
-                <div className="flex flex-wrap gap-3">
-                  {["High-res scanning", "Image cleanup", "Searchable PDF", "Digital archiving"].map((tag, i) => (
-                    <span key={i} className="bg-white px-3 py-1 rounded-full text-xs font-semibold text-orange-600 border border-orange-200 shadow-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div> */}
-
             </div>
-            <div className="hidden lg:flex items-center justify-center p-10 bg-white rounded-3xl shadow-lg border border-gray-100">
-              <img src={DataqualityandValidation} alt="Data Quality and Validation" className="w-full max-w-md h-auto object-contain" />
+            <div className="hidden lg:flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem]">
+              <div className="absolute inset-0 bg-blue-500/5 rounded-[3rem] blur-3xl group-hover:bg-blue-500/10 transition-colors"></div>
+              <img
+                src={DataqualityandValidation}
+                alt="Data Quality and Validation"
+                className="relative z-10 w-full max-w-md h-auto object-contain transition-transform duration-700 group-hover:scale-105 scale-[1.01]"
+              />
             </div>
           </div>
-          
+
           {/* Details Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fadeUp animation-delay-500">
             {/* Service Scope Card */}
@@ -464,7 +479,7 @@ function Services() {
         </div>
       </section>
 
-      
+
     </div>
   );
 }

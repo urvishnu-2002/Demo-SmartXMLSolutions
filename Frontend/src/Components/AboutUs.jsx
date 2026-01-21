@@ -180,7 +180,7 @@ const AboutUs = () => {
       </section>
 
       {/* ================= STORY & IMAGE ================= */}
-      <section className="py-16 md:py-24 px-6">
+      <section className="py-16 md:py-24 px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className={`space-y-8 transition-all duration-1000 delay-300 transform ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
             <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-sm font-semibold tracking-wide uppercase">
@@ -214,7 +214,7 @@ const AboutUs = () => {
       </section>
 
       {/* ================= MISSION & VISION ================= */}
-      <section className="py-16 md:py-24 bg-white px-6">
+      <section className="py-16 md:py-24 bg-white px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
           <div className="group bg-slate-50 p-6 md:p-12 rounded-[2.5rem] border border-slate-100 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 animate-fadeUp">
             <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-8 text-3xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
@@ -281,13 +281,13 @@ const AboutUs = () => {
       </section>
 
       {/* ================= TECHNICAL EXPERTISE ================= */}
-      <section className="py-16 md:py-24 px-6 bg-slate-50">
+      <section className="py-16 md:py-24 px-6 bg-slate-50 overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
           <div className="flex-[3] animate-fadeUp">
             <h2 className="text-4xl font-bold text-slate-800 mb-8 leading-tight">Technical Expertise</h2>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
               Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
-             Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
+              Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -315,8 +315,8 @@ const AboutUs = () => {
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500 rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-pulse"></div>
 
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold mb-8">Quality Commitment</h3>
-              <div className="space-y-10">
+              <h3 className="text-2xl font-bold mb-15">Quality Commitment</h3>
+              <div className="space-y-10 ">
                 {[
                   { label: "Consistently High Accuracy Levels", val: "99.9%" },
                   { label: "Reliable Project Timelines", val: "98%" },

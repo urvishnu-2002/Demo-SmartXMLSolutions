@@ -15,15 +15,14 @@ html.dark {
   color-scheme: dark;
 }
 
-html.dark body {
-  background-color: #0b1120 !important;
-  color: #f8fafc !important;
-  overflow-x: hidden;
-}
-
+html,
 body {
   overflow-x: hidden;
+  max-width: 100%;
   width: 100%;
+  position: relative;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* =========================================
@@ -55,34 +54,64 @@ html.dark .premium-card:hover {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* Main inversion for light sections - EXCLUDING HEROES */
-html.dark [class*="bg-white"]:not(button):not(a):not(.hero-section),
-html.dark [class*="bg-slate-50"]:not(button):not(a):not(.hero-section),
-html.dark [class*="bg-gray-50"]:not(button):not(a):not(.hero-section) {
+/* Main inversion for light sections and gradients - EXCLUDING HEROES */
+html.dark [class*="bg-white"]:not(button):not(.hero-section),
+html.dark [class*="bg-slate-50"]:not(button):not(.hero-section),
+html.dark [class*="bg-gray-50"]:not(button):not(.hero-section),
+html.dark [class*="from-white"]:not(.hero-section),
+html.dark [class*="from-slate-50"]:not(.hero-section),
+html.dark [class*="from-gray-50"]:not(.hero-section) {
   background-color: #0b1120 !important;
+  background-image: none !important;
 }
 
-/* Force light color on dark text - EXCLUDING HEROES */
-html.dark :not(.hero-section) [class*="text-slate-900"],
-html.dark :not(.hero-section) [class*="text-slate-800"],
-html.dark :not(.hero-section) [class*="text-gray-900"],
-html.dark :not(.hero-section) [class*="text-black"] {
-  color: #f1f5f9 !important;
+/* Force pure white high-contrast color on headings and dark text */
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6,
+html.dark [class*="text-slate-900"],
+html.dark [class*="text-slate-800"],
+html.dark [class*="text-gray-900"],
+html.dark [class*="text-black"] {
+  color: #ffffff !important;
 }
 
-html.dark :not(.hero-section) [class*="text-slate-700"],
-html.dark :not(.hero-section) [class*="text-slate-600"],
-html.dark :not(.hero-section) [class*="text-slate-500"],
-html.dark :not(.hero-section) [class*="text-slate-400"] {
-  color: #94a3b8 !important;
+/* Force slightly dimmed white on secondary text */
+html.dark [class*="text-slate-700"],
+html.dark [class*="text-slate-600"],
+html.dark [class*="text-slate-500"],
+html.dark [class*="text-slate-400"] {
+  color: #f8fafc !important;
 }
 
-/* Ensure White Buttons/Links stay readable and pop in dark mode */
+/* Lighten blue accents in dark mode */
+html.dark [class*="text-blue-600"],
+html.dark [class*="text-blue-700"] {
+  color: #60a5fa !important;
+}
+
 /* Ensure White Buttons/Links stay readable and pop in dark mode */
 html.dark button[class*="bg-white"],
 html.dark a[class*="bg-white"] {
   background-color: #f8fafc !important;
   color: #1e3a8a !important;
+}
+
+/* Form Inputs in Dark Mode */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border-color: #334155 !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #94a3b8 !important;
 }
 
 /* Specific background fix for light elements in dark mode */
@@ -221,11 +250,11 @@ html.dark [class*="shadow-"] {
 
 @keyframes heroZoom {
   0% {
-    transform: scale(1);
+    transform: scale(1) translate(0, 0);
   }
 
   100% {
-    transform: scale(1.1);
+    transform: scale(1.15) translate(-2%, -1%);
   }
 }
 
@@ -255,7 +284,7 @@ html.dark [class*="shadow-"] {
 }
 
 .animate-zoomIn {
-  animation: heroZoom 20s linear infinite alternate;
+  animation: heroZoom 10s ease-in-out infinite alternate;
 }
 
 .animate-zoomInPanel {

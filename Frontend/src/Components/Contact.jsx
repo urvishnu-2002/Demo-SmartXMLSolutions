@@ -97,7 +97,7 @@ function Contact() {
 
 
       <section className="section-padding px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-start py-12">
-        
+
         {/* Left: Contact Details */}
         <div className="space-y-8 animate-fadeUp">
           <div>
@@ -126,7 +126,7 @@ function Contact() {
           </div>
 
           {/* What to Expect */}
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
+          {/* <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
             <h3 className="text-xl font-bold mb-4 relative z-10">What to Expect</h3>
             <ul className="space-y-3 relative z-10">
@@ -137,7 +137,7 @@ function Contact() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
 
         {/* Right: Contact Form */}
@@ -219,6 +219,78 @@ function Contact() {
           </form>
         </div>
       </section>
+      <section className="px-6 max-w-7xl mx-auto pb-24 animate-fadeUp animation-delay-500">
+        <div className="grid lg:grid-cols-2 gap-0 bg-white rounded-[3rem] shadow-2xl border border-slate-100 overflow-hidden dark:bg-slate-900/50 dark:border-white/5">
+
+          {/* Left Side: Address Details */}
+          <div className="p-10 md:p-16 flex flex-col justify-center space-y-8 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-800">
+            <div>
+              <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                Priyansh Technologies
+              </h3>
+              <p className="text-slate-600 text-lg leading-relaxed dark:text-slate-400">
+                4Th floor, Jaihind Enclave, Plot number 45, near Blue dart courier,
+                Cyber Hills Colony, VIP Hills, Silicon Valley, Madhapur, Hyderabad,
+                Telangana 500081
+              </p>
+            </div>
+
+            <div className="flex items-center gap-4 py-4 border-y border-slate-200 dark:border-white/10">
+              <div className="flex items-center gap-1 text-orange-400">
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star-half-stroke"></i>
+                <span className="font-bold text-slate-900 ml-2 dark:text-white">4.7</span>
+              </div>
+              <span className="text-slate-500 dark:text-slate-400">79 reviews</span>
+            </div>
+
+            {/* <div className="flex flex-wrap gap-6 items-center pt-4">
+              <a
+                href="https://www.google.com/maps/dir//Priyansh+technologies/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bcb9100292f285d:0x908b88b13c2183a9!2m2!1d78.3866!2d17.4469"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors"
+              >
+                <i className="fa-solid fa-diamond-turn-right text-xl"></i>
+                Directions
+              </a>
+              <a
+                href="https://www.google.com/maps/place/Priyansh+technologies/@17.4469958,78.3840252,17z"
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 font-semibold hover:underline"
+              >
+                View larger map
+              </a>
+            </div> */}
+          </div>
+
+          {/* Right Side: Map Iframe */}
+          <div className="h-[400px] lg:h-auto min-h-[500px] relative group cursor-pointer overflow-hidden">
+            <iframe
+              title="Priyansh Technologies Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2656312065938!2d78.38402517420629!3d17.446995783450394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9100292f285d%3A0x908b88b13c2183a9!2sPriyansh%20technologies!5e0!3m2!1sen!2sin!4v1768971514528!5m2!1sen!2sin"
+              className="absolute inset-0 w-full h-full border-0 transition-all duration-700 group-hover:scale-105"
+              loading="lazy"
+              allowFullScreen
+            />
+            {/* Clickable Overlay */}
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Priyansh+technologies+Madhapur+Hyderabad"
+              target="_blank"
+              rel="noreferrer"
+              className="absolute inset-0 z-20 bg-transparent cursor-pointer"
+              title="Click to open in Google Maps"
+            />
+          </div>
+
+        </div>
+      </section>
+
+
 
     </div>
   );
