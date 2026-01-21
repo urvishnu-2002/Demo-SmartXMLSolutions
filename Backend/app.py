@@ -2,9 +2,6 @@ import os
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient, ReturnDocument
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -12,7 +9,7 @@ CORS(app)
 # ==============================
 # MONGODB CONNECTION
 # ==============================
-MONGO_URI = os.getenv("MONGO_URI")
+MONGO_URI="mongodb+srv://urvishnu:urvishnu1546@mydbcluster.kczb8ak.mongodb.net/?appName=MyDbCluster"
 client = MongoClient(MONGO_URI)
 db = client["SmartXML_DB"]
 
