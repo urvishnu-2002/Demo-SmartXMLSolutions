@@ -168,7 +168,7 @@ function SmartXMLChatbot() {
               </div>
 
               {/* Messages Area */}
-              <div className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-[#030617]">
+              <div className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-[#030617] messages-area">
                 {messages.map((msg) => (
                   <div
                     key={msg.id}
@@ -178,7 +178,7 @@ function SmartXMLChatbot() {
                     <div
                       className={`max-w-[80%] p-3 rounded-2xl text-sm transition-all shadow-sm ${msg.sender === "user"
                         ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-tr-none shadow-md shadow-blue-500/10"
-                        : "bg-white dark:bg-[#2d3748] text-gray-800 dark:text-white border border-gray-100 dark:border-white/10 rounded-tl-none"
+                        : "bg-white dark:bg-[#2d3748] text-gray-800 dark:text-white dark:!text-white border border-gray-100 dark:border-white/10 rounded-tl-none"
                         }`}
                     >
                       {msg.text}
@@ -220,7 +220,7 @@ function SmartXMLChatbot() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Type your message..."
-                    className="flex-1 border border-gray-200 dark:border-white/10 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-[#1f2937] text-black dark:text-white transition-all"
+                    className="flex-1 border border-gray-200 dark:border-white/10 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-[#1f2937] text-black dark:text-white dark:!text-white transition-all"
                   />
                   <button
                     onClick={() => sendMessage()}
