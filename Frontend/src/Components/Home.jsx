@@ -28,10 +28,7 @@ function Home() {
           </h1>
 
           <p className="mt-4 max-w-2xl mx-auto text-slate-200 text-lg md:text-xl leading-relaxed animate-fadeUp animation-delay-200">
-            We help organizations convert unstructured and legacy content into
-            clean, well-structured XML and digital formats. Our services enable
-            smoother system integration, better data access, and long-term
-            content usability.
+            We help organizations convert unstructured and legacy content into clean, well-structured XML and digital formats. Our services enable smoother system integration, improved data access, efficient business process outsourcing, and long-term content usability.
           </p>
 
           <div className="mt-8 flex gap-6 flex-wrap justify-center animate-fadeUp animation-delay-400">

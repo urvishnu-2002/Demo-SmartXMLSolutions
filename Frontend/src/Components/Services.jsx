@@ -160,7 +160,7 @@ function Services() {
               </div>
             </div>
             {/* Visual: Pro Code Preview */}
-            <div className="hidden lg:block relative p-2 bg-slate-900 rounded-[2rem] shadow-2xl border-4 border-slate-800 transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="relative p-2 bg-slate-900 rounded-[2rem] shadow-2xl border-4 border-slate-800 transform lg:rotate-2 hover:rotate-0 transition-transform duration-500 mt-12 lg:mt-0">
               <div className="flex gap-1.5 mb-4 px-4 pt-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -228,7 +228,7 @@ function Services() {
           {/* DTD / XSD Validation */}
           <div id="dtd-validation" className="grid lg:grid-cols-2 gap-16 items-center animate-fadeUp scroll-mt-24">
             {/* Swapped order for visual variety */}
-            <div className="hidden lg:flex items-center justify-center relative p-8 group order-last lg:order-first overflow-hidden rounded-[3rem]">
+            <div className="flex items-center justify-center relative p-8 group order-last lg:order-first overflow-hidden rounded-[3rem]">
               <div className="absolute inset-0 bg-cyan-500/5 rounded-[3rem] blur-3xl group-hover:bg-cyan-500/10 transition-colors"></div>
               <img
                 src={validationImg}
@@ -318,7 +318,7 @@ function Services() {
                 We convert physical documents and print-based materials into searchable, structured digital formats using advanced scanning and OCR technology.
               </p>
             </div>
-            <div className="hidden lg:flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem]">
+            <div className="flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem] mt-8 lg:mt-0">
               <div className="absolute inset-0 bg-orange-500/5 rounded-[3rem] blur-3xl group-hover:bg-orange-500/10 transition-colors"></div>
               <img
                 src={contentDigitizationImg}
@@ -387,7 +387,7 @@ function Services() {
                 We support high data quality through structured validation and review processes. Our services identify inconsistencies and reduce errors to improve overall data reliability.
               </p>
             </div>
-            <div className="hidden lg:flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem]">
+            <div className="flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem] mt-8 lg:mt-0">
               <div className="absolute inset-0 bg-blue-500/5 rounded-[3rem] blur-3xl group-hover:bg-blue-500/10 transition-colors"></div>
               <img
                 src={DataqualityandValidation}

@@ -270,9 +270,9 @@ const AboutUs = () => {
       {/* ================= SERVICES GRAPH ================= */}
       <section className="py-16 md:py-24 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-16 text-center animate-fadeUp">
-            <h2 className="text-4xl font-bold text-slate-800 mb-4">Our Service Portfolio</h2>
-            <p className="text-slate-500 text-lg font-light">A breakdown of our specialized data and XML services</p>
+          <div className="mb-8 text-center animate-fadeUp">
+            <div className=" text-4xl font-bold text-slate-800 mb-4">Our Service Portfolio</div>
+            <div className="text-slate-500 text-lg font-light">A breakdown of our specialized data and XML services</div>
           </div>
           <div className="animate-fadeUp animation-delay-200">
             <ServicesPieChart />
@@ -287,7 +287,6 @@ const AboutUs = () => {
             <h2 className="text-4xl font-bold text-slate-800 mb-8 leading-tight">Technical Expertise</h2>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light">
               Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
-              Our team applies strong technical knowledge and hands-on experience to enterprise data processing projects.We follow established XML standards and continuously refine our methods to ensure reliable, scalable,and maintainable results.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -298,8 +297,6 @@ const AboutUs = () => {
                 "Content Management System Integration",
                 "Legacy Data Migration",
                 "Automated Quality Review Processes",
-                "High-Volume Batch Data Processing",
-                "Custom Workflow Configuration",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-200 hover:border-blue-300 transition-all group hover:shadow-lg hover:-translate-y-1">
                   <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
