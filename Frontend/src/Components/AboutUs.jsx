@@ -297,7 +297,7 @@ const AboutUs = () => {
                 "XSLT Stylesheet Development",
                 "Content Management System Integration",
                 "Legacy Data Migration",
-                "• Automated Quality Review Processes",
+                "Automated Quality Review Processes",
                 "High-Volume Batch Data Processing",
                 "Custom Workflow Configuration",
               ].map((item, i) => (
