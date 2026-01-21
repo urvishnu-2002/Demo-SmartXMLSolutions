@@ -26,8 +26,7 @@ function Services() {
             Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Services</span>
           </h1>
           <p className="text-xl md:text-2xl text-blue-100/80 leading-relaxed max-w-2xl mx-auto font-light">
-            We provide structured XML conversion and data processing services that help enterprises manage, validate,
-            and modernize content with absolute precision.
+            We provide structured XML conversion and data processing services that help enterprises manage, validate, and modernize content with consistency and technical accuracy.
           </p>
 
           <NavLink
@@ -142,7 +141,7 @@ function Services() {
                 XML Tagging & <span className="text-purple-600">Structuring</span>
               </h2>
               <p className="text-slate-600 text-lg leading-relaxed font-light">
-                We apply structured XML tagging to organize content at a granular level. Our services focus on consistent semantic markup that supports content reuse and seamless system integration.
+                We apply structured XML tagging to organize content at a granular level. Our XML tagging services focus on consistent semantic markup that supports content reuse, system compatibility, and efficient data processing.
               </p>
               <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700"></div>
@@ -315,7 +314,7 @@ function Services() {
                 Content <span className="text-orange-600">Digitization</span>
               </h2>
               <p className="text-slate-600 text-lg leading-relaxed font-light">
-                We convert physical documents and print-based materials into searchable, structured digital formats using advanced scanning and OCR technology.
+                We convert physical documents and print-based materials into searchable, structured digital formats. Our content digitization services combine reliable scanning processes with careful quality review to support long-term access and usability.
               </p>
             </div>
             <div className="flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem] mt-8 lg:mt-0">
@@ -384,7 +383,7 @@ function Services() {
                 Data Quality & <span className="text-blue-600">Validation</span>
               </h2>
               <p className="text-slate-600 text-lg leading-relaxed font-light">
-                We support high data quality through structured validation and review processes. Our services identify inconsistencies and reduce errors to improve overall data reliability.
+                We support high data quality through structured validation and review processes. Our data quality services combine automated checks with experienced human review to identify inconsistencies, reduce errors, and improve overall data reliability.
               </p>
             </div>
             <div className="flex items-center justify-center relative p-8 group overflow-hidden rounded-[3rem] mt-8 lg:mt-0">
@@ -457,17 +456,16 @@ function Services() {
             <i className="fa-solid fa-medal text-3xl"></i>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Data Quality & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Validation</span></h2>
+          <h2 className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Quality <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Assurance</span></h2>
           <p className="text-gray-400 text-lg md:text-xl mb-16 max-w-3xl mx-auto font-light leading-relaxed">
             We support high data quality through structured validation and review processes.
-            Our data quality services combine automated checks with experienced human review to identify inconsistencies, reduce errors, and improve overall data reliability.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {[
               { label: "High Accuracy", val: "99.9%" },
               { label: "Reduced Rework", val: "↓ 40%" },
-              { label: "Reliable Outputs", val: "99.9%" },
+              { label: "Reliable Outputs", val: "98.9%" },
               // { label: "Compliance", val: "ISO" }
             ].map((stat, i) => (
               <div key={i} className="bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 premium-card group shadow-2xl">
