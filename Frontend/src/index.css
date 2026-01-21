@@ -91,10 +91,32 @@ html.dark [class*="text-gray-500"] {
   color: #f8fafc !important;
 }
 
-/* Lighten blue accents in dark mode */
+/* Lighten colored accents in dark mode */
 html.dark [class*="text-blue-600"],
-html.dark [class*="text-blue-700"] {
-  color: #60a5fa !important;
+html.dark [class*="text-blue-700"],
+html.dark [class*="text-purple-600"],
+html.dark [class*="text-purple-500"],
+html.dark [class*="text-cyan-600"],
+html.dark [class*="text-cyan-500"],
+html.dark [class*="text-orange-600"],
+html.dark [class*="text-orange-500"] {
+  color: #93c5fd !important;
+  /* Default to light blue-ish for contrast if safe, or more specific colors */
+}
+
+html.dark [class*="text-purple-600"],
+html.dark [class*="text-purple-500"] {
+  color: #c084fc !important;
+}
+
+html.dark [class*="text-cyan-600"],
+html.dark [class*="text-cyan-500"] {
+  color: #22d3ee !important;
+}
+
+html.dark [class*="text-orange-600"],
+html.dark [class*="text-orange-500"] {
+  color: #fb923c !important;
 }
 
 /* Ensure White Buttons/Links stay readable and pop in dark mode */
@@ -120,8 +142,14 @@ html.dark textarea::placeholder {
 
 /* Specific background fix for light elements in dark mode */
 html.dark [class*="bg-blue-50"]:not(.hero-section),
+html.dark [class*="bg-purple-50"]:not(.hero-section),
+html.dark [class*="bg-cyan-50"]:not(.hero-section),
+html.dark [class*="bg-orange-50"]:not(.hero-section),
+html.dark [class*="bg-cyan-100"]:not(.hero-section),
+html.dark [class*="bg-purple-100"]:not(.hero-section),
+html.dark [class*="bg-orange-100"]:not(.hero-section),
 html.dark [class*="bg-slate-100"]:not(.hero-section) {
-  background-color: rgba(30, 64, 175, 0.2) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* .no-dark utility to exempt sections from dark mode inversion */
