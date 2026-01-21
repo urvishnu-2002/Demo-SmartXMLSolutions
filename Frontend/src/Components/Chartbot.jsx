@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const API_URL = "http://localhost:5000"; // Flask backend URL
+
 /**
  * Smart XML Solutions – Chatbot Widget
- * Floating assistant with predefined professional responses
+ * Connected with Flask Backend APIs
  */
-
-function SmartXMLChatbot({ isVisible = true }) {
+function SmartXMLChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -20,48 +21,71 @@ function SmartXMLChatbot({ isVisible = true }) {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  /* Auto-scroll */
+  // Auto-scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  /* ================= BOT RESPONSE LOGIC ================= */
-  const getBotResponse = (query) => {
+  /* ================= API CALLS ================= */
+
+  // GET SERVICES from Flask
+  const fetchServices = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/chatbot/get`);
+      if (!res.ok) throw new Error("Failed");
+      const data = await res.json();
+
+      return `
+Our Services:
+• XML Conversion: ${data.xml_conversion}%
+• Tagging & Structuring: ${data.tagging_structuring}%
+• Validation: ${data.validation}%
+• Digitization: ${data.digitization}%
+• Quality Services: ${data.quality_services}%
+      `;
+    } catch (error) {
+      console.error(error);
+      return "Unable to fetch services right now.";
+    }
+  };
+
+  /* ================= BOT RESPONSE ================= */
+
+  const getBotResponse = async (query) => {
     const q = query.toLowerCase();
 
-    if (q.includes("service") || q.includes("what do you")) {
-      return "We specialize in XML Conversion, XML Tagging, DTD/XSD Validation, Content Digitization, and Data Quality Services. Would you like details about a specific service?";
+    // Keywords to call Flask `/chat` endpoint
+    if (
+      q.includes("service") ||
+      q.includes("what do you") ||
+      q.includes("xml") ||
+      q.includes("industry") ||
+      q.includes("sector") ||
+      q.includes("contact") ||
+      q.includes("hello") ||
+      q.includes("hi")
+    ) {
+      try {
+        const res = await fetch(`${API_URL}/chatbot`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: query }),
+        });
+        if (!res.ok) throw new Error("Failed");
+        const data = await res.json();
+        return data.reply;
+      } catch (err) {
+        console.error(err);
+        return "Sorry, I couldn't reach the server.";
+      }
     }
 
-    if (q.includes("xml")) {
-      return "Smart XML Solutions helps organizations structure, validate, and manage XML data efficiently across publishing, healthcare, finance, and enterprise systems.";
-    }
-
-    if (q.includes("industry") || q.includes("sector")) {
-      return "We serve industries including Banking & Finance, Healthcare, Publishing, Education, and E-Commerce.";
-    }
-
-    if (q.includes("contact") || q.includes("email") || q.includes("reach")) {
-      return "You can contact us at info@smartxmlsolutions.com or use the Contact page to send us your project details.";
-    }
-
-    if (q.includes("quote") || q.includes("pricing") || q.includes("cost")) {
-      return "Pricing depends on project scope and volume. Please request a quote through our Contact page for a tailored estimate.";
-    }
-
-    if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
-      return "Hello! 👋 I'm here to help you with Smart XML Solutions services.";
-    }
-
-    if (q.includes("thank")) {
-      return "You're welcome! Let me know if you need anything else 😊";
-    }
-
-    return "Thanks for reaching out. For detailed assistance, please share your requirements through our Contact page and our team will get back to you shortly.";
+    return "Thanks for reaching out. Please share your requirement and our team will assist you.";
   };
 
   /* ================= SEND MESSAGE ================= */
-  const sendMessage = () => {
+
+  const sendMessage = async () => {
     if (!input.trim()) return;
 
     const userMsg = {
@@ -75,19 +99,20 @@ function SmartXMLChatbot({ isVisible = true }) {
     setInput("");
     setIsTyping(true);
 
-    setTimeout(() => {
-      const botMsg = {
-        id: Date.now() + 1,
-        sender: "bot",
-        text: getBotResponse(userMsg.text),
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
-    }, 900);
+    const botReply = await getBotResponse(userMsg.text);
+
+    const botMsg = {
+      id: Date.now() + 1,
+      sender: "bot",
+      text: botReply,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, botMsg]);
+    setIsTyping(false);
   };
 
-  /* Enter key support */
+  // Enter key support
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -96,7 +121,7 @@ function SmartXMLChatbot({ isVisible = true }) {
   };
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 transition-all duration-500 transform ${isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none"}`}>
+    <div className="fixed bottom-6 right-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -105,8 +130,8 @@ function SmartXMLChatbot({ isVisible = true }) {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl overflow-hidden"
           >
-            {/* ================= HEADER ================= */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white flex justify-between items-center">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white flex justify-between items-center">
               <div>
                 <h3 className="font-semibold">Smart XML Assistant</h3>
                 <p className="text-xs opacity-80">Online</p>
@@ -114,50 +139,44 @@ function SmartXMLChatbot({ isVisible = true }) {
               <button onClick={() => setIsOpen(false)}>✕</button>
             </div>
 
-            {/* ================= MESSAGES ================= */}
-            <div className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-50">
+            {/* Messages */}
+            <div className="h-80 overflow-y-auto p-4 space-y-4">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
-                  className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"
-                    }`}
+                  className={`flex ${
+                    msg.sender === "user" ? "justify-end" : "justify-start"
+                  }`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.sender === "user"
-                        ? "bg-blue-600 text-white rounded-br-md"
-                        : "bg-white text-gray-700 shadow rounded-bl-md"
-                      }`}
+                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                      msg.sender === "user"
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200 text-black"
+                    }`}
                   >
                     {msg.text}
                   </div>
                 </div>
               ))}
 
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-white p-3 rounded-2xl shadow text-sm">
-                    Typing…
-                  </div>
-                </div>
-              )}
-
+              {isTyping && <div className="text-sm text-gray-500">Typing…</div>}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* ================= INPUT ================= */}
-            <div className="p-4 border-t bg-white flex gap-2">
+            {/* Input */}
+            <div className="p-4 border-t flex gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="flex-1 border rounded-lg px-3 py-2 text-sm"
               />
               <button
                 onClick={sendMessage}
-                disabled={!input.trim()}
-                className="bg-blue-600 text-white px-4 rounded-lg disabled:opacity-50"
+                className="bg-blue-600 text-white px-4 rounded-lg"
               >
                 Send
               </button>
@@ -166,14 +185,14 @@ function SmartXMLChatbot({ isVisible = true }) {
         )}
       </AnimatePresence>
 
-      {/* ================= FLOATING BUTTON ================= */}
+      {/* Floating Button */}
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg flex items-center justify-center"
+        className="w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center"
       >
-        <i className="fa-regular fa-comment-dots text-2xl"></i>
+        💬
       </motion.button>
     </div>
   );
