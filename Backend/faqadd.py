@@ -1,181 +1,24 @@
-import os
-from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
-from pymongo import MongoClient, ReturnDocument
+from pymongo import MongoClient
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-app = Flask(__name__)
-CORS(app)
-
-# ==============================
-# MONGODB CONNECTION
-# ==============================
+# Connect to MongoDB
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["SmartXML_DB"]
-
-services_col = db["services"]
-contacts_col = db["contactinfo"]
-counters_col = db["counters"] # To manage auto-incrementing IDs
 querries_col = db["faq_data"]
 
-def get_next_sequence(name):
-    """Generates a simple integer ID (1, 2, 3...)"""
-    count_doc = counters_col.find_one_and_update(
-        {"_id": name},
-        {"$inc": {"seq": 1}},
-        upsert=True,
-        return_document=ReturnDocument.AFTER
-    )
-    return count_doc["seq"]
-
-def initialize_db():
-    try:
-        client.admin.command('ping')
-        if services_col.count_documents({"service_id": 1}) == 0:
-            services_col.insert_one({
-                "service_id": 1,
-                "xml_conversion": 35,
-                "tagging_structuring": 20,
-                "validation": 15,
-                "digitization": 10,
-                "quality_services": 20
-            })
-        print("✅ MongoDB Atlas Connected & Initialized")
-    except Exception as e:
-        print(f"❌ Connection Error: {e}")
-
-initialize_db()
-
-# ==============================
-# CONTACT ROUTES
-# ==============================
-
-@app.route("/api/contacts/all", methods=["GET"])
-def get_all_contacts():
-    contacts = list(contacts_col.find().sort("cid", -1)) # Newest first
-    output = []
-    for c in contacts:
-        output.append({
-            "id": c.get("cid"), # Using our custom simple integer ID
-            "name": c.get("contactname"),
-            "email": c.get("contactmail"),
-            "phone": c.get("contactno"),
-            "message": c.get("contactmsg")
-        })
-    return jsonify(output), 200
-
-@app.route("/api/contact/save", methods=["POST"])
-def contact_form():
-    data = request.json
-    email = data.get("email")
-    phone = data.get("phone")
-
-    # Check for Unique Email or Phone
-    existing = contacts_col.find_one({
-        "$or": [
-            {"contactmail": email},
-            {"contactno": phone}
-        ]
-    })
-
-    if existing:
-        return jsonify({"error": "Email or Phone Number already exists. Please use another one."}), 409
-
-    try:
-        contacts_col.insert_one({
-            "cid": get_next_sequence("contact_id"), # Auto-incrementing 1, 2, 3...
-            "contactname": data.get("name"),
-            "contactmail": email,
-            "contactno": phone,
-            "contactmsg": data.get("message")
-        })
-        return jsonify({"message": "✅ Message Sent Successfully!"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route("/api/contact/delete/<int:contact_id>", methods=["DELETE"])
-def delete_contact(contact_id):
-    # Now we just filter by the simple integer 'cid'
-    result = contacts_col.delete_one({"cid": contact_id})
-    if result.deleted_count > 0:
-        return jsonify({"success": True}), 200
-    return jsonify({"success": False, "message": "Record not found"}), 404
-
-# ==============================
-# SERVICE ROUTES (Same as before)
-# ==============================
-@app.route("/api/service/get", methods=["GET"])
-def get_service():
-    service = services_col.find_one({"service_id": 1}, {"_id": 0})
-    return jsonify(service) if service else (jsonify({"error": "No data"}), 404)
-
-@app.route("/api/service/update", methods=["POST"])
-def update_service():
-    data = request.json
-    services_col.update_one({"service_id": 1}, {"$set": data})
-    return jsonify({"message": "Updated"}), 200
-
-@app.route("/api/chatbot/suggest", methods=["GET"])
-def suggest():
-    query = request.args.get("q", "").lower()
-    if not query:
-        return jsonify([])
-    
-    results = querries_col.find(
-        {"question": {"$regex": query, "$options": "i"}},
-        {"_id": 0, "question": 1}
-    ).limit(5)
-
-    suggestions = [doc["question"] for doc in results]
-    return jsonify(suggestions)
-
-def chatbot_response(user_input):
-    user_input = user_input.lower().strip()
-
-    exact_match = querries_col.find_one({"question": user_input})
-    if exact_match:
-        return exact_match["answer"]
-    
-    all_faqs = querries_col.find({}, {"_id": 0, "question": 1, "answer": 1})
-    for doc in all_faqs:
-        if doc["question"].lower() in user_input:
-            return doc["answer"]
-
-    return "Sorry, I didn’t understand that. Try asking relevant questions."
-
-@app.route("/api/chatbot", methods=["POST"])
-def chatbot():
-    user_message = request.json.get("message")
-    response = chatbot_response(user_message)
-    return jsonify({"reply":response})
-
-@app.route("/")
-@app.route("/dashboard")
-def dashboard(): return render_template("dashboard.html")
-
-@app.route("/admin/chart")
-def admin_chart(): return render_template("chart.html")
-
-@app.route("/login")
-def login(): return render_template("login.html")
-
-if __name__ == "__main__":
-    app.run(host='localhost', port=5000, debug=True)
-
+# Your original dictionary
 faq_data = {
-     # 🔹 GENERAL GREETINGS (extra forgiveness)
     "hello": "Hello! Welcome to Smart XML Solutions. How can I assist you today?",
     "hi": "Hi there! How may I help you?",
     "good morning": "Good morning! How can I support you today?",
     "good evening": "Good evening! How may I assist you?",
     "bye": "Goodbye! Thank you for visiting Smart XML Solutions. Have a great day!",
     "see you": "See you soon! Wishing you success.",
-    "how are you": "I’m here and ready to help you anytime.",
- 
-    # 🔹 ABOUT COMPANY
+    "how are you": "I am here and ready to help you anytime.",
     "what is your company name": "Smart-XML-Solutions.",
     "What does your company do?": "We help organizations convert unstructured and legacy content into accurate, structured XML and digital formats.",
     "where are you located": "We are headquartered globally with remote service capabilities.",
@@ -185,8 +28,6 @@ faq_data = {
     "do you offer consulting": "Yes, we offer consulting for XML strategy and digital publishing.",
     "do you have partnerships": "Yes, we collaborate with technology providers and publishing platforms.",
     "do you provide support": "Yes, we provide ongoing technical and customer support.",
- 
-    # 🔹 XML CONVERSION SERVICES
     "what is smart xml solutions": "Smart XML Solutions is a data services company specializing in XML conversion, content digitization, data validation, and structured data processing.",
     "what is xml conversion": "XML conversion is the process of transforming documents like PDF, Word, HTML, or legacy formats into structured XML.",
     "what services do you provide": "XML Conversion (PDF, DOC, HTML to XML), XML Tagging & Structuring, DTD/XSD Validation, Content Digitization, Data Quality & Validation Services.",
@@ -196,17 +37,12 @@ faq_data = {
     "can you convert pdf to xml": "Yes, we can convert PDF documents into structured XML.",
     "can you convert word to xml": "Yes, Word documents can be converted into XML format.",
     "can you convert excel to xml": "Yes, Excel spreadsheets can be transformed into XML.",
- 
- 
-    # 🔹 XML TAGGING & STRUCTURING
     "What is XML tagging?": "XML tagging involves assigning structured tags to content elements like headings, paragraphs, tables, and metadata.",
     "Why is XML tagging important?": "It ensures semantic clarity, content reuse, automation support, and system compatibility.",
     "can you tag equations": "Yes, mathematical equations can be tagged in XML.",
     "do you support custom tags": "Yes, we support custom tagging based on client requirements.",
     "can you tag audio transcripts": "Yes, we can tag transcripts for accessibility and indexing.",
     "can you tag video metadata": "Yes, video metadata can be structured in XML.",
- 
-    # 🔹 DTD / XSD VALIDATION
     "What is DTD validation?": "DTD validation checks whether an XML file follows predefined structural rules.",
     "What is XSD validation?": "XSD validation ensures XML data structure, data types, and hierarchy are correct.",
     "Why is XML validation necessary?": "Validation prevents errors, improves data consistency, and ensures smooth integration with other systems.",
@@ -216,8 +52,6 @@ faq_data = {
     "can you fix schema errors": "Yes, we identify and resolve schema-related errors.",
     "do you support rng schemas": "Yes, we support Relax NG schema validation.",
     "can you provide schema documentation": "Yes, we deliver documentation for schema usage.",
- 
-    # 🔹 CONTENT DIGITIZATION
     "what is content digitization": "Content digitization converts physical or print-based materials into searchable digital formats.",
     "What content can you digitize?": "Books, journals, educational materials, technical documents, and legacy archives.",
     "can you digitize books": "Yes, we digitize books into XML and ePub formats.",
@@ -228,16 +62,12 @@ faq_data = {
     "can you digitize government records": "Yes, we digitize government records securely.",
     "do you digitize scientific papers": "Yes, we digitize scientific papers with precision tagging.",
     "can you digitize handwritten notes": "Yes, handwritten notes can be digitized with OCR and XML.",
- 
-    # 🔹 QUALITY & ACCURACY
     "How do you ensure data accuracy?": " We use automated validation, manual reviews, and multi-level quality checks.",
     "What is your accuracy rate?": "Yes, we follow strict data security and confidentiality practices.",
     "Do you provide revisions?": "Yes, revisions are provided based on project requirements.",
     "can you provide sample outputs": "Yes, we provide sample outputs for client review.",
     "do you provide version control": "Yes, we maintain version control for XML files.",
     "can you provide client reviews": "Yes, we share client feedback and case studies.",
- 
-    # 🔹 PROJECT & PROCESS
     "How does your project process work?": "Requirement analysis → Data conversion → Quality validation → Secure delivery.",
     "can you handle bulk projects": "Yes, we handle bulk digitization and XML conversion projects.",
     "do you provide pilot projects": "Yes, we offer pilot projects before full-scale implementation.",
@@ -245,24 +75,24 @@ faq_data = {
     "do you provide documentation": "Yes, we provide detailed documentation for processes.",
     "can you provide training manuals": "Yes, we deliver training manuals for XML workflows.",
     "do you provide maintenance": "Yes, we provide ongoing maintenance and updates." ,
-   
-    # 🔹 INDUSTRIES SERVED
     "Which industries do you serve?": "Publishing, Healthcare, Banking & Finance, Education, E-commerce, and Technology.",
     "Do you work with enterprise clients?": "Yes, we support both mid-scale and enterprise-level organizations.",
-   
-    # 🔹 SECURITY & CONFIDENTIALITY
     "Is my data secure?": "Yes, we follow strict data security and confidentiality practices.",
     "Do you sign NDAs?": "Yes, NDAs can be signed upon request.",
- 
-    # 🔹 CONTACT INFORMATION
     "how to conatct you": "you can contact at us at info@smartxmlsolutions or you can reach us via the contact page,",
-   
-    # 🔹 CHATBOT FALLBACK QUESTIONS
     "can you help me choose the right service": "Yes, please tell us about your content type and requirements.",
     "i have a custom requirement": "No problem! Please contact us and our team will assist you.",
     "when do i recive my email": "the email will be sent to you shortly.",
     "Can you confirm if my email was delivered?": "Your email has been delivered to the recipient’s inbox.",
     "How long does it take to get an email?":"Emails are usually delivered instantly, but sometimes they may take a few minutes."
- 
 }
  
+
+# Transform dictionary into a list of documents for Mongo
+documents = [{"question": k.lower(), "answer": v} for k, v in faq_data.items()]
+
+# Clear existing and insert new
+querries_col.delete_many({}) 
+querries_col.insert_many(documents)
+
+print("Database seeded successfully!")
