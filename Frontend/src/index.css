@@ -75,6 +75,7 @@ html.dark h6,
 html.dark [class*="text-slate-900"],
 html.dark [class*="text-slate-800"],
 html.dark [class*="text-gray-900"],
+html.dark [class*="text-gray-800"],
 html.dark [class*="text-black"] {
   color: #ffffff !important;
 }
@@ -83,7 +84,10 @@ html.dark [class*="text-black"] {
 html.dark [class*="text-slate-700"],
 html.dark [class*="text-slate-600"],
 html.dark [class*="text-slate-500"],
-html.dark [class*="text-slate-400"] {
+html.dark [class*="text-slate-400"],
+html.dark [class*="text-gray-700"],
+html.dark [class*="text-gray-600"],
+html.dark [class*="text-gray-500"] {
   color: #f8fafc !important;
 }
 
@@ -204,8 +208,21 @@ html.dark .hidden.md\:flex.absolute.left-1\/2.bg-white {
   background-color: #1e293b !important;
 }
 
-html.dark [class*="shadow-"] {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4) !important;
+/* Chatbot Dark Mode Specifics */
+html.dark [ref="chatbotRef"],
+html.dark .fixed.bottom-6.right-6 {
+  color: #ffffff !important;
+}
+
+html.dark [class*="bg-white"]:not(button) div,
+html.dark [class*="bg-slate-900"] div,
+html.dark [class*="bg-slate-800"] div {
+  color: inherit;
+}
+
+html.dark .messages-area span,
+html.dark .messages-area div {
+  color: #ffffff !important;
 }
 
 /* =========================================
