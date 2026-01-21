@@ -19,6 +19,7 @@ db = client["SmartXML_DB"]
 services_col = db["services"]
 contacts_col = db["contactinfo"]
 counters_col = db["counters"] # To manage auto-incrementing IDs
+querries_col = db["faq_data"]
 
 def get_next_sequence(name):
     """Generates a simple integer ID (1, 2, 3...)"""
@@ -116,6 +117,40 @@ def update_service():
     data = request.json
     services_col.update_one({"service_id": 1}, {"$set": data})
     return jsonify({"message": "Updated"}), 200
+
+@app.route("/api/chatbot/suggest", methods=["GET"])
+def suggest():
+    query = request.args.get("q", "").lower()
+    if not query:
+        return jsonify([])
+    
+    results = querries_col.find(
+        {"question": {"$regex": query, "$options": "i"}},
+        {"_id": 0, "question": 1}
+    ).limit(5)
+
+    suggestions = [doc["question"] for doc in results]
+    return jsonify(suggestions)
+
+def chatbot_response(user_input):
+    user_input = user_input.lower().strip()
+
+    exact_match = querries_col.find_one({"question": user_input})
+    if exact_match:
+        return exact_match["answer"]
+    
+    all_faqs = querries_col.find({}, {"_id": 0, "question": 1, "answer": 1})
+    for doc in all_faqs:
+        if doc["question"].lower() in user_input:
+            return doc["answer"]
+
+    return "Sorry, I didn’t understand that. Try asking relevant questions."
+
+@app.route("/api/chatbot", methods=["POST"])
+def chatbot():
+    user_message = request.json.get("message")
+    response = chatbot_response(user_message)
+    return jsonify({"reply":response})
 
 @app.route("/")
 @app.route("/dashboard")
