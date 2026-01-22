@@ -1,11 +1,7 @@
 from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 
 # Connect to MongoDB
-MONGO_URI = os.getenv("MONGO_URI")
+MONGO_URI="mongodb+srv://urvishnu:urvishnu1546@mydbcluster.kczb8ak.mongodb.net/?appName=MyDbCluster"
 client = MongoClient(MONGO_URI)
 db = client["SmartXML_DB"]
 querries_col = db["faq_data"]
