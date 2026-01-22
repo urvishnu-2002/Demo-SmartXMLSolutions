@@ -16,7 +16,7 @@ function SmartXMLChatbot() {
     {
       id: 1,
       sender: "bot",
-      text: "Hi! How can I help with your XML today?",
+      text: "Hello..! How can I help you?",
       timestamp: new Date(),
     },
   ]);

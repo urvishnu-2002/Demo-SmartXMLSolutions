@@ -124,7 +124,7 @@ def suggest():
     results = querries_col.find(
         {"question": {"$regex": query, "$options": "i"}},
         {"_id": 0, "question": 1}
-    ).limit(5)
+    ).limit(10)
 
     suggestions = [doc["question"] for doc in results]
     return jsonify(suggestions)
