@@ -112,8 +112,8 @@ function Contact() {
               { icon: "fa-phone", title: "Phone", text: "+1 (555) 123-4567", color: "text-purple-600 dark:text-purple-400", bg: "bg-purple-50 dark:bg-purple-900/20" },
               { icon: "fa-location-dot", title: "Office", text: "123 Tech Park Drive, Suite 400, SF, CA", color: "text-pink-600 dark:text-pink-400", bg: "bg-pink-50 dark:bg-pink-900/20" }
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-8 p-6 rounded-3xl bg-white border border-slate-100 shadow-lg group">
-                <div key={index} className="flex items-center gap-8 p-6 rounded-3xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-lg group hover:shadow-xl transition-shadow">
+              <div key={index} className="flex items-center gap-8 p-6 rounded-3xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-lg group hover:shadow-xl transition-shadow">
+                <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center ${item.color} text-xl group-hover:scale-110 transition-transform`}>
                   <i className={`fa-solid ${item.icon}`}></i>
                 </div>
                 <div>
