@@ -11,7 +11,6 @@ function AccessibilityWidget({ isVisible }) {
     // Apply changes to the DOM
     useEffect(() => {
         const root = document.documentElement;
-        const body = document.body;
 
         // Theme
         if (theme === "dark") {
@@ -26,8 +25,18 @@ function AccessibilityWidget({ isVisible }) {
         root.style.fontSize = `${fontSize}%`;
         localStorage.setItem("accessibility-font-size", fontSize.toString());
 
-        // Line Height
-        body.style.lineHeight = lineHeight;
+        // Line Height - Inject global style to override all Tailwind classes
+        let lineHeightStyle = document.getElementById("accessibility-line-height-style");
+        if (!lineHeightStyle) {
+            lineHeightStyle = document.createElement("style");
+            lineHeightStyle.id = "accessibility-line-height-style";
+            document.head.appendChild(lineHeightStyle);
+        }
+        lineHeightStyle.textContent = `
+            html *, html *::before, html *::after {
+                line-height: ${lineHeight} !important;
+            }
+        `;
         localStorage.setItem("accessibility-line-height", lineHeight.toString());
 
     }, [theme, fontSize, lineHeight]);
