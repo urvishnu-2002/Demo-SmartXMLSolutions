@@ -11,7 +11,7 @@ import Contact from "./Components/Contact";
 import AboutUs from "./Components/AboutUs";
 import Home from "./Components/Home";
 import AccessibilityWidget from "./Components/AccessibilityWidget";
-import SmartXMLChatbot from "./Components/Chartbot";
+import SmartXMLChatbot from "./Components/Chatbot";
 
 /**
  * Helper to scroll to top on route change,

@@ -1,58 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
+    <link rel="icon" type="image/png" href="../static/images/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-gradient-to-br from-indigo-600 to-blue-700 min-h-screen flex items-center justify-center p-4">
+    <style>
+        @keyframes float {
 
-    <div class="bg-white w-full max-auto max-w-md rounded-2xl shadow-2xl p-8">
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+
+    <!-- Decorative Background Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl">
+        </div>
+    </div>
+
+    <!-- Login Card -->
+    <div
+        class="bg-white/95 backdrop-blur-xl w-full max-w-md rounded-3xl shadow-2xl p-6 sm:p-10 relative z-10 border border-white/20 animate-pulse-glow">
+
+        <!-- Logo & Header -->
         <div class="text-center mb-8">
-            <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="lock" class="text-indigo-600 w-8 h-8"></i>
+            <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-5 animate-float">
+                <img src="../static/images/logo.png" alt="Smart XML Logo"
+                    class="w-full h-full object-contain drop-shadow-lg"
+                    onerror="this.onerror=null; this.src='/static/images/logo.png';">
             </div>
-            <h1 class="text-2xl font-bold text-gray-800">Admin Portal</h1>
-            <p class="text-gray-500 text-sm">Please enter your credentials to continue</p>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800 tracking-tight">Admin Portal</h1>
+            <p class="text-gray-500 text-sm sm:text-base mt-2">Please enter your credentials to continue</p>
         </div>
 
-        <form onsubmit="return login()" class="space-y-6">
+        <!-- Login Form -->
+        <form onsubmit="return login()" class="space-y-5">
+            <!-- Username Field -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="username">Username</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i data-lucide="user" class="text-gray-400 w-5 h-5"></i>
+                <label class="block text-sm font-semibold text-gray-700 mb-2" for="username">Username</label>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i data-lucide="user"
+                            class="text-gray-400 w-5 h-5 group-focus-within:text-indigo-500 transition-colors"></i>
                     </div>
                     <input type="text" id="username" name="username" required
-                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                        placeholder="admin">
+                        class="block w-full pl-12 pr-4 py-3 sm:py-3.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all bg-gray-50/50 hover:bg-white text-gray-800 font-medium"
+                        placeholder="Enter username">
                 </div>
             </div>
 
+            <!-- Password Field -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="password">Password</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i data-lucide="key-round" class="text-gray-400 w-5 h-5"></i>
+                <label class="block text-sm font-semibold text-gray-700 mb-2" for="password">Password</label>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i data-lucide="key-round"
+                            class="text-gray-400 w-5 h-5 group-focus-within:text-indigo-500 transition-colors"></i>
                     </div>
                     <input type="password" id="password" name="password" required
-                        class="block w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                        class="block w-full pl-12 pr-14 py-3 sm:py-3.5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all bg-gray-50/50 hover:bg-white text-gray-800 font-medium"
                         placeholder="••••••••">
-                    <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-indigo-600 transition-colors" aria-label="Toggle password visibility">
+                    <button type="button" id="togglePassword"
+                        class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-indigo-600 transition-colors"
+                        aria-label="Toggle password visibility">
                         <i data-lucide="eye" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
 
-            <p id="error-message" class="text-red-500 text-sm h-5 text-center font-medium"></p>
+            <!-- Error Message -->
+            <p id="error-message" class="text-red-500 text-sm min-h-[20px] text-center font-semibold"></p>
 
-            <button type="submit" 
-                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-colors shadow-lg active:transform active:scale-[0.98]">
-                Sign In
+            <!-- Submit Button -->
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3.5 sm:py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 active:scale-[0.98] flex items-center justify-center gap-2">
+                <i data-lucide="log-in" class="w-5 h-5"></i>
+                <span>Sign In</span>
             </button>
         </form>
+
+        <!-- Footer -->
+        <p class="text-center text-gray-400 text-xs mt-8">
+            © 2026 Smart XML Solutions. All rights reserved.
+        </p>
     </div>
 
     <script>
@@ -62,28 +129,42 @@
         function login() {
             const username = "admin";
             const password = "password123";
-            const user = document.getElementById("username").value;
-            const pass = document.getElementById("password").value;
+
+            const userInput = document.getElementById("username");
+            const passInput = document.getElementById("password");
             const errorElement = document.getElementById("error-message");
+
+            const user = userInput.value;
+            const pass = passInput.value;
 
             if (user === username && pass === password) {
                 localStorage.setItem("loggedIn", "true");
                 window.location.href = "/dashboard";
             } else {
                 errorElement.innerText = "Invalid credentials. Please try again.";
-                // Simple shake effect for error
-                errorElement.classList.add('animate-bounce');
-                setTimeout(() => errorElement.classList.remove('animate-bounce'), 1000);
+
+                // Clear input fields
+                userInput.value = "";
+                passInput.value = "";
+
+                // Focus back to username
+                userInput.focus();
+
+                // Shake effect for error
+                errorElement.classList.add("animate-bounce");
+                setTimeout(() => errorElement.classList.remove("animate-bounce"), 1000);
             }
+
             return false;
         }
+
         // Toggle password visibility
-        document.getElementById('togglePassword').addEventListener('click', function(e) {
+        document.getElementById('togglePassword').addEventListener('click', function (e) {
             e.preventDefault();
             const passwordInput = document.getElementById('password');
             const toggleBtn = document.getElementById('togglePassword');
             const icon = toggleBtn.querySelector('[data-lucide]');
-           
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 icon.setAttribute('data-lucide', 'eye-off');
@@ -93,10 +174,11 @@
                 icon.setAttribute('data-lucide', 'eye');
                 toggleBtn.setAttribute('aria-label', 'Show password');
             }
-           
+
             // Refresh Lucide icons to show the new icon
             lucide.createIcons();
         });
     </script>
 </body>
+
 </html>

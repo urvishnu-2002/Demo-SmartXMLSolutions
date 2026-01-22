@@ -25,11 +25,11 @@ const ServicesPieChart = () => {
     "Content Digitization": Number(serviceData.digitization) || 0,
     "Data Quality & Validation Services": Number(serviceData.quality_services) || 0
   } : {
-    "XML Conversion (PDF, DOC, HTML to XML)": 0,
-    "XML Tagging & Structuring": 0,
-    "DTD / XSD Validation": 0,
-    "Content Digitization": 0,
-    "Data Quality & Validation Services": 0
+    "XML Conversion (PDF, DOC, HTML to XML)": 30,
+    "XML Tagging & Structuring": 20,
+    "DTD / XSD Validation": 20,
+    "Content Digitization": 20,
+    "Data Quality & Validation Services": 10
   };
 
   const colors = ["#2563eb", "#10b981", "#06b6d4", "#f59e0b", "#6366f1"];

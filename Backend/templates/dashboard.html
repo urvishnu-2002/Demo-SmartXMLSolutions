@@ -1,140 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="../static/images/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-gray-50 font-sans antialiased overflow-hidden">
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
 
-    <aside class="fixed inset-y-0 left-0 bg-indigo-900 w-64 z-50 shadow-xl">
-        <div class="flex items-center justify-center h-20 bg-indigo-950 border-b border-indigo-800/50">
-            <h1 class="text-white text-2xl font-bold tracking-wider cursor-pointer hover:text-indigo-200 transition-colors" onclick="showWelcome()">ADMIN PANEL</h1>
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Mobile table scroll */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans antialiased">
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleMobileMenu()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed inset-y-0 left-0 bg-gradient-to-b from-indigo-900 via-indigo-800 to-slate-900 w-72 z-50 shadow-2xl transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+
+        <!-- Logo Section -->
+        <div class="flex items-center gap-3 h-20 px-6 bg-indigo-950/50 border-b border-indigo-700/30">
+            <img src="../static/images/logo.png" alt="Logo" class="w-10 h-10 object-contain"
+                onerror="this.onerror=null; this.src='/static/images/logo.png';">
+            <div>
+                <h1 class="text-white text-lg font-bold tracking-wide cursor-pointer hover:text-indigo-200 transition-colors"
+                    onclick="showWelcome()">ADMIN PANEL</h1>
+                <p class="text-indigo-300 text-xs">Smart XML Solutions</p>
+            </div>
         </div>
-        
-        <nav class="mt-10 px-4 space-y-2">
-            <button onclick="loadContacts()" class="w-full flex items-center p-3 text-indigo-100 hover:bg-indigo-800 rounded-lg transition-colors group">
-                <i data-lucide="mail" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+
+        <!-- Navigation -->
+        <nav class="mt-8 px-4 space-y-2">
+            <p class="text-indigo-400 text-xs font-bold uppercase tracking-wider px-3 mb-4">Main Menu</p>
+
+            <button onclick="showWelcome(); closeMobileMenu();"
+                class="w-full flex items-center p-3.5 text-indigo-100 hover:bg-white/10 rounded-xl transition-all group">
+                <div
+                    class="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center mr-3 group-hover:bg-indigo-500/40 transition-colors">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                </div>
+                <span class="font-medium">Dashboard</span>
+            </button>
+
+            <button onclick="loadContacts(); closeMobileMenu();"
+                class="w-full flex items-center p-3.5 text-indigo-100 hover:bg-white/10 rounded-xl transition-all group">
+                <div
+                    class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3 group-hover:bg-blue-500/40 transition-colors">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
                 <span class="font-medium">All Messages</span>
             </button>
 
-            <button onclick="loadServiceData()" class="w-full flex items-center p-3 text-indigo-100 hover:bg-indigo-800 rounded-lg transition-colors group">
-                <i data-lucide="database" class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform"></i>
+            <button onclick="loadServiceData(); closeMobileMenu();"
+                class="w-full flex items-center p-3.5 text-indigo-100 hover:bg-white/10 rounded-xl transition-all group">
+                <div
+                    class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3 group-hover:bg-purple-500/40 transition-colors">
+                    <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                </div>
                 <span class="font-medium">Service Data</span>
             </button>
         </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-indigo-700/30">
+            <div class="flex items-center gap-3 p-3 bg-indigo-800/30 rounded-xl">
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold">
+                    A
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-white font-semibold text-sm truncate">Administrator</p>
+                    <p class="text-indigo-300 text-xs">Active</p>
+                </div>
+            </div>
+        </div>
     </aside>
 
-    <div class="ml-64 flex flex-col h-screen">
-        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-end px-8 flex-shrink-0">
-            <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500 italic">Connected as Admin</span>
-                <button onclick="logout()" class="flex items-center text-gray-600 hover:text-red-600 transition-colors font-medium border-l pl-4">
-                    <span class="mr-2">Logout</span>
+    <!-- Main Content Area -->
+    <div class="lg:ml-72 min-h-screen flex flex-col">
+
+        <!-- Top Header -->
+        <header
+            class="bg-white border-b border-gray-200 h-16 flex items-center px-4 sm:px-6 lg:px-8 sticky top-0 z-30 shadow-sm">
+
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                <i data-lucide="menu" class="w-6 h-6 text-gray-600"></i>
+            </button>
+
+            <!-- Page Title (Mobile) -->
+            <h2 class="lg:hidden text-lg font-bold text-gray-800 ml-2">Admin Panel</h2>
+
+            <!-- Spacer to push logout to right -->
+            <div class="flex-grow"></div>
+
+            <!-- Right Section - Logout Button Far Right -->
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:block text-sm text-gray-500 italic">Connected as Admin</span>
+                <button onclick="logout()"
+                    class="flex items-center gap-2 bg-gradient-to-r from-red-500 to-rose-600 text-white font-semibold px-4 py-2 rounded-xl hover:from-red-600 hover:to-rose-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                     <i data-lucide="log-out" class="w-5 h-5"></i>
+                    <span class="hidden sm:inline">Logout</span>
                 </button>
             </div>
         </header>
-        
-        <main id="view-frame" class="flex-grow overflow-y-auto bg-gray-50 p-8">
-            </main>
+
+        <!-- Main Content Frame -->
+        <main id="view-frame" class="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        </main>
     </div>
 
     <script>
         // Initialize Icons
         lucide.createIcons();
 
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function closeMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+
         // 1. WELCOME VIEW
         function showWelcome() {
             const frame = document.getElementById('view-frame');
             frame.innerHTML = `
-                <div id="welcome-section" class="h-full flex items-center justify-center animate-in fade-in duration-500">
-                    <div class="text-center">
-                        <div class="inline-flex items-center justify-center w-20 h-20 bg-indigo-100 rounded-full mb-6">
-                            <i data-lucide="sparkles" class="text-indigo-600 w-10 h-10"></i>
+                <div id="welcome-section" class="h-full flex items-center justify-center animate-fade-in">
+                    <div class="text-center max-w-lg mx-auto px-4">
+                        <div class="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-6 shadow-lg shadow-indigo-500/30">
+                            <i data-lucide="sparkles" class="text-white w-10 h-10 sm:w-12 sm:h-12"></i>
                         </div>
-                        <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Welcome Back, Admin!</h2>
-                        <p class="text-lg text-gray-500 max-w-md mx-auto">
-                            The system is running smoothly. Select a category from the left to manage your data.
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">Welcome Back, Admin!</h2>
+                        <p class="text-base sm:text-lg text-gray-500 leading-relaxed">
+                            The system is running smoothly. Select a category from the menu to manage your data.
                         </p>
+                        <div class="flex flex-col sm:flex-row gap-3 mt-8 justify-center">
+                            <button onclick="loadContacts()" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                                View Messages
+                            </button>
+                            <button onclick="loadServiceData()" class="px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors border border-gray-200 shadow flex items-center justify-center gap-2">
+                                <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                                Service Data
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
             lucide.createIcons();
         }
 
-        // 2. CONTACTS VIEW (REWRITTEN FOR AJAX)
-        // Track the sort direction globally or within the scope
-        let idSortOrder = 'desc'; 
+        // 2. CONTACTS VIEW
+        let idSortOrder = 'desc';
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let allContacts = [];
 
-        async function loadContacts() {
+        async function loadContacts(page = 1) {
+            currentPage = page;
             const frame = document.getElementById('view-frame');
-            frame.innerHTML = `<p class="text-gray-500">Loading messages...</p>`;
+            frame.innerHTML = `
+                <div class="flex items-center justify-center h-32">
+                    <div class="animate-spin rounded-full h-10 w-10 border-4 border-indigo-500 border-t-transparent"></div>
+                </div>
+            `;
 
             try {
                 const response = await fetch('/api/contacts/all');
-                let contacts = await response.json();
+                allContacts = await response.json();
 
-                // 1. Sort the data based on the current state
-                contacts.sort((a, b) => {
+                allContacts.sort((a, b) => {
                     return idSortOrder === 'asc' ? a.id - b.id : b.id - a.id;
                 });
 
-                let tableRows = contacts.map(c => `
+                // Pagination calculations
+                const totalPages = Math.ceil(allContacts.length / itemsPerPage);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const paginatedContacts = allContacts.slice(startIndex, endIndex);
+
+                // Mobile Cards + Desktop Table
+                let mobileCards = paginatedContacts.map(c => `
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">#${c.id}</span>
+                            <button onclick="deleteContact(${c.id})" class="text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 rounded-lg transition-colors">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900">${c.name}</p>
+                            <p class="text-sm text-gray-500">${c.email}</p>
+                            <p class="text-sm text-gray-500">${c.phone}</p>
+                        </div>
+                        <p class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">${c.message}</p>
+                    </div>
+                `).join('');
+
+                let tableRows = paginatedContacts.map(c => `
                     <tr class="border-b hover:bg-gray-50 transition-colors" id="row-${c.id}">
-                        <td class="py-3 px-6">${c.id}</td>
-                        <td class="py-3 px-6 font-semibold">${c.name}</td>
-                        <td class="py-3 px-6">${c.email}</td>
-                        <td class="py-3 px-6">${c.phone}</td>
-                        <td class="py-3 px-6 text-sm text-gray-600">${c.message}</td>
-                        <td class="py-3 px-6">
-                            <button onclick="deleteContact(${c.id})" class="text-red-600 hover:text-red-800 font-bold">
-                                Delete
+                        <td class="py-3 px-4 font-semibold text-indigo-600">${c.id}</td>
+                        <td class="py-3 px-4 font-semibold text-gray-900">${c.name}</td>
+                        <td class="py-3 px-4 text-gray-600">${c.email}</td>
+                        <td class="py-3 px-4 text-gray-600">${c.phone}</td>
+                        <td class="py-3 px-4 text-sm text-gray-500 max-w-xs truncate">${c.message}</td>
+                        <td class="py-3 px-4">
+                            <button onclick="deleteContact(${c.id})" class="text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 rounded-lg transition-colors">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                         </td>
                     </tr>
                 `).join('');
 
+                // Generate page numbers
+                let pageNumbers = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const isActive = i === currentPage;
+                    pageNumbers += `
+                        <button onclick="loadContacts(${i})" 
+                            class="w-9 h-9 rounded-lg font-semibold transition-all ${isActive
+                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
+                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'}">
+                            ${i}
+                        </button>
+                    `;
+                }
+
                 frame.innerHTML = `
-                    <button onclick="showWelcome()" class="mb-4 text-indigo-600 hover:underline">&larr; Back to Dashboard</button>
-                    <h1 class="text-2xl font-bold mb-6">Messages</h1>
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                        <table class="min-w-full">
-                            <thead class="bg-indigo-900 text-white">
-                                <tr>
-                                    <th class="py-3 px-6 text-left cursor-pointer hover:bg-indigo-800" onclick="toggleSort()">
-                                        <div class="flex items-center gap-1">
-                                            ID 
-                                            <span>${idSortOrder === 'asc' ? '↑' : '↓'}</span>
-                                        </div>
-                                    </th>
-                                    <th class="py-3 px-6 text-left">Name</th>
-                                    <th class="py-3 px-6 text-left">Email</th>
-                                    <th class="py-3 px-6 text-left">Phone</th>
-                                    <th class="py-3 px-6 text-left">Message</th>
-                                    <th class="py-3 px-6 text-left">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>${tableRows || '<tr><td colspan="6" class="p-6 text-center text-gray-500">No messages found.</td></tr>'}</tbody>
-                        </table>
+                    <div class="animate-fade-in">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                            <div>
+                                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Messages</h1>
+                                <p class="text-gray-500 mt-1">${allContacts.length} total messages</p>
+                            </div>
+                            <button onclick="showWelcome()" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-2">
+                                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                                Back to Dashboard
+                            </button>
+                        </div>
+
+                        <!-- Mobile Cards View -->
+                        <div class="lg:hidden space-y-4">
+                            ${mobileCards || '<p class="text-center text-gray-500 py-8">No messages found.</p>'}
+                        </div>
+
+                        <!-- Desktop Table View -->
+                        <div class="hidden lg:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                            <div class="table-container">
+                                <table class="min-w-full">
+                                    <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                                        <tr>
+                                            <th class="py-3 px-4 text-left cursor-pointer hover:bg-white/10 transition-colors" onclick="toggleSort()">
+                                                <div class="flex items-center gap-2">
+                                                    ID 
+                                                    <span class="text-indigo-200">${idSortOrder === 'asc' ? '↑' : '↓'}</span>
+                                                </div>
+                                            </th>
+                                            <th class="py-3 px-4 text-left">Name</th>
+                                            <th class="py-3 px-4 text-left">Email</th>
+                                            <th class="py-3 px-4 text-left">Phone</th>
+                                            <th class="py-3 px-4 text-left">Message</th>
+                                            <th class="py-3 px-4 text-left">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>${tableRows || '<tr><td colspan="6" class="p-8 text-center text-gray-500">No messages found.</td></tr>'}</tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        ${totalPages > 1 ? `
+                        <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                            <p class="text-sm text-gray-500">
+                                Showing <span class="font-semibold text-gray-700">${startIndex + 1}</span> to 
+                                <span class="font-semibold text-gray-700">${Math.min(endIndex, allContacts.length)}</span> of 
+                                <span class="font-semibold text-gray-700">${allContacts.length}</span> messages
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <button onclick="loadContacts(${currentPage - 1})" 
+                                    ${currentPage === 1 ? 'disabled' : ''}
+                                    class="flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all ${currentPage === 1
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'}">
+                                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                                    <span class="hidden sm:inline">Prev</span>
+                                </button>
+                                <div class="flex items-center gap-1">
+                                    ${pageNumbers}
+                                </div>
+                                <button onclick="loadContacts(${currentPage + 1})" 
+                                    ${currentPage === totalPages ? 'disabled' : ''}
+                                    class="flex items-center gap-1 px-3 py-2 rounded-lg font-medium transition-all ${currentPage === totalPages
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'}">
+                                    <span class="hidden sm:inline">Next</span>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        ` : ''}
                     </div>
                 `;
             } catch (err) {
-                frame.innerHTML = `<p class="text-red-500">Error loading data.</p>`;
+                frame.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+                            <i data-lucide="alert-circle" class="text-red-500 w-8 h-8"></i>
+                        </div>
+                        <p class="text-red-600 font-semibold">Error loading data</p>
+                        <p class="text-gray-500 mt-2">Please check your connection and try again.</p>
+                    </div>
+                `;
             }
             if (window.lucide) lucide.createIcons();
         }
 
-        // 2. New function to toggle the state and re-render
         function toggleSort() {
             idSortOrder = idSortOrder === 'asc' ? 'desc' : 'asc';
-            loadContacts();
+            loadContacts(1);
         }
 
         async function deleteContact(id) {
-            if (!confirm("Are you sure?")) return;
+            if (!confirm("Are you sure you want to delete this message?")) return;
             try {
                 const response = await fetch(`/api/contact/delete/${id}`, { method: 'DELETE' });
                 if (response.ok) {
@@ -147,97 +401,117 @@
             }
         }
 
-       // 3. SERVICE DATA VIEW
+        // 3. SERVICE DATA VIEW
         function loadServiceData() {
             const frame = document.getElementById('view-frame');
             frame.innerHTML = `
-                <button onclick="showWelcome()" class="mb-4 text-indigo-600 hover:underline">&larr; Back to Dashboard</button>
-                <div class="animate-in slide-in-from-bottom-4 duration-300">
-                    <h1 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">Service Distribution Management</h1>
+                <div class="animate-fade-in">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        <div>
+                            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Service Distribution</h1>
+                            <p class="text-gray-500 mt-1">Manage service allocation percentages</p>
+                        </div>
+                        <button onclick="showWelcome()" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-2">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Back to Dashboard
+                        </button>
+                    </div>
                     
                     <form id="serviceForm" onsubmit="saveServiceData(event)">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                            <div class="space-y-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                                <h2 class="text-lg font-semibold text-gray-700 mb-4">Allocation Details</h2>
+                        <div class="flex flex-col lg:flex-row gap-4 max-w-5xl mx-auto">
+                            
+                            <!-- Allocation Form - Compact -->
+                            <div class="lg:w-72 flex-shrink-0 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                                <h2 class="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i data-lucide="sliders" class="w-4 h-4 text-indigo-600"></i>
+                                    Allocation Details
+                                </h2>
                                 
-                                <div class="space-y-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-3 h-10 rounded-full bg-indigo-500"></div>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div class="w-1.5 h-6 rounded-full bg-indigo-500 flex-shrink-0"></div>
                                         <div class="flex-grow">
-                                            <label class="text-xs font-bold text-gray-500 uppercase">XML Conversion</label>
-                                            <input type="number" name="xml_conversion" id="val0" oninput="handleInputUpdate()" class="w-full mt-1 p-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">XML Conversion</label>
+                                            <input type="number" name="xml_conversion" id="val0" oninput="handleInputUpdate()" 
+                                                class="w-full mt-0.5 p-1.5 bg-white border border-gray-200 rounded focus:ring-1 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all text-sm font-semibold">
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-3 h-10 rounded-full bg-emerald-500"></div>
+                                    <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div class="w-1.5 h-6 rounded-full bg-emerald-500 flex-shrink-0"></div>
                                         <div class="flex-grow">
-                                            <label class="text-xs font-bold text-gray-500 uppercase">Tagging & Structuring</label>
-                                            <input type="number" name="tagging_structuring" id="val1" oninput="handleInputUpdate()" class="w-full mt-1 p-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Tagging & Structuring</label>
+                                            <input type="number" name="tagging_structuring" id="val1" oninput="handleInputUpdate()" 
+                                                class="w-full mt-0.5 p-1.5 bg-white border border-gray-200 rounded focus:ring-1 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm font-semibold">
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-3 h-10 rounded-full bg-amber-500"></div>
+                                    <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div class="w-1.5 h-6 rounded-full bg-amber-500 flex-shrink-0"></div>
                                         <div class="flex-grow">
-                                            <label class="text-xs font-bold text-gray-500 uppercase">DTD / XSD Validation</label>
-                                            <input type="number" name="validation" id="val2" oninput="handleInputUpdate()" class="w-full mt-1 p-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">DTD / XSD Validation</label>
+                                            <input type="number" name="validation" id="val2" oninput="handleInputUpdate()" 
+                                                class="w-full mt-0.5 p-1.5 bg-white border border-gray-200 rounded focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all text-sm font-semibold">
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-3 h-10 rounded-full bg-rose-500"></div>
+                                    <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div class="w-1.5 h-6 rounded-full bg-rose-500 flex-shrink-0"></div>
                                         <div class="flex-grow">
-                                            <label class="text-xs font-bold text-gray-500 uppercase">Content Digitization</label>
-                                            <input type="number" name="digitization" id="val3" oninput="handleInputUpdate()" class="w-full mt-1 p-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-rose-500 outline-none">
+                                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Content Digitization</label>
+                                            <input type="number" name="digitization" id="val3" oninput="handleInputUpdate()" 
+                                                class="w-full mt-0.5 p-1.5 bg-white border border-gray-200 rounded focus:ring-1 focus:ring-rose-500/20 focus:border-rose-500 outline-none transition-all text-sm font-semibold">
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center space-x-4">
-                                        <div class="w-3 h-10 rounded-full bg-sky-500"></div>
+                                    <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div class="w-1.5 h-6 rounded-full bg-sky-500 flex-shrink-0"></div>
                                         <div class="flex-grow">
-                                            <label class="text-xs font-bold text-gray-500 uppercase">Quality Services</label>
-                                            <input type="number" name="quality_services" id="val4" oninput="handleInputUpdate()" class="w-full mt-1 p-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-sky-500 outline-none">
+                                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Quality Services</label>
+                                            <input type="number" name="quality_services" id="val4" oninput="handleInputUpdate()" 
+                                                class="w-full mt-0.5 p-1.5 bg-white border border-gray-200 rounded focus:ring-1 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all text-sm font-semibold">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mt-6 p-4 rounded-xl bg-gray-50 border border-dashed border-gray-300 flex justify-between items-center">
-                                    <span class="text-sm font-bold text-gray-600 uppercase tracking-wider">Total Allocation:</span>
-                                    <span id="total-display" class="text-xl font-black text-indigo-600">0%</span>
+                                <div class="mt-3 p-2 rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50 border border-dashed border-indigo-200 flex justify-between items-center">
+                                    <span class="text-[10px] font-bold text-gray-600 uppercase">Total:</span>
+                                    <span id="total-display" class="text-base font-black text-indigo-600">0%</span>
                                 </div>
 
-                                <button type="submit" id="save-btn" class="w-full mt-4 bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
-                                    Save Configuration
+                                <button type="submit" id="save-btn" 
+                                    class="w-full mt-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md flex items-center justify-center gap-2 text-sm">
+                                    <i data-lucide="save" class="w-4 h-4"></i>
+                                    Save
                                 </button>
                             </div>
 
-                            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center">
-                                <h2 class="text-lg font-semibold text-gray-700 mb-6 text-center">Data Visualization</h2>
-                                <div class="w-full max-w-[400px]">
-                                    <canvas id="servicePieChart"></canvas>
+                            <!-- Chart Section -->
+                            <div class="flex-grow bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col min-h-[400px]">
+                                <h2 class="text-base font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                    <i data-lucide="pie-chart" class="w-5 h-5 text-purple-600"></i>
+                                    Service Distribution Chart
+                                </h2>
+                                <div class="flex-grow flex items-center justify-center p-4">
+                                    <div class="w-full max-w-[380px]">
+                                        <canvas id="servicePieChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             `;
-            // Initialize data and UI
-            get_values(); 
+            lucide.createIcons();
+            get_values();
             calculateLiveTotal();
         }
 
-        /**
-         * Helper to update both the chart and the sum display
-         */
         function handleInputUpdate() {
-            updateChart(); // Your existing chart update function
+            updateChart();
             calculateLiveTotal();
         }
 
-        /**
-         * Calculates the current sum of all inputs and updates the UI
-         */
         function calculateLiveTotal() {
             const inputs = document.querySelectorAll('#serviceForm input[type="number"]');
             let total = 0;
@@ -248,47 +522,39 @@
             const display = document.getElementById('total-display');
             if (display) {
                 display.innerText = total + "%";
-                
-                // Visual cues: Green if exactly 100, Red if over, Indigo if under
+
                 if (total === 100) {
-                    display.className = "text-xl font-black text-emerald-600";
+                    display.className = "text-2xl font-black text-emerald-600";
                 } else if (total > 100) {
-                    display.className = "text-xl font-black text-rose-600";
+                    display.className = "text-2xl font-black text-rose-600";
                 } else {
-                    display.className = "text-xl font-black text-indigo-600";
+                    display.className = "text-2xl font-black text-indigo-600";
                 }
             }
             return total;
         }
 
-        /**
-         * Handles form submission with 100% total validation
-         */
         async function saveServiceData(event) {
-            event.preventDefault(); 
-            
-            // Validate total before proceeding
+            event.preventDefault();
+
             const currentTotal = calculateLiveTotal();
-            
+
             if (currentTotal !== 100) {
                 alert(`Validation Error: The total allocation must be exactly 100%. \nYour current total is ${currentTotal}%.`);
-                return; // Halt execution
+                return;
             }
 
             const btn = document.getElementById('save-btn');
             const formData = new FormData(event.target);
             const payload = Object.fromEntries(formData.entries());
 
-            // UI State: Loading
-            btn.innerText = "Saving...";
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Saving...';
             btn.disabled = true;
 
             try {
                 const response = await fetch('/api/service/update', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
@@ -301,31 +567,29 @@
                 console.error("API Error:", error);
                 alert("Could not connect to the API.");
             } finally {
-                // UI State: Reset
-                btn.innerText = "Save Configuration";
+                btn.innerHTML = '<i data-lucide="save" class="w-5 h-5"></i> Save Configuration';
                 btn.disabled = false;
+                lucide.createIcons();
             }
         }
+
         let myChart;
 
         async function get_values() {
             try {
                 const response = await fetch('/api/service/get');
-                
-                // Check if the response is okay (status 200-299)
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                 const apiData = await response.json();
 
-                // Since the Flask API returns the object directly, 
-                // we use apiData instead of apiData.data
                 document.getElementById('val0').value = apiData.xml_conversion;
                 document.getElementById('val1').value = apiData.tagging_structuring;
                 document.getElementById('val2').value = apiData.validation;
                 document.getElementById('val3').value = apiData.digitization;
                 document.getElementById('val4').value = apiData.quality_services;
+
+                calculateLiveTotal();
+
                 const ctx = document.getElementById('servicePieChart').getContext('2d');
                 const data = {
                     labels: ['XML Conversion', 'Tagging & Structuring', 'DTD / XSD Validation', 'Content Digitization', 'Quality Services'],
@@ -338,11 +602,11 @@
                             apiData.quality_services
                         ],
                         backgroundColor: [
-                            '#6366f1', // Indigo 500
-                            '#10b981', // Emerald 500
-                            '#f59e0b', // Amber 500
-                            '#f43f5e', // Rose 500
-                            '#0ea5e9'  // Sky 500
+                            '#6366f1',
+                            '#10b981',
+                            '#f59e0b',
+                            '#f43f5e',
+                            '#0ea5e9'
                         ],
                         borderWidth: 0,
                         hoverOffset: 20
@@ -354,10 +618,37 @@
                     data: data,
                     options: {
                         plugins: {
-                            legend: { position: 'bottom' }
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 16,
+                                    usePointStyle: true,
+                                    font: {
+                                        size: 12,
+                                        weight: '600'
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                padding: 12,
+                                cornerRadius: 8,
+                                displayColors: true,
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
                         },
                         responsive: true,
-                        maintainAspectRatio: true
+                        maintainAspectRatio: true,
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
                     }
                 });
             } catch (error) {
@@ -366,6 +657,7 @@
         }
 
         function updateChart() {
+            if (!myChart) return;
             const vals = [
                 document.getElementById('val0').value,
                 document.getElementById('val1').value,
@@ -373,7 +665,6 @@
                 document.getElementById('val3').value,
                 document.getElementById('val4').value
             ];
-            
             myChart.data.datasets[0].data = vals;
             myChart.update();
         }
@@ -385,14 +676,15 @@
         }
 
         // Default Loading Behavior
-        window.onload = function() {
+        window.onload = function () {
             if (localStorage.getItem("loggedIn") !== "true") {
                 window.location.href = "/login";
             } else {
-                showWelcome(); // Load welcome state immediately
+                showWelcome();
             }
         };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
+
 </html>
