@@ -154,20 +154,25 @@ import { BrowserRouter } from "react-router-dom";
 
 🔌 API Endpoints
 Public Endpoints (No Authentication Required)
+---------------------------------------------------------------
+Method	   Endpoint	                Description
 
-Method	Endpoint	Description
-POST	|    /api/contact/save	      |  Save user contact details
-GET	|     /api/service/get	      |  Fetch service/chart data
-GET	|     /api/chatbot/suggest	   |  Get chatbot suggestions
-POST	|     /api/chatbot	         |  Submit chatbot message
+POST	      /api/contact/save	       Save user contact details
+GET	      /api/service/get	       Fetch service/chart data
+GET	      /api/chatbot/suggest	    Get chatbot suggestions
+POST	      /api/chatbot	          Submit chatbot message
+
+---------------------------------------------------------------
 
 Protected Endpoints (Admin Only)
 
-Method	Endpoint	Description
-GET	   |     /api/contacts/all	         |  Get all contacts
-PUT	   |     /api/service/update	      |  Update service chart
-DELETE	|     /api/contact/delete/<id>	|  Delete contact
+---------------------------------------------------------------
+Method	     Endpoint	                    Description
 
+GET	        /api/contacts/all	           Get all contacts
+PUT	        /api/service/update	        Update service chart
+DELETE	     /api/contact/delete/<id>	     Delete contact
+---------------------------------------------------------------
 
 📱 Website Pages
 Home
