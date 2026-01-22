@@ -1,422 +1,233 @@
-# Smart XML Solutions - Full-Stack Web Application
+Smart XML Solutions – Full-Stack Web Application
 
-A professional, production-ready web application for XML data conversion and processing services with React frontend, Python Flask backend, and SQLite database.
+A professional, production-ready web application for XML data conversion and processing services with a React + Vite frontend and a Python Flask backend using MongoDB (PyMongo) as a centralized database.
 
----
+📋 Table of Contents
 
-## 📋 Table of Contents
+Project Structure
 
-- [Project Structure](#-project-structure)
-- [Quick Start](#-quick-start)
-- [Prerequisites](#prerequisites)
-- [Database Setup](#database-setup)
-- [Backend Setup](#backend-setup)
-- [Frontend Setup](#frontend-setup)
-- [API Endpoints](#-api-endpoints)
-- [Website Pages](#-website-pages)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [License](#-license)
+Quick Start
+Prerequisites
+Database Setup (MongoDB)
+Backend Setup
+Frontend Setup
+Frontend Package Installation
+API Endpoints
+Website Pages
+Features
+Tech Stack
+License
 
----
 
-## 🏗️ Project Structure
+🏗️ Project Structure
 
-```
-Smart-XML-Solutions/
-├── frontend/                 # React + Vite + Tailwind CSS
-│   ├── src/
-│   │   ├── Components/       # Reusable React components
-│   │   ├── assets/           # Images and static assets
-│   │   ├── api/              # Axios API service layer
-│   │   ├── App.jsx           # Main App component
-│   │   ├── App.css           # App styles
-│   │   ├── index.js          # React entry point
-│   │   ├── main.jsx          # Vite entry point
-│   │   └── index.css         # Global styles
-│   ├── package.json          # Frontend dependencies
-│   ├── vite.config.js        # Vite configuration
-│   ├── tailwind.config.js    # Tailwind CSS configuration
-│   └── index.html            # HTML template
+DEMO-SMARTXMLSOLUTIONS/
 │
-└── backend/                  # Python Flask + SQLite
-    ├── src/
-    │   ├── config/           # Database configuration
-    │   ├── controllers/      # Route controllers
-    │   ├── routes/           # API routes
-    │   ├── middleware/       # Authentication middleware
-    │   ├── models/           # Database models
-    │   └── app.py            # Flask application
-    ├── database.db           # SQLite database
-    ├── schema.sql            # Database schema
-    ├── requirements.txt      # Python dependencies
-    ├── .env                  # Environment variables
-    └── config.py             # Application configuration
-```
+├── Backend/ # Flask + MongoDB backend
+│ ├── app.py # Main Flask application
+│ ├── faqadd.py # FAQ / chatbot logic
+│ ├── view_db.py # Database utilities
+│ ├── templates/ # HTML templates (if any)
+│ ├── requirements.txt # Python dependencies
+│ └── .env # Environment variables
+│
+├── Frontend/ # React + Vite frontend
+│ ├── src/
+│ │ ├── api/
+│ │ │ └── axiosInstance.js # Axios configuration
+│ │ ├── assets/ # Images & static files
+│ │ ├── Components/
+│ │ │ ├── Home.jsx
+│ │ │ ├── AboutUs.jsx
+│ │ │ ├── Services.jsx
+│ │ │ ├── Process.jsx
+│ │ │ ├── Industries.jsx
+│ │ │ ├── Contact.jsx
+│ │ │ ├── Chatbot.jsx
+│ │ │ ├── AccessibilityWidget.jsx
+│ │ │ └── PageTransition.jsx
+│ │ ├── App.jsx
+│ │ ├── main.jsx
+│ │ ├── index.css
+│ │ └── App.css
+│ │
+│ ├── index.html
+│ ├── package.json
+│ ├── vite.config.js
+│ ├── tailwind.config.js
+│ ├── postcss.config.js
+│ ├── eslint.config.js
+│ └── vercel.json
+│
+└── README.md
 
----
+🚀 Quick Start
+Prerequisites
 
-## 🚀 Quick Start
+Ensure the following are installed:
 
-### Prerequisites
+Python 3.8+
 
-Before you begin, ensure you have the following installed on your system:
+Node.js 16+
 
-**Required Software:**
+npm
 
-- **Python** 3.8+
-- **Node.js** v14+
-- **npm** or **yarn**
+MongoDB (Local or MongoDB Atlas)
 
-**Python Packages (Auto-installed):**
+🗄️ Database Setup (MongoDB)
 
-- Flask
-- Flask-CORS
-- SQLite3 (built-in with Python)
+This project uses MongoDB as a centralized database with PyMongo.
 
-**Frontend Packages (Auto-installed):**
+Option 1: Local MongoDB
 
-- React 18+
-- Axios
-- React Router
+Install MongoDB
 
----
+Start MongoDB server:
 
-## 1️⃣ Database Setup
+mongod
 
-SQLite is lightweight and comes with Python, so no separate database installation is needed.
+Option 2: MongoDB Atlas (Recommended)
 
-### Create the Database
+Create a free MongoDB Atlas cluster
 
-Navigate to the backend folder and initialize the database:
+Get your connection string
 
-```bash
-cd backend
-python -c "import sqlite3; sqlite3.connect('database.db').close()"
-```
+Example:
 
-**Expected Output:**
+mongodb+srv://username:password@cluster.mongodb.net/smartxml
 
-```
-Database created successfully at: database.db
-```
-
-### Apply Schema
-
-Run the SQL schema to create tables:
-
-```bash
-# On Windows (PowerShell)
-sqlite3.exe database.db < schema.sql
-
-# On macOS/Linux
-sqlite3 database.db < schema.sql
-```
-
-Or run the SQL commands directly in Python:
-
-```python
-import sqlite3
-
-conn = sqlite3.connect('database.db')
-cursor = conn.cursor()
-
-with open('schema.sql', 'r') as f:
-    cursor.executescript(f.read())
-
-conn.commit()
-conn.close()
-print("Database schema applied successfully!")
-```
-
-**Expected Output:**
-
-```
-Database schema applied successfully!
-```
-
----
-
-## 2️⃣ Backend Setup (Python Flask)
-
-### Install Dependencies
-
-```bash
-cd backend
-
-# Install Python dependencies
+⚙️ Backend Setup
+Install Backend Dependencies
+cd Backend
 pip install -r requirements.txt
-```
 
-**Expected Output:**
+Environment Configuration
 
-```
-Successfully installed Flask-2.3.0 Flask-CORS-4.0.0 python-dotenv-1.0.0
-Collecting packages...
-Successfully installed 3 packages
-```
+Create a .env file inside the Backend folder:
 
-### Configure Environment Variables
-
-Create a `.env` file in the backend folder:
-
-```env
-# .env
 FLASK_ENV=development
 FLASK_APP=app.py
-DATABASE_URL=sqlite:///database.db
-SECRET_KEY=your_secret_key_here
-API_PORT=5000
+SECRET_KEY=your_secret_key
+MONGO_URI=mongodb://localhost:27017/smartxml
 CORS_ORIGINS=http://localhost:5173
-```
+API_PORT=5000
 
-### Start Development Server
-
-```bash
+Start Backend Server
 python app.py
-```
 
-or
+Backend runs at:
 
-```bash
-flask run
-```
+http://localhost:5000
 
-**Expected Output:**
-
-```
- * Serving Flask app 'app.py'
- * Debug mode: on
- * Running on http://127.0.0.1:5000
- * Press CTRL+C to quit
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 123-456-789
-```
-
-Backend runs on: `http://localhost:5000`
-
----
-
-## 3️⃣ Frontend Setup (React + Vite)
-
-### Install Dependencies
-
-```bash
-cd frontend
-
-# Install npm dependencies
+🎨 Frontend Setup
+Install Frontend Dependencies
+cd Frontend
 npm install
-```
 
-**Expected Output:**
-
-```
-added 125 packages, and audited 125 packages in 2m
-found 0 vulnerabilities
-up to date, audited 125 packages
-```
-
-### Start Development Server
-
-```bash
+Start Frontend Development Server
 npm run dev
-```
 
-**Expected Output:**
+Frontend runs at:
 
-```
-  VITE v4.5.0  ready in 542 ms
+http://localhost:5173
 
-  ➜  Local:   http://localhost:5173/
-  ➜  press h to show help
-```
+📦 Frontend Package Installation
 
-Frontend runs on: `http://localhost:5173`
+The frontend uses Axios for API calls and React Router DOM (BrowserRouter) for client-side routing.
 
----
+Install Axios
+npm install axios
 
-## 🔐 Default Login Credentials
+Install React Router DOM (BrowserRouter)
+npm install react-router-dom
 
-Smart XML Solutions uses simple authentication for admin access.
+After installation, routing is handled using:
 
-**Default Admin Credentials:**
+import { BrowserRouter } from "react-router-dom";
 
-- **Username:** admin
-- **Password:** password123
+🔌 API Endpoints
+✅ Public Endpoints (No Authentication Required)
 
-⚠️ **IMPORTANT:** Change these credentials in production!
+Method Endpoint Description
+-------------------------------------------------------------------
 
----
+POST  |  /api/contact/save    |  Save user contact details
+GET   |  /api/service/get     |  Fetch service/chart details
+GET   |  /api/chatbot/suggest |  Get chatbot suggestions
+POST  |  /api/chatbot         |  Submit chatbot user query
 
-## 🔌 API Endpoints
+-------------------------------------------------------------------
 
-### Public Endpoints (No Authentication Required)
+🔒 Protected Endpoints (Admin Only)
 
-| Method | Endpoint            | Description                  |
-| ------ | ------------------- | ---------------------------- |
-| POST   | `/api/contact/save` | to save the user response    |
-| GET    | `/api/service/get`  | to display the chart details |
+Method Endpoint Description
+-------------------------------------------------------------------
 
-### Protected Endpoints (Admin Only)
+GET      |  /api/contacts/all          |  Get all user responses
+PUT      |  /api/service/update        |  Update chart data
+DELETE   |  /api/contact/delete/<id>   |  Delete user response
 
-| Method | Endpoint                               | Description                   |
-| ------ | -------------------------------------- | ----------------------------- |
-| GET    | `/api/contacts/all`                    | to get all the user responses |
-| PUT    | `/api/service/update`                  | Update chart                  |
-| DELETE | `/api/contact/delete/<int:contact_id>` | Delete user response          |
+-------------------------------------------------------------------
 
----
+📱 Website Pages
 
-## 📱 Website Pages
+Home
+About Us
+Services
+Process
+Industries
+Contact
 
-### 7.1 Home Page
+Each page includes a common navbar (header) and footer.
 
-The Home Page serves as the primary entry point and provides a high-level introduction to Smart XML Solutions.
+✨ Features
 
-**Sections:**
+Frontend
 
-- Header & Navigation Bar
-- Professional banner highlighting XML expertise
-- Brief company introduction
-- Overview of core services
-- Why choose Smart XML Solutions?
-- Industries served
-- Call-to-action for client inquiries
-- Contact info footer
+✅ React + Vite
+✅ Tailwind CSS
+✅ Axios API integration
+✅ React Router DOM
+✅ Chatbot integration
+✅ Accessibility widget
+✅ Page transitions
+✅ Responsive UI
 
-### 7.2 About Us Page
+Backend
 
-Provides background information and establishes credibility with visitors.
-
-**Sections:**
-
-- Header & Navigation Bar
-- Company overview
-- Vision and mission statements
-- Core values
-- Technical expertise
-- Commitment to quality
-- Services chart
-- Contact info footer
-
-### 7.3 Services Page
-
-Explains key offerings in a clear and structured manner.
-
-**Sections:**
-
-- Header & Navigation Bar
-- XML conversion services
-- XML tagging and structuring
-- DTD / XSD validation
-- Content digitization
-- Data quality and validation services
-- Contact info footer
-
-### 7.4 Process Workflow Page
-
-Outlines the step-by-step process for handling client projects.
-
-**Sections:**
-
-- Header & Navigation Bar
-- Requirement analysis
-- Data conversion and processing
-- Quality checks
-- Client delivery
-- Quality Guarantees
-- Contact info footer
-
-### 7.5 Industries Served Page
-
-Highlights domains where Smart XML Solutions provides services.
-
-**Sections:**
-
-- Header & Navigation Bar
-- Publishing
-- Banking and Finance
-- Healthcare
-- Education
-- E-commerce
-- Contact info footer
-
-### 7.6 Contact Us Page
-
-Allows users to easily connect with Smart XML Solutions for business inquiries.
-
-**Sections:**
-
-- Header & Navigation Bar
-- Contact form
-- Email and phone details
-- Office address
-
----
-
-## 🎨 Features
-
-### Frontend Features
-
-✅ Responsive design (mobile-first)
-✅ Tailwind CSS styling
-✅ React Router for navigation
-✅ Axios for API requests
-✅ Dynamic component rendering
-✅ Form validation
-✅ Smooth page transitions
-✅ Professional UI/UX
-
-### Backend Features
-
-✅ RESTful API architecture
-✅ SQLite database integration
-✅ Input validation and sanitization
+✅ Flask REST API
+✅ MongoDB with PyMongo
 ✅ CORS enabled
-✅ Error handling
-✅ Session management
-✅ Database ORM with SQLAlchemy
-✅ Environment configuration
+✅ Input validation
+✅ Modular architecture
+✅ Centralized database
 
----
+🛠️ Tech Stack
 
-## 🛠️ Tech Stack
+Frontend
 
-### Frontend
+React 18
+Vite
+Tailwind CSS
+Axios
+React Router DOM
 
-| Technology   | Version | Purpose             |
-| ------------ | ------- | ------------------- |
-| React        | 18+     | UI library          |
-| Vite         | 4+      | Build tool          |
-| Tailwind CSS | 3+      | Styling framework   |
-| Axios        | Latest  | HTTP client         |
-| React Router | 6+      | Client-side routing |
+Backend
 
-### Backend
+Python
+Flask
+Flask-CORS
+PyMongo
 
-| Technology    | Version  | Purpose                |
-| ------------- | -------- | ---------------------- |
-| Python        | 3.8+     | Programming language   |
-| Flask         | Latest   | Web framework          |
-| Flask-CORS    | Latest   | Cross-origin support   |
-| SQLite        | Built-in | Database               |
-| python-dotenv | Latest   | Environment management |
+Database
 
-### Database
+MongoDB (Centralized NoSQL Database)
 
-| Technology | Version  | Purpose                         |
-| ---------- | -------- | ------------------------------- |
-| SQLite     | Built-in | Lightweight relational database |
+📄 License
 
----
+MIT License — Free for personal and commercial use.
 
-## 📄 License
 
-MIT License - Free for personal and commercial use.
+📞 Support
 
----
-
-## 📞 Support
-
-For issues, feature requests, or questions, please open an issue in the repository or contact the development team.
+For issues, enhancements, or feature requests, please contact the development team or raise an issue in the repository.
